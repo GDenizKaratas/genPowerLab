@@ -121,7 +121,7 @@ body {
 
 /* Improved Container System */
 .container-custom {
-  max-width: 1200px;
+  /* max-width: 1200px; */
   margin: 0 auto;
   padding: 0 1rem;
 }
@@ -216,14 +216,14 @@ b {
 
 /* Improved Links */
 a {
-  color: var(--primary);
+  /* color: var(--primary); */
   text-decoration: none;
   transition: all 0.2s ease-in-out;
   font-weight: 500;
 }
 
 a:hover {
-  color: var(--primary-dark);
+  /* color: var(--primary-dark); */
 }
 
 a:focus {
