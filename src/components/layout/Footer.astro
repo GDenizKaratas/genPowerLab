@@ -1,0 +1,193 @@
+---
+import { useTranslations, languages, type Lang } from '../../i18n/messages';
+import { Mail, Phone, MapPin, Linkedin, Twitter, Youtube } from 'lucide-react';
+
+interface Props {
+  lang: 'tr' | 'en';
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const currentYear = new Date().getFullYear();
+
+const footerLinks = {
+  bilgiMerkezi: [
+    { href: `/${lang === 'en' ? 'en/' : ''}bilgi-merkezi/teknik-rehberler`, label: t('nav.technicalGuides') },
+    { href: `/${lang === 'en' ? 'en/' : ''}bilgi-merkezi/terimler-sozlugu`, label: t('nav.glossary') },
+  ],
+  uygulamalar: [
+    { href: `/${lang === 'en' ? 'en/' : ''}uygulamalar/jenerator-secim`, label: t('nav.generatorSelector') },
+    { href: `/${lang === 'en' ? 'en/' : ''}uygulamalar/bakim-asistan`, label: t('nav.maintenanceAssistant') },
+  ],
+  diger: [
+    { href: `/${lang === 'en' ? 'en/' : ''}projeler`, label: t('nav.projects') },
+    { href: `/${lang === 'en' ? 'en/' : ''}iletisim`, label: t('nav.contact') },
+  ]
+};
+
+const socialLinks = [
+  { icon: Linkedin, href: '#', label: 'LinkedIn' },
+  { icon: Twitter, href: '#', label: 'Twitter' },
+  { icon: Youtube, href: '#', label: 'Youtube' },
+];
+---
+
+<footer class="pt-10">
+  <!-- Main Footer -->
+  <div class="container-custom py-10 lg:py-16 text-gray-100">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+      
+      <!-- Brand & About -->
+      <div class="lg:col-span-1">
+        <div class="flex items-center space-x-3 mb-4">
+          <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+            <span class="text-white font-bold text-xl">JH</span>
+          </div>
+          <span class="text-xl font-bold">Generator Power Lab</span>
+        </div>
+        <p class="text-sm text-gray-300 mb-6 footer-description">
+          {t('footer.description')}
+        </p>
+        
+        <!-- Contact Info -->
+        <div class="space-y-3 footer-links">
+          <a href="mailto:info@jenatorhub.com" class="flex items-center space-x-2 text-sm hover:text-blue-400 transition-colors">
+            <Mail className="w-4 h-4" />
+            <span>info@jenatorhub.com</span>
+          </a>
+          <!-- <a href="tel:+902121234567" class="flex items-center space-x-2 text-sm hover:text-blue-400 transition-colors">
+            <Phone className="w-4 h-4" />
+            <span>+90 (212) 123 45 67</span>
+          </a> -->
+          <div class="flex items-start space-x-2 text-sm">
+            <MapPin className="w-4 h-4 mt-1 flex-shrink-0" />
+            <span> Türkiye</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bilgi Merkezi -->
+      <div>
+        <h3 class="text-white font-semibold mb-4">{t('nav.knowledgeCenter')}</h3>
+        <ul class="space-y-2">
+          {footerLinks.bilgiMerkezi.map((link) => (
+            <li>
+              <a href={link.href} class="text-sm text-gray-200 hover:text-blue-400 transition-colors">
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Uygulamalar -->
+      <div>
+        <h3 class="text-white font-semibold mb-4">{t('nav.applications')}</h3>
+        <ul class="space-y-2">
+          {footerLinks.uygulamalar.map((link) => (
+            <li>
+              <a href={link.href} class="text-sm text-gray-200 hover:text-blue-400 transition-colors">
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Diğer & Social -->
+      <div>
+        <h3 class="text-white font-semibold mb-4">{t('footer.quickLinks')}</h3>
+        <ul class="space-y-2 mb-6">
+          {footerLinks.diger.map((link) => (
+            <li>
+              <a href={link.href} class="text-sm text-gray-200 hover:text-blue-400 transition-colors">
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <!-- Social Links -->
+        <div>
+          <h4 class="text-white font-semibold mb-3 text-sm">{t('footer.followUs')}</h4>
+          <div class="flex space-x-3">
+            {socialLinks.map((social) => {
+              const Icon = social.icon;
+              return (
+                <a
+                  href={social.href}
+                  aria-label={social.label}
+                  class="w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center hover:bg-blue-600 transition-colors"
+                >
+                  <Icon className="w-7 h-7" />
+                </a>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bottom Bar -->
+  <div class="border-t border-gray-700 py-5 mt-8">
+    <div class="container-custom py-6">
+      <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+        <p class="text-sm text-gray-400 gg">
+          © {currentYear} Gen Power Lab. {t('footer.rights')}
+        </p>
+        <div class="flex space-x-6 text-sm">
+          <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">Gizlilik Politikası</a>
+          <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">Kullanım Şartları</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  footer {
+    background-color: #1d2b35;
+  }
+
+  /* Footer içindeki metinleri global koyu renkten kurtarıp
+     açık gri / beyaza çekiyoruz */
+  footer p,
+  footer span,
+  footer li {
+    color: rgba(249, 250, 251, 0.85); /* açık gri-beyaz */
+  }
+
+  footer a {
+    color: rgba(155, 156, 158, 0.9); /* text-gray-200/300 arası */
+  }
+
+  footer a:hover {
+    color: #fff; /* mavi hover */
+  }
+
+  footer h3,
+  footer h4 {
+    color: #f9fafb; /* neredeyse tam beyaz başlık */
+  }
+
+  .footer-description{
+    color:#fff !important;
+  }
+  .footer-links a {
+    color: #fff
+
+  }
+
+  .footer-links a span {
+    color: rgba(155, 156, 158, 0.9)
+  }
+   .footer-links a span:hover {
+    color: #fff;
+  }
+  .gg {
+    margin-bottom: 0;
+  }
+</style>

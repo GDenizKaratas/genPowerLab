@@ -1,49 +1,362 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { useTranslations } from '../i18n/messages';
+import { ArrowRight, BookOpen, Wrench, Users, MessageCircle, Lightbulb, Shield, Zap } from 'lucide-react';
+
+const t = useTranslations('tr');
+
+// Daha samimi içerikler
+const featuredArticles = [
+  {
+    title: 'Jeneratör Seçiminde En Çok Yapılan 5 Hata',
+    excerpt: 'Birçok kişinin düştüğü bu tuzaklardan nasıl kaçınabilirsiniz?',
+    category: 'Pratik Rehber',
+    image: '/images/article-1.jpg',
+    href: '/bilgi-merkezi/jenerator-secim-hatalari',
+    readTime: '5 dk',
+    author: 'Mehmet Yılmaz'
+  },
+  {
+    title: 'Ev Tipi Jeneratörler: İhtiyaçlarınıza Göre Karşılaştırma',
+    excerpt: 'Hangi ev tipi jeneratör sizin için daha uygun? Gerçek kullanıcı deneyimleriyle.',
+    category: 'Ev Çözümleri',
+    image: '/images/article-2.jpg',
+    href: '/bilgi-merkezi/ev-tipi-jeneratorler',
+    readTime: '7 dk',
+    author: 'Ayşe Demir'
+  },
+  {
+    title: 'Jeneratör Bakımı İçin Basit Kontrol Listesi',
+    excerpt: 'Herkesin yapabileceği temel bakım adımları. Zor değil, güvende olun!',
+    category: 'Bakım İpuçları',
+    image: '/images/article-3.jpg',
+    href: '/bilgi-merkezi/basit-bakim-kontrol',
+    readTime: '4 dk',
+    author: 'Ali Kaya'
+  },
+  {
+    title: 'Enerji Kesintilerinde İşinizi Nasıl Korursunuz?',
+    excerpt: 'Küçük işletmeler için pratik ve ekonomik çözüm önerileri.',
+    category: 'İşletme Rehberi',
+    image: '/images/article-4.jpg',
+    href: '/bilgi-merkezi/enerji-kesintisi-cozum',
+    readTime: '6 dk',
+    author: 'Can Öztürk'
+  },
+];
+
+const communityFeatures = [
+  {
+    icon: Users,
+    title: 'Topluluk Desteği',
+    description: 'Binlerce kullanıcının deneyimlerinden faydalanın'
+  },
+  {
+    icon: MessageCircle,
+    title: 'Soru-Cevap',
+    description: 'Uzmanlar ve topluluk üyeleri sorularınızı yanıtlıyor'
+  },
+  {
+    icon: Lightbulb,
+    title: 'Pratik Çözümler',
+    description: 'Gerçek hayattan test edilmiş ipuçları ve çözümler'
+  },
+  {
+    icon: Shield,
+    title: 'Güvenilir Bilgi',
+    description: 'Doğruluğu kanıtlanmış, güvenilir içerikler'
+  }
+];
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
-</html>
+<BaseLayout title="Generator Power Lab - Jeneratör ve Enerji Çözümleri">
+  
+  <!-- Hero Section - Daha Sıcak ve Samimi -->
+  <section class="relative min-h-[500px] lg:min-h-[600px] bg-gradient-to-br from-blue-50 via-white to-cyan-50">
+    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1621905252507-b35492cc74b4?q=80&w=2069')] bg-cover bg-center opacity-10"></div>
+    
+    <div class="relative container mx-auto px-4 lg:px-8 h-full flex items-center">
+      <div class="max-w-4xl mx-auto text-center space-y-8 py-16">
+        
+        <!-- Logo ve Başlık -->
+        <div class="flex justify-center mb-6">
+          <div class="w-20 h-20 bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl flex items-center justify-center shadow-lg">
+            <span class="text-white font-bold text-2xl">GenPL</span>
+          </div>
+        </div>
+
+        <!-- Ana Başlık - Daha Samimi -->
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
+          Jeneratör konusunda
+          <span class="block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-600">
+            yalnız değilsiniz
+          </span>
+        </h1>
+
+        <!-- Alt Başlık -->
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+          Jeneratör seçiminden bakıma, tüm sorularınızın cevabı ve ihtiyacınız olan araçlar burada. 
+          <span class="text-blue-600 font-medium">Gerçek insanlardan gerçek çözümler.</span>
+        </p>
+
+        <!-- CTA Butonları - Daha Davetkar -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+          <a 
+            href="/uygulamalar/jenerator-secim" 
+            class="group inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl hover:shadow-xl hover:scale-105 transition-all duration-300 shadow-lg"
+          >
+            <Wrench className="w-5 h-5 mr-3" />
+            <span>Jeneratörümü Seç</span>
+            <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+          </a>
+          
+          <a 
+            href="/bilgi-merkezi/teknik-rehberler" 
+            class="group inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-gray-700 bg-white border-2 border-gray-200 rounded-xl hover:border-blue-300 hover:bg-blue-50 transition-all duration-300"
+          >
+            <BookOpen className="w-5 h-5 mr-3" />
+            <span>Rehberleri Keşfet</span>
+          </a>
+        </div>
+
+        <!-- Güven Göstergeleri -->
+        <div class="pt-8 border-t border-gray-200">
+          <p class="text-gray-500 text-sm mb-4">Topluluğumuzda yer alanlar:</p>
+          <div class="flex flex-wrap justify-center gap-6 text-sm text-gray-600">
+            <div class="flex items-center space-x-2">
+              <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+              <span>1.000+ Aktif Kullanıcı</span>
+            </div>
+            <div class="flex items-center space-x-2">
+              <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+              <span>500+ Makale</span>
+            </div>
+            <div class="flex items-center space-x-2">
+              <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+              <span>7/24 Destek</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Öne Çıkan İçerikler - Daha Kişisel -->
+  <section class="py-16 lg:py-20 bg-white">
+    <div class="container mx-auto px-4 lg:px-8">
+      
+      <!-- Başlık -->
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+          Topluluğun En Sevdiği <span class="text-blue-600">Yazılar</span>
+        </h2>
+        <p class="text-lg text-gray-600">
+          Gerçek kullanıcıların en çok faydalandığı rehberler ve ipuçları
+        </p>
+      </div>
+
+      <!-- Makaleler Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {featuredArticles.map((article, index) => (
+          <article class="group bg-white rounded-2xl border border-gray-200 hover:border-blue-300 hover:shadow-xl transition-all duration-300 overflow-hidden">
+            
+            <!-- İçerik - Resim Yerine Renkli Başlık -->
+            <div class="p-6 space-y-4">
+              <!-- Kategori ve Okuma Süresi -->
+              <div class="flex items-center justify-between">
+                <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
+                  {article.category}
+                </span>
+                <div class="flex items-center space-x-4 text-sm text-gray-500">
+                  <span>{article.readTime}</span>
+                  <span>•</span>
+                  <span>{article.author}</span>
+                </div>
+              </div>
+
+              <!-- Başlık ve Açıklama -->
+              <div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors leading-tight">
+                  {article.title}
+                </h3>
+                <p class="text-gray-600 leading-relaxed">
+                  {article.excerpt}
+                </p>
+              </div>
+
+              <!-- Devamını Oku -->
+              <a 
+                href={article.href} 
+                class="inline-flex items-center text-blue-600 font-semibold hover:text-blue-700 group/link"
+              >
+                <span>Devamını oku</span>
+                <ArrowRight className="w-4 h-4 ml-2 group-hover/link:translate-x-1 transition-transform" />
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <!-- Tüm Yazılar Linki -->
+      <div class="text-center mt-12">
+        <a 
+          href="/bilgi-merkezi" 
+          class="inline-flex items-center px-6 py-3 text-gray-700 bg-gray-100 rounded-xl hover:bg-gray-200 transition-colors font-semibold"
+        >
+          <BookOpen className="w-5 h-5 mr-2" />
+          Tüm yazıları görüntüle
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Uygulamalar Bölümü - Daha Erişilebilir -->
+  <section class="py-16 lg:py-20 bg-gradient-to-br from-blue-50 to-cyan-50">
+    <div class="container mx-auto px-4 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+          İhtiyacınıza Özel <span class="text-blue-600">Araçlar</span>
+        </h2>
+        <p class="text-lg text-gray-600">
+          Karmaşık hesaplamaları biz yapalım, siz kolayca karar verin
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        
+        <!-- Jeneratör Seçim Aracı -->
+        <div class="bg-white rounded-2xl p-8 border border-gray-200 hover:shadow-xl transition-all duration-300">
+          <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
+            <Zap className="w-8 h-8 text-white" />
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">Jeneratör Seçim Rehberi</h3>
+          <p class="text-gray-600 mb-6 leading-relaxed">
+            Birkaç basit soruyla ihtiyacınıza en uygun jeneratörü bulun. 
+            Eviniz, işyeriniz veya tesisiniz için özel öneriler.
+          </p>
+          <a 
+            href="/uygulamalar/jenerator-secim" 
+            class="inline-flex items-center justify-center w-full py-4 bg-green-500 hover:bg-green-600 text-white rounded-xl font-semibold transition-colors shadow-lg hover:shadow-xl"
+          >
+            <Wrench className="w-5 h-5 mr-2" />
+            Hemen Başla
+          </a>
+        </div>
+
+        <!-- Bakım Asistanı -->
+        <div class="bg-white rounded-2xl p-8 border border-gray-200 hover:shadow-xl transition-all duration-300">
+          <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
+            <Shield className="w-8 h-8 text-white" />
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">Bakım ve Sorun Asistanı</h3>
+          <p class="text-gray-600 mb-6 leading-relaxed">
+            Jeneratörünüzdeki sorunları tanımlayın, adım adım çözüm önerileri alın. 
+            Temel bakım ipuçları ve önleyici tedbirler.
+          </p>
+          <a 
+            href="/uygulamalar/bakim-asistan" 
+            class="inline-flex items-center justify-center w-full py-4 bg-orange-500 hover:bg-orange-600 text-white rounded-xl font-semibold transition-colors shadow-lg hover:shadow-xl"
+          >
+            <Shield className="w-5 h-5 mr-2" />
+            Sorunumu Çöz
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Topluluk Özellikleri -->
+  <section class="py-16 lg:py-20 bg-white">
+    <div class="container mx-auto px-4 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+          Bir <span class="text-blue-600">Topluluğun</span> Parçası Olun
+        </h2>
+        <p class="text-lg text-gray-600">
+          Yalnız değilsiniz. Binlerce kişiyle birlikte öğrenin ve sorunlarınızı çözün
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+        {communityFeatures.map((feature, index) => (
+          <div class="text-center group p-6 rounded-2xl hover:bg-blue-50 transition-colors duration-300">
+            <div class="w-14 h-14 mx-auto mb-4 rounded-2xl bg-blue-100 flex items-center justify-center group-hover:bg-blue-200 transition-colors">
+              <feature.icon className="w-7 h-7 text-blue-600" />
+            </div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">
+              {feature.title}
+            </h3>
+            <p class="text-gray-600 text-sm leading-relaxed">
+              {feature.description}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <!-- Topluluk CTA -->
+      <div class="text-center mt-12">
+        <div class="bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl p-8 text-white max-w-2xl mx-auto">
+          <h3 class="text-2xl font-bold mb-3">Sorumuz mu var?</h3>
+          <p class="text-blue-100 mb-6">
+            Topluluğumuza katılın, deneyimlerinizi paylaşın ve diğer kullanıcılardan yardım alın
+          </p>
+          <a 
+            href="/iletisim" 
+            class="inline-flex items-center px-6 py-3 bg-white text-blue-600 rounded-xl font-semibold hover:bg-gray-100 transition-colors"
+          >
+            <MessageCircle className="w-5 h-5 mr-2" />
+            Topluluğa Katıl
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Basit CTA -->
+  <section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4 lg:px-8 text-center">
+      <h2 class="text-3xl font-bold text-gray-900 mb-4">
+        Hadi Başlayalım!
+      </h2>
+      <p class="text-gray-600 mb-8 max-w-md mx-auto">
+        Jeneratör maceranızda yanınızdayız. Hangi konuda yardıma ihtiyacınız var?
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a 
+          href="/uygulamalar/jenerator-secim" 
+          class="inline-flex items-center justify-center px-8 py-4 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition-colors shadow-lg"
+        >
+          Jeneratör Seç
+        </a>
+        <a 
+          href="/bilgi-merkezi" 
+          class="inline-flex items-center justify-center px-8 py-4 text-gray-700 bg-white border-2 border-gray-200 rounded-xl font-semibold hover:border-blue-300 transition-colors"
+        >
+          Rehberleri Oku
+        </a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* Daha yumuşak geçişler */
+  * {
+    transition-duration: 300ms;
+  }
+
+  /* Gradient text için */
+  .gradient-text {
+    background: linear-gradient(135deg, #3b82f6, #06b6d4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Daha yumuşak gölgeler */
+  .soft-shadow {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  }
+</style>

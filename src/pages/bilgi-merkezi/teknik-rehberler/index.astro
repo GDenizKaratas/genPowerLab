@@ -1,0 +1,72 @@
+---
+import { getCollection } from 'astro:content';
+
+const guides = await getCollection('guides');
+const trGuides = guides.filter(guide => guide.data.lang === 'tr');
+---
+
+<html lang="tr">
+  <head>
+    <title>Teknik Rehberler - Generator Power Lab</title>
+    <meta name="description" content="Jeneratörler hakkında kapsamlı teknik rehberler ve makaleler" />
+  </head>
+  <body>
+    <div class="container mx-auto px-4 py-8">
+      <h1 class="text-3xl font-bold text-gray-900 mb-8">Teknik Rehberler</h1>
+      
+      <div class="grid gap-6">
+        {trGuides.map((guide) => {
+          const slug = guide.id.replace(/\.(md|mdx)$/, '');
+          return (
+            <article class="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md transition-shadow">
+              <div class="flex justify-between items-start mb-3">
+                <h2 class="text-xl font-semibold text-gray-900">
+                  <a 
+                    href={`/bilgi-merkezi/teknik-rehberler/${slug}`}
+                    class="hover:text-blue-600 transition-colors"
+                  >
+                    {guide.data.title}
+                  </a>
+                </h2>
+                {guide.data.difficulty && (
+                  <span class={`px-2 py-1 text-xs font-medium rounded-full ${
+                    guide.data.difficulty === 'Başlangıç' 
+                      ? 'bg-green-100 text-green-800'
+                      : guide.data.difficulty === 'Orta'
+                      ? 'bg-yellow-100 text-yellow-800'
+                      : 'bg-red-100 text-red-800'
+                  }`}>
+                    {guide.data.difficulty}
+                  </span>
+                )}
+              </div>
+              
+              <p class="text-gray-600 mb-4">
+                {guide.data.description}
+              </p>
+              
+              <div class="flex items-center justify-between text-sm text-gray-500">
+                <div class="flex items-center space-x-4">
+                  <span>{guide.data.readTime || '5 dk okuma'}</span>
+                  {guide.data.category && (
+                    <>
+                      <span>•</span>
+                      <span class="text-blue-600 font-medium">{guide.data.category}</span>
+                    </>
+                  )}
+                </div>
+                <span>
+                  {guide.data.pubDate.toLocaleDateString('tr-TR', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                  })}
+                </span>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </div>
+  </body>
+</html>

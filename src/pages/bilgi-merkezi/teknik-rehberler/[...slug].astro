@@ -1,0 +1,49 @@
+---
+import { getCollection } from 'astro:content';
+import GuideLayout from '../../../layouts/GuideLayout.astro';
+
+export async function getStaticPaths() {
+  const guides = await getCollection('guides');
+
+  console.log('[guides entries]', guides.map(g => g.slug));
+
+  return guides.map((entry) => ({
+    // 🔴 split YOK, direkt string veriyoruz
+    params: { slug: entry.slug }, 
+    props: { slug: entry.slug },
+  }));
+}
+
+const { slug } = Astro.props;
+
+const guides = await getCollection('guides');
+const current = guides.find((g) => g.slug === slug);
+
+if (!current) {
+  console.error('Guide not found for slug:', slug);
+  throw new Error(`Guide not found for slug: ${slug}`);
+}
+
+const { Content } = await current.render();
+
+const playlistEntries = guides
+  .filter(
+    (g) =>
+      g.data.playlist === current.data.playlist &&
+      g.data.lang === current.data.lang,
+  )
+  .sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
+
+const playlistItems = playlistEntries.map((item, index) => ({
+  title: item.data.title,
+  slug: item.slug,
+  order: item.data.order ?? index + 1,
+  readTime: item.data.readTime ?? '—',
+  isCompleted: false,
+  isCurrent: item.slug === slug,
+}));
+---
+
+<GuideLayout frontmatter={current.data} playlistItems={playlistItems}>
+  <Content />
+</GuideLayout>

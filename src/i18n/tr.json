@@ -1,0 +1,30 @@
+{
+  "nav": {
+    "home": "Ana Sayfa",
+    "knowledgeCenter": "Bilgi Merkezi",
+    "technicalGuides": "Teknik Rehberler",
+    "glossary": "Terimler Sözlüğü",
+    "applications": "Uygulamalar",
+    "generatorSelector": "Jeneratör Seçim Rehberi",
+    "maintenanceAssistant": "Bakım-Onarım Asistanı",
+    "projects": "Projeler/Referanslar",
+    "contact": "Danışmanlık & İletişim"
+  },
+  "home": {
+    "hero": {
+      "title": "Jeneratör ve Enerji Çözümleri Merkezi",
+      "subtitle": "Profesyonel jeneratör seçimi, bakım ve enerji yönetimi için kapsamlı rehberiniz",
+      "cta": "Keşfet"
+    },
+    "featured": "Öne Çıkan İçerikler",
+    "latestArticles": "Son Yazılar",
+    "popularGuides": "Popüler Rehberler"
+  },
+  "footer": {
+    "about": "Hakkımızda",
+    "description": "Jeneratör sektöründe 10+ yıllık deneyim ile profesyonel çözümler sunuyoruz.",
+    "quickLinks": "Hızlı Bağlantılar",
+    "followUs": "Bizi Takip Edin",
+    "rights": "Tüm hakları saklıdır."
+  }
+}
