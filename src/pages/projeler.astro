@@ -1,0 +1,229 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/ui/Breadcrumb.astro';
+import { Building2, Factory, Home, Zap, ArrowRight, CheckCircle, Leaf } from 'lucide-react';
+
+const breadcrumbItems = [
+  { label: 'Projeler & Referanslar' }
+];
+
+const categories = [
+  { id: 'all', label: 'Tümü' },
+  { id: 'endustriyel', label: 'Endüstriyel' },
+  { id: 'ticari', label: 'Ticari' },
+  { id: 'konut', label: 'Konut' },
+  { id: 'ozel', label: 'Özel' },
+];
+
+const projects = [
+  {
+    id: 1,
+    title: 'Tekstil Fabrikası Enerji Sistemi',
+    category: 'endustriyel',
+    location: 'Bursa',
+    capacity: '500 kVA',
+    description: 'Kesintisiz üretim için yedek güç sistemi tasarımı.',
+    features: ['Otomatik transfer', 'Paralel çalışma', 'Uzaktan izleme'],
+    year: '2024'
+  },
+  {
+    id: 2,
+    title: 'Alışveriş Merkezi Yedek Güç',
+    category: 'ticari',
+    location: 'İstanbul',
+    capacity: '1000 kVA',
+    description: 'Büyük ölçekli AVM için entegre yedek güç çözümü.',
+    features: ['Çoklu jeneratör', 'Akıllı yük yönetimi', 'Sessiz çalışma'],
+    year: '2024'
+  },
+  {
+    id: 3,
+    title: 'Villa Kompleksi Enerji Çözümü',
+    category: 'konut',
+    location: 'Bodrum',
+    capacity: '150 kVA',
+    description: '12 villadan oluşan site için merkezi yedek güç.',
+    features: ['Merkezi kontrol', 'Gürültü izolasyonu', 'Otomatik test'],
+    year: '2023'
+  },
+  {
+    id: 4,
+    title: 'Hastane Acil Güç Sistemi',
+    category: 'ozel',
+    location: 'Ankara',
+    capacity: '800 kVA',
+    description: 'Kritik sağlık hizmetleri için kesintisiz güç.',
+    features: ['Anında devreye girme', 'Çift yedekleme', '24/7 izleme'],
+    year: '2024'
+  },
+  {
+    id: 5,
+    title: 'Lojistik Merkezi Altyapısı',
+    category: 'endustriyel',
+    location: 'Kocaeli',
+    capacity: '350 kVA',
+    description: 'Soğuk zincir operasyonları için güvenilir enerji.',
+    features: ['Soğutma entegrasyonu', 'Yakıt optimizasyonu', 'Uzaktan yönetim'],
+    year: '2023'
+  },
+  {
+    id: 6,
+    title: 'Butik Otel Jeneratör Sistemi',
+    category: 'ticari',
+    location: 'Kapadokya',
+    capacity: '100 kVA',
+    description: 'Tarihi dokuya uygun, sessiz kompakt çözüm.',
+    features: ['Ultra sessiz', 'Kompakt tasarım', 'Görsel uyum'],
+    year: '2024'
+  },
+];
+
+const stats = [
+  { value: '150+', label: 'Proje' },
+  { value: '50+', label: 'Müşteri' },
+  { value: '10+', label: 'Yıl' },
+  { value: '%98', label: 'Memnuniyet' },
+];
+---
+
+<BaseLayout
+  title="Projeler & Referanslar - GenPowerLab"
+  description="Türkiye genelinde gerçekleştirdiğimiz jeneratör ve enerji projeleri."
+>
+  <div class="container mx-auto px-4 lg:px-8 py-6">
+    <Breadcrumb items={breadcrumbItems} />
+
+    <!-- Compact Header + Stats -->
+    <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-8">
+      <div>
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">
+          Projeler & <span class="text-blue-600">Referanslar</span>
+        </h1>
+        <p class="text-gray-600">
+          Farklı sektörlerden başarıyla tamamlanan projelerimiz.
+        </p>
+      </div>
+      <!-- Stats -->
+      <div class="flex gap-6">
+        {stats.map((stat) => (
+          <div class="text-center">
+            <div class="text-2xl font-bold text-blue-600">{stat.value}</div>
+            <div class="text-xs text-gray-500">{stat.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Category Filter -->
+    <div class="flex flex-wrap gap-2 mb-6" id="category-filter">
+      {categories.map((cat) => (
+        <button
+          data-category={cat.id}
+          class={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+            cat.id === 'all'
+              ? 'bg-blue-600 text-white'
+              : 'bg-gray-100 text-gray-700 hover:bg-blue-50 hover:text-blue-700'
+          }`}
+        >
+          {cat.label}
+        </button>
+      ))}
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10" id="projects-grid">
+      {projects.map((project) => (
+        <article
+          class="group bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg hover:border-blue-200 transition-all"
+          data-category={project.category}
+        >
+          <!-- Header -->
+          <div class="bg-gradient-to-br from-gray-100 to-gray-50 p-4 flex items-center justify-between">
+            <div class="flex items-center gap-2 text-sm text-gray-600">
+              <Building2 className="w-4 h-4" />
+              <span>{project.location}</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 bg-blue-100 text-blue-700 rounded text-xs font-medium">
+                {project.capacity}
+              </span>
+              <span class="px-2 py-0.5 bg-gray-200 text-gray-600 rounded text-xs">
+                {project.year}
+              </span>
+            </div>
+          </div>
+
+          <!-- Content -->
+          <div class="p-5">
+            <h3 class="font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+              {project.title}
+            </h3>
+            <p class="text-gray-600 text-sm mb-4">
+              {project.description}
+            </p>
+
+            <!-- Features -->
+            <div class="space-y-1.5">
+              {project.features.map((feature) => (
+                <div class="flex items-center text-xs text-gray-500">
+                  <CheckCircle className="w-3.5 h-3.5 text-green-500 mr-2 flex-shrink-0" />
+                  <span>{feature}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- CTA -->
+    <div class="bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl p-6 lg:p-8">
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+        <div class="text-white">
+          <h2 class="text-xl font-bold mb-2">Projeniz İçin Çözüm Arıyorsanız</h2>
+          <p class="text-blue-100 text-sm">
+            İhtiyacınıza özel jeneratör ve enerji çözümleri için bizimle iletişime geçin.
+          </p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <a
+            href="/iletisim"
+            class="inline-flex items-center justify-center px-6 py-3 bg-white text-blue-600 rounded-xl font-semibold text-sm hover:bg-gray-100 transition-colors"
+          >
+            Teklif Alın
+            <ArrowRight className="w-4 h-4 ml-2" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterButtons = document.querySelectorAll('#category-filter button');
+    const projectCards = document.querySelectorAll('#projects-grid article');
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const category = button.getAttribute('data-category');
+
+        filterButtons.forEach(btn => {
+          btn.classList.remove('bg-blue-600', 'text-white');
+          btn.classList.add('bg-gray-100', 'text-gray-700');
+        });
+        button.classList.remove('bg-gray-100', 'text-gray-700');
+        button.classList.add('bg-blue-600', 'text-white');
+
+        projectCards.forEach(card => {
+          const cardCategory = card.getAttribute('data-category');
+          if (category === 'all' || cardCategory === category) {
+            (card as HTMLElement).style.display = 'block';
+          } else {
+            (card as HTMLElement).style.display = 'none';
+          }
+        });
+      });
+    });
+  });
+</script>

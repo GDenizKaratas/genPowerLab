@@ -1,0 +1,182 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/ui/Breadcrumb.astro';
+import { getCollection } from 'astro:content';
+import { BookOpen, FileText, ArrowRight, Clock, BookMarked, Zap, Wrench } from 'lucide-react';
+
+const breadcrumbItems = [
+  { label: 'Bilgi Merkezi' }
+];
+
+// Rehberleri çek
+const allGuides = await getCollection('guides');
+const trGuides = allGuides.filter(guide => guide.data.lang === 'tr');
+const recentGuides = trGuides
+  .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
+  .slice(0, 4);
+
+const difficultyStyles = {
+  'Başlangıç': { bg: 'bg-green-100', text: 'text-green-700' },
+  'Orta': { bg: 'bg-yellow-100', text: 'text-yellow-700' },
+  'İleri': { bg: 'bg-red-100', text: 'text-red-700' }
+};
+---
+
+<BaseLayout
+  title="Bilgi Merkezi - GenPowerLab"
+  description="Jeneratör ve enerji sistemleri hakkında kapsamlı teknik rehberler ve terimler sözlüğü."
+>
+  <div class="container mx-auto px-4 lg:px-8 py-6">
+    <Breadcrumb items={breadcrumbItems} />
+
+    <!-- Compact Header -->
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-gray-900 mb-2">
+        Bilgi <span class="text-blue-600">Merkezi</span>
+      </h1>
+      <p class="text-gray-600">
+        Jeneratör ve enerji sistemleri hakkında ihtiyacınız olan tüm bilgiler.
+      </p>
+    </div>
+
+    <!-- Main Categories - İhtiyacınıza Özel Araçlar stili -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
+      <!-- Teknik Rehberler -->
+      <a
+        href="/bilgi-merkezi/teknik-rehberler"
+        class="group bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-xl hover:border-blue-300 transition-all duration-300"
+      >
+        <div class="flex items-start gap-5">
+          <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform shadow-lg">
+            <FileText className="w-7 h-7 text-white" />
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center justify-between mb-2">
+              <h2 class="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
+                Yazılar & Rehberler
+              </h2>
+              <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
+                {trGuides.length} içerik
+              </span>
+            </div>
+            <p class="text-gray-600 text-sm mb-4">
+              Jeneratör seçimi, kurulum, bakım ve sorun giderme konularında detaylı teknik içerikler.
+            </p>
+            <span class="inline-flex items-center text-blue-600 font-semibold text-sm">
+              Rehberleri Keşfet
+              <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+            </span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Terimler Sözlüğü -->
+      <a
+        href="/bilgi-merkezi/terimler-sozlugu"
+        class="group bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-xl hover:border-green-300 transition-all duration-300"
+      >
+        <div class="flex items-start gap-5">
+          <div class="w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform shadow-lg">
+            <BookMarked className="w-7 h-7 text-white" />
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center justify-between mb-2">
+              <h2 class="text-xl font-bold text-gray-900 group-hover:text-green-600 transition-colors">
+                Terimler Sözlüğü
+              </h2>
+              <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
+                26 terim
+              </span>
+            </div>
+            <p class="text-gray-600 text-sm mb-4">
+              Enerji ve jeneratör sektöründe kullanılan teknik terimlerin anlaşılır açıklamaları.
+            </p>
+            <span class="inline-flex items-center text-green-600 font-semibold text-sm">
+              Sözlüğü Aç
+              <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+            </span>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Recent Guides -->
+    <!-- <section class="mb-10">
+      <div class="flex items-center justify-between mb-5">
+        <h2 class="text-lg font-bold text-gray-900">Son Eklenen Rehberler</h2>
+        <a href="/bilgi-merkezi/teknik-rehberler" class="text-blue-600 text-sm font-medium hover:text-blue-700">
+          Tümünü gör →
+        </a>
+      </div>
+
+      {recentGuides.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {recentGuides.map((guide) => {
+            const slug = guide.id.replace(/\.(md|mdx)$/, '');
+            const diffStyle = guide.data.difficulty
+              ? difficultyStyles[guide.data.difficulty as keyof typeof difficultyStyles]
+              : null;
+
+            return (
+              <a
+                href={`/bilgi-merkezi/teknik-rehberler/${slug}`}
+                class="group bg-white rounded-xl border border-gray-200 p-4 hover:shadow-md hover:border-blue-200 transition-all"
+              >
+                <div class="flex items-center gap-2 mb-2">
+                  {diffStyle && (
+                    <span class={`px-2 py-0.5 text-xs font-medium rounded-full ${diffStyle.bg} ${diffStyle.text}`}>
+                      {guide.data.difficulty}
+                    </span>
+                  )}
+                  <span class="text-xs text-gray-400 flex items-center">
+                    <Clock className="w-3 h-3 mr-1" />
+                    {guide.data.readTime || '5 dk'}
+                  </span>
+                </div>
+                <h3 class="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors text-sm mb-1">
+                  {guide.data.title}
+                </h3>
+                <p class="text-gray-500 text-xs line-clamp-1">
+                  {guide.data.description}
+                </p>
+              </a>
+            );
+          })}
+        </div>
+      ) : (
+        <div class="bg-gray-50 rounded-xl p-8 text-center">
+          <BookOpen className="w-10 h-10 text-gray-300 mx-auto mb-2" />
+          <p class="text-gray-500 text-sm">Yakında yeni içerikler eklenecek.</p>
+        </div>
+      )}
+    </section> -->
+
+    <!-- Quick Tools CTA -->
+    <section class="bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl p-6 lg:p-8">
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+        <div class="text-white">
+          <h2 class="text-xl font-bold mb-2">Hızlı Araçlar</h2>
+          <p class="text-blue-100 text-sm">
+            İhtiyacınıza uygun jeneratörü bulun veya sorunlarınızı çözün.
+          </p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <a
+            href="/uygulamalar/jenerator-secim"
+            class="inline-flex items-center justify-center px-5 py-3 bg-white text-blue-600 rounded-xl font-semibold text-sm hover:bg-gray-100 transition-colors"
+          >
+            <Zap className="w-4 h-4 mr-2" />
+            Jeneratör Seç
+          </a>
+          <a
+            href="/uygulamalar/bakim-asistan"
+            class="inline-flex items-center justify-center px-5 py-3 bg-blue-500 text-white rounded-xl font-semibold text-sm hover:bg-blue-400 transition-colors border border-blue-400"
+          >
+            <Wrench className="w-4 h-4 mr-2" />
+            Bakım Asistanı
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>

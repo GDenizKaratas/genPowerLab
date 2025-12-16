@@ -1,0 +1,163 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/ui/Breadcrumb.astro';
+import { Mail, Phone, MapPin, Clock, MessageCircle, Headphones, FileText, ArrowRight } from 'lucide-react';
+
+const breadcrumbItems = [
+  { label: 'Danışmanlık & İletişim' }
+];
+
+const services = [
+  {
+    icon: Headphones,
+    title: 'Teknik Danışmanlık',
+    description: 'Jeneratör seçimi, kapasite hesaplama ve sistem tasarımı.'
+  },
+  {
+    icon: FileText,
+    title: 'Proje Danışmanlığı',
+    description: 'Endüstriyel ve ticari projeler için enerji çözümleri.'
+  },
+  {
+    icon: MessageCircle,
+    title: 'Genel Sorular',
+    description: 'Jeneratörler hakkında merak ettikleriniz.'
+  }
+];
+---
+
+<BaseLayout
+  title="İletişim & Danışmanlık - GenPowerLab"
+  description="Jeneratör ve enerji çözümleri konusunda uzman danışmanlık. Sorularınız için bize ulaşın."
+>
+  <div class="container mx-auto px-4 lg:px-8 py-6">
+    <Breadcrumb items={breadcrumbItems} />
+
+    <!-- Compact Header + Contact -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+      <!-- Left: Title & Description -->
+      <div class="lg:col-span-2">
+        <h1 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+          Size Nasıl <span class="text-blue-600">Yardımcı Olabiliriz?</span>
+        </h1>
+        <p class="text-lg text-gray-600 mb-6">
+          Jeneratör ve enerji sistemleri konusunda sorularınızı yanıtlamak için buradayız.
+        </p>
+
+        <!-- Main CTA - Email -->
+        <a
+          href="mailto:info@genpowerlab.com?subject=GenPowerLab%20İletişim"
+          class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl font-semibold hover:shadow-xl hover:scale-[1.02] transition-all duration-300 mb-4"
+        >
+          <Mail className="w-5 h-5 mr-3" />
+          E-posta Gönder
+          <ArrowRight className="w-5 h-5 ml-2" />
+        </a>
+        <p class="text-sm text-gray-500">info@genpowerlab.com</p>
+      </div>
+
+      <!-- Right: Contact Info Card -->
+      <div class="bg-gradient-to-br from-blue-600 to-cyan-600 rounded-2xl p-6 text-white">
+        <h3 class="font-semibold text-lg mb-4 flex items-center">
+          <Clock className="w-5 h-5 mr-2" />
+          İletişim Bilgileri
+        </h3>
+        <div class="space-y-3 text-sm">
+          <div class="flex justify-between">
+            <span class="text-blue-100">Pazartesi - Cuma</span>
+            <span class="font-medium">09:00 - 18:00</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-blue-100">Cumartesi</span>
+            <span class="font-medium">10:00 - 14:00</span>
+          </div>
+          <hr class="border-blue-400/30 my-3" />
+          <div class="flex items-center text-blue-100">
+            <MapPin className="w-4 h-4 mr-2 flex-shrink-0" />
+            <span>İstanbul, Türkiye</span>
+          </div>
+          <div class="flex items-center text-blue-100">
+            <Phone className="w-4 h-4 mr-2 flex-shrink-0" />
+            <span>+90 (212) 000 00 00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Services - Horizontal Cards (İhtiyacınıza Özel Araçlar stili) -->
+    <section class="mb-12">
+      <h2 class="text-xl font-bold text-gray-900 mb-6">Danışmanlık Hizmetlerimiz</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {services.map((service) => {
+          const Icon = service.icon;
+          return (
+            <div class="bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md hover:border-blue-200 transition-all">
+              <div class="flex items-start space-x-4">
+                <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Icon className="w-5 h-5 text-blue-600" />
+                </div>
+                <div>
+                  <h3 class="font-semibold text-gray-900 mb-1">{service.title}</h3>
+                  <p class="text-sm text-gray-600">{service.description}</p>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+
+    <!-- FAQ - Compact -->
+    <section class="bg-gray-50 rounded-2xl p-6 lg:p-8">
+      <h2 class="text-xl font-bold text-gray-900 mb-6">Sık Sorulan Sorular</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <details class="bg-white rounded-xl border border-gray-200 overflow-hidden group">
+          <summary class="px-5 py-4 cursor-pointer font-medium text-gray-900 hover:bg-gray-50 transition-colors flex justify-between items-center text-sm">
+            Danışmanlık hizmeti ücretli mi?
+            <span class="text-blue-600 group-open:rotate-180 transition-transform text-xs">▼</span>
+          </summary>
+          <div class="px-5 py-4 border-t border-gray-100 text-gray-600 text-sm">
+            İlk görüşme ve genel sorular için ücretsiz destek sunuyoruz.
+            Detaylı proje danışmanlığı için projenize göre fiyatlandırma yapılır.
+          </div>
+        </details>
+
+        <details class="bg-white rounded-xl border border-gray-200 overflow-hidden group">
+          <summary class="px-5 py-4 cursor-pointer font-medium text-gray-900 hover:bg-gray-50 transition-colors flex justify-between items-center text-sm">
+            Ne kadar sürede dönüş alırım?
+            <span class="text-blue-600 group-open:rotate-180 transition-transform text-xs">▼</span>
+          </summary>
+          <div class="px-5 py-4 border-t border-gray-100 text-gray-600 text-sm">
+            Mesajlarınıza genellikle 24 saat içinde dönüş yapıyoruz.
+          </div>
+        </details>
+
+        <details class="bg-white rounded-xl border border-gray-200 overflow-hidden group">
+          <summary class="px-5 py-4 cursor-pointer font-medium text-gray-900 hover:bg-gray-50 transition-colors flex justify-between items-center text-sm">
+            Hangi bölgelere hizmet veriyorsunuz?
+            <span class="text-blue-600 group-open:rotate-180 transition-transform text-xs">▼</span>
+          </summary>
+          <div class="px-5 py-4 border-t border-gray-100 text-gray-600 text-sm">
+            Online danışmanlık Türkiye genelinde sunulmaktadır.
+          </div>
+        </details>
+
+        <details class="bg-white rounded-xl border border-gray-200 overflow-hidden group">
+          <summary class="px-5 py-4 cursor-pointer font-medium text-gray-900 hover:bg-gray-50 transition-colors flex justify-between items-center text-sm">
+            Acil durumlar için destek var mı?
+            <span class="text-blue-600 group-open:rotate-180 transition-transform text-xs">▼</span>
+          </summary>
+          <div class="px-5 py-4 border-t border-gray-100 text-gray-600 text-sm">
+            Acil durumlar için 7/24 e-posta desteği sunulmaktadır.
+          </div>
+        </details>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  details summary::-webkit-details-marker {
+    display: none;
+  }
+</style>

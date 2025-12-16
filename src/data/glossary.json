@@ -1,0 +1,147 @@
+{
+  "terms": [
+    {
+      "term": "Alternatör",
+      "definition": "Mekanik enerjiyi elektrik enerjisine dönüştüren, jeneratörün ana elektrik üretim bileşeni. Dönen manyetik alan prensibiyle çalışır.",
+      "category": "Temel Bileşenler"
+    },
+    {
+      "term": "ATS (Automatic Transfer Switch)",
+      "definition": "Şebeke elektriği kesildiğinde otomatik olarak jeneratöre, şebeke geldiğinde tekrar şebekeye geçişi sağlayan otomatik transfer anahtarı.",
+      "category": "Kontrol Sistemleri"
+    },
+    {
+      "term": "AVR (Automatic Voltage Regulator)",
+      "definition": "Jeneratörün çıkış voltajını sabit tutan otomatik voltaj regülatörü. Yük değişimlerinde voltaj stabilitesini sağlar.",
+      "category": "Kontrol Sistemleri"
+    },
+    {
+      "term": "Dizel Motor",
+      "definition": "Sıkıştırma ateşlemeli içten yanmalı motor. Jeneratörlerde en yaygın kullanılan güç kaynağı türüdür.",
+      "category": "Motor"
+    },
+    {
+      "term": "Faz",
+      "definition": "Alternatif akımda elektriksel devrelerin sayısı. Tek fazlı (220V) veya üç fazlı (380V) sistemler yaygındır.",
+      "category": "Elektrik"
+    },
+    {
+      "term": "Frekans (Hz)",
+      "definition": "Alternatif akımın saniyedeki döngü sayısı. Türkiye'de 50 Hz standarttır.",
+      "category": "Elektrik"
+    },
+    {
+      "term": "Güç Faktörü (Power Factor)",
+      "definition": "Gerçek güç ile görünür güç arasındaki oran. Genellikle 0.8 olarak kabul edilir ve sistem verimliliğini gösterir.",
+      "category": "Elektrik"
+    },
+    {
+      "term": "Isıtıcı (Block Heater)",
+      "definition": "Soğuk havalarda motorun hızlı çalıştırılabilmesi için motor bloğunu önceden ısıtan elektrikli ısıtıcı.",
+      "category": "Yardımcı Sistemler"
+    },
+    {
+      "term": "Kabin (Canopy)",
+      "definition": "Jeneratörü dış etkilerden koruyan, ses izolasyonu sağlayan metal veya kompozit muhafaza.",
+      "category": "Mekanik"
+    },
+    {
+      "term": "Kontaktör",
+      "definition": "Yüksek akımlı elektrik devrelerini açıp kapatan elektromanyetik anahtar.",
+      "category": "Elektrik"
+    },
+    {
+      "term": "kVA (Kilovolt Amper)",
+      "definition": "Jeneratörün görünür güç kapasitesini ifade eden birim. Gerçek güç (kW) = kVA x Güç Faktörü",
+      "category": "Elektrik"
+    },
+    {
+      "term": "kW (Kilowatt)",
+      "definition": "Jeneratörün gerçek güç çıkışını ifade eden birim. Elektrikli cihazların tüketimi bu birimle ölçülür.",
+      "category": "Elektrik"
+    },
+    {
+      "term": "Motor Kontrol Ünitesi (ECU)",
+      "definition": "Dizel motorun çalışmasını elektronik olarak kontrol eden ve optimize eden bilgisayar sistemi.",
+      "category": "Kontrol Sistemleri"
+    },
+    {
+      "term": "Paralel Çalışma",
+      "definition": "Birden fazla jeneratörün senkronize edilerek tek bir güç kaynağı gibi çalıştırılması.",
+      "category": "Operasyon"
+    },
+    {
+      "term": "Prime Power",
+      "definition": "Jeneratörün sürekli olarak (7/24) çalışabileceği güç kapasitesi. Genellikle standby kapasitesinin %70-80'i kadardır.",
+      "category": "Kapasite"
+    },
+    {
+      "term": "Radyatör",
+      "definition": "Motor soğutma sıvısının ısısını atmosfere aktaran, motorun aşırı ısınmasını önleyen soğutma ünitesi.",
+      "category": "Soğutma"
+    },
+    {
+      "term": "Senkronizasyon",
+      "definition": "Jeneratörün şebeke veya başka bir jeneratörle voltaj, frekans ve faz açısı bakımından uyumlu hale getirilmesi.",
+      "category": "Operasyon"
+    },
+    {
+      "term": "Ses Seviyesi (dB)",
+      "definition": "Jeneratörün çalışırken ürettiği gürültü miktarı. Genellikle 7 metre mesafeden ölçülür.",
+      "category": "Performans"
+    },
+    {
+      "term": "Standby Power",
+      "definition": "Jeneratörün acil durumlarda kısa süreli olarak verebileceği maksimum güç kapasitesi.",
+      "category": "Kapasite"
+    },
+    {
+      "term": "Şarj Alternatörü",
+      "definition": "Motor çalışırken aküleri şarj eden ve kontrol sistemlerine güç sağlayan yardımcı alternatör.",
+      "category": "Elektrik"
+    },
+    {
+      "term": "Transfer Süresi",
+      "definition": "Şebeke kesintisinden jeneratörün devreye girip yük almasına kadar geçen süre. Genellikle 10-30 saniye arasıdır.",
+      "category": "Performans"
+    },
+    {
+      "term": "Turboşarjer (Turbo)",
+      "definition": "Egzoz gazlarının enerjisiyle çalışan, motora daha fazla hava basarak gücü artıran kompresör.",
+      "category": "Motor"
+    },
+    {
+      "term": "UPS (Kesintisiz Güç Kaynağı)",
+      "definition": "Şebeke kesintilerinde anında devreye giren akü destekli güç kaynağı. Jeneratör devreye girene kadar kritik yükleri besler.",
+      "category": "Yardımcı Sistemler"
+    },
+    {
+      "term": "Voltaj",
+      "definition": "Elektriksel potansiyel farkı. Türkiye'de tek faz 220V, üç faz 380V standarttır.",
+      "category": "Elektrik"
+    },
+    {
+      "term": "Yakıt Tüketimi",
+      "definition": "Jeneratörün birim zamanda tükettiği yakıt miktarı. Genellikle litre/saat olarak ifade edilir ve yüke göre değişir.",
+      "category": "Performans"
+    },
+    {
+      "term": "Yük Bankası (Load Bank)",
+      "definition": "Jeneratörün test edilmesi için kullanılan yapay yük cihazı. Kapasitenin doğrulanması ve bakım testlerinde kullanılır.",
+      "category": "Test & Bakım"
+    }
+  ],
+  "categories": [
+    "Temel Bileşenler",
+    "Motor",
+    "Elektrik",
+    "Kontrol Sistemleri",
+    "Kapasite",
+    "Performans",
+    "Soğutma",
+    "Mekanik",
+    "Operasyon",
+    "Yardımcı Sistemler",
+    "Test & Bakım"
+  ]
+}

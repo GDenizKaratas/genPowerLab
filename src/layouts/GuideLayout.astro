@@ -1,6 +1,7 @@
 ---
 import BaseLayout from './BaseLayout.astro';
-import { ArrowLeft, Clock, BookOpen, CheckCircle2, Circle, Share2, Bookmark, ChevronRight } from 'lucide-react';
+import Breadcrumb from '../components/ui/Breadcrumb.astro';
+import { Clock, ChevronLeft, ChevronRight, CheckCircle, Circle, PlayCircle, List } from 'lucide-react';
 
 interface Props {
   frontmatter: {
@@ -30,450 +31,387 @@ interface Props {
 const { frontmatter, playlistItems = [] } = Astro.props;
 const lang = frontmatter.lang || 'tr';
 
-// Difficulty badge colors
 const difficultyColors = {
-  'Başlangıç': 'bg-green-100 text-green-800 border-green-200',
-  'Orta': 'bg-yellow-100 text-yellow-800 border-yellow-200',
-  'İleri': 'bg-red-100 text-red-800 border-red-200',
+  'Başlangıç': 'bg-green-100 text-green-700',
+  'Orta': 'bg-yellow-100 text-yellow-700',
+  'İleri': 'bg-red-100 text-red-700',
 };
 
-// Calculate playlist progress
 const completedCount = playlistItems.filter(item => item.isCompleted).length;
 const totalCount = playlistItems.length;
 const progressPercent = totalCount > 0 ? (completedCount / totalCount) * 100 : 0;
 
-// Find current item index
 const currentIndex = playlistItems.findIndex(item => item.isCurrent);
 const previousItem = currentIndex > 0 ? playlistItems[currentIndex - 1] : null;
 const nextItem = currentIndex < playlistItems.length - 1 ? playlistItems[currentIndex + 1] : null;
+
+const breadcrumbItems = [
+  { label: 'Bilgi Merkezi', href: '/bilgi-merkezi' },
+  { label: 'Teknik Rehberler', href: '/bilgi-merkezi/teknik-rehberler' },
+  ...(frontmatter.playlistTitle ? [{ label: frontmatter.playlistTitle }] : [{ label: frontmatter.title }])
+];
 ---
 
-<BaseLayout 
-  title={`${frontmatter.title} - ${frontmatter.playlistTitle || 'Teknik Rehber'}`}
+<BaseLayout
+  title={`${frontmatter.title} - GenPowerLab`}
   description={frontmatter.description}
 >
-  <!-- Breadcrumb & Back Navigation -->
-  <div class="bg-gray-50 border-b border-gray-200">
-    <div class="container mx-auto px-4 lg:px-8 py-4">
-      <div class="flex items-center space-x-2 text-sm">
-        <a href={`/${lang === 'en' ? 'en/' : ''}`} class="text-gray-500 hover:text-gray-700">Ana Sayfa</a>
-        <ChevronRight className="w-4 h-4 text-gray-400" />
-        <a href={`/${lang === 'en' ? 'en/' : ''}bilgi-merkezi/teknik-rehberler`} class="text-gray-500 hover:text-gray-700">Teknik Rehberler</a>
-        {frontmatter.playlistTitle && (
-          <>
-            <ChevronRight className="w-4 h-4 text-gray-400" />
-            <span class="text-gray-900 font-medium">{frontmatter.playlistTitle}</span>
-          </>
-        )}
+  <!-- Mobile Playlist Toggle (Fixed Bottom) -->
+  {playlistItems.length > 0 && (
+    <button
+      id="playlist-toggle"
+      class="lg:hidden fixed bottom-4 right-4 z-50 flex items-center gap-2 px-4 py-3 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-colors"
+    >
+      <List className="w-5 h-5" />
+      <span class="text-sm font-medium">{currentIndex + 1}/{totalCount}</span>
+    </button>
+  )}
+
+  <!-- Mobile Playlist Drawer -->
+  <div
+    id="playlist-drawer"
+    class="lg:hidden fixed inset-0 z-50 transform translate-x-full transition-transform duration-300"
+  >
+    <div class="absolute inset-0 bg-black/50" id="playlist-overlay"></div>
+    <div class="absolute right-0 top-0 bottom-0 w-80 max-w-[85vw] bg-white shadow-2xl overflow-y-auto">
+      <div class="sticky top-0 bg-white border-b border-gray-200 p-4 flex items-center justify-between">
+        <h3 class="font-bold text-gray-900">{frontmatter.playlistTitle || 'İçindekiler'}</h3>
+        <button id="playlist-close" class="p-2 hover:bg-gray-100 rounded-lg">
+          <ChevronRight className="w-5 h-5 text-gray-500" />
+        </button>
+      </div>
+      <div class="p-2">
+        {playlistItems.map((item, index) => (
+          <a
+            href={`/bilgi-merkezi/teknik-rehberler/${item.slug}`}
+            class={`flex items-center gap-3 p-3 rounded-lg transition-colors ${
+              item.isCurrent
+                ? 'bg-blue-50 border-l-4 border-blue-600'
+                : 'hover:bg-gray-50'
+            }`}
+          >
+            <div class={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${
+              item.isCurrent
+                ? 'bg-blue-600 text-white'
+                : item.isCompleted
+                ? 'bg-green-100 text-green-600'
+                : 'bg-gray-100 text-gray-500'
+            }`}>
+              {item.isCompleted && !item.isCurrent ? (
+                <CheckCircle className="w-4 h-4" />
+              ) : (
+                index + 1
+              )}
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class={`text-sm font-medium truncate ${item.isCurrent ? 'text-blue-700' : 'text-gray-700'}`}>
+                {item.title}
+              </p>
+              <p class="text-xs text-gray-500">{item.readTime}</p>
+            </div>
+            {item.isCurrent && (
+              <PlayCircle className="w-5 h-5 text-blue-600 flex-shrink-0" />
+            )}
+          </a>
+        ))}
       </div>
     </div>
   </div>
 
-  <!-- Main Content -->
-  <div class="bg-white">
-    <div class="container mx-auto px-4 lg:px-8 py-8 lg:py-12">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        
-        <!-- Main Content Area (Left) - 8 columns -->
-        <article class="lg:col-span-8">
-          
-          <!-- Article Header -->
-          <div class="mb-8">
-            {frontmatter.category && (
-              <span class="inline-block px-3 py-1 text-sm font-semibold text-blue-600 bg-blue-50 rounded-full mb-4">
-                {frontmatter.category}
-              </span>
-            )}
-            
-            <h1 class="text-3xl lg:text-5xl font-bold text-gray-900 mb-4 leading-tight">
-              {frontmatter.title}
-            </h1>
-            
-            <p class="text-xl text-gray-600 leading-relaxed mb-6">
-              {frontmatter.description}
-            </p>
+  <div class="container mx-auto px-4 lg:px-8 py-6">
+    <Breadcrumb items={breadcrumbItems} />
 
-            <!-- Meta Information -->
-            <div class="flex flex-wrap items-center gap-6 text-sm text-gray-600 pb-6 border-b border-gray-200">
-              <div class="flex items-center space-x-2">
-                <Clock className="w-4 h-4" />
-                <span>{frontmatter.readTime || '10 dk okuma'}</span>
-              </div>
-              
-              {frontmatter.difficulty && (
-                <span class={`px-3 py-1 text-xs font-semibold rounded-full border ${difficultyColors[frontmatter.difficulty]}`}>
-                  {frontmatter.difficulty}
-                </span>
-              )}
-              
-              <div class="flex items-center space-x-2">
-                <span class="text-gray-500">Yazar:</span>
-                <span class="font-medium text-gray-900">{frontmatter.author || 'GenPowerLab Ekibi'}</span>
+    <div class="flex gap-8">
+      <!-- Sidebar - Desktop Only -->
+      {playlistItems.length > 0 && (
+        <aside class="hidden lg:block w-72 flex-shrink-0">
+          <div class="sticky top-24">
+            <!-- Playlist Header -->
+            <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+              <div class="p-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white">
+                <h3 class="font-bold text-sm mb-2">{frontmatter.playlistTitle || 'Rehber Serisi'}</h3>
+                <div class="flex items-center justify-between text-xs text-blue-100">
+                  <span>{currentIndex + 1} / {totalCount} bölüm</span>
+                  <span>{Math.round(progressPercent)}% tamamlandı</span>
+                </div>
+                <div class="mt-2 w-full bg-blue-400/30 rounded-full h-1.5">
+                  <div
+                    class="bg-white h-full rounded-full transition-all duration-500"
+                    style={`width: ${progressPercent}%`}
+                  ></div>
+                </div>
               </div>
 
-              <div class="flex items-center space-x-2">
-                <span class="text-gray-500">Güncelleme:</span>
-                <time datetime={frontmatter.updatedDate?.toISOString() || frontmatter.pubDate.toISOString()}>
-                  {(frontmatter.updatedDate || frontmatter.pubDate).toLocaleDateString('tr-TR', { 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric' 
-                  })}
-                </time>
-              </div>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="flex items-center gap-3 mt-6">
-              <button class="flex items-center space-x-2 px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
-                <Share2 className="w-4 h-4" />
-                <span>Paylaş</span>
-              </button>
-              <button class="flex items-center space-x-2 px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
-                <Bookmark className="w-4 h-4" />
-                <span>Kaydet</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Article Content -->
-          <div class="prose prose-lg prose-gray max-w-none prose-headings:font-bold prose-headings:text-gray-900 prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900 prose-code:text-blue-600 prose-code:bg-blue-50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-[''] prose-code:after:content-[''] prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-img:rounded-xl prose-img:shadow-lg">
-            <slot />
-          </div>
-
-          <!-- Article Footer - Navigation -->
-          {(previousItem || nextItem) && (
-            <div class="mt-12 pt-8 border-t border-gray-200">
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {previousItem && (
-                  <a 
-                    href={`/bilgi-merkezi/teknik-rehberler/${previousItem.slug}`}
-                    class="group p-6 border border-gray-200 rounded-xl hover:border-blue-500 hover:shadow-md transition-all"
+              <!-- Playlist Items -->
+              <div class="max-h-[60vh] overflow-y-auto">
+                {playlistItems.map((item, index) => (
+                  <a
+                    href={`/bilgi-merkezi/teknik-rehberler/${item.slug}`}
+                    class={`flex items-start gap-3 px-4 py-3 border-b border-gray-100 last:border-0 transition-colors ${
+                      item.isCurrent
+                        ? 'bg-blue-50'
+                        : 'hover:bg-gray-50'
+                    }`}
                   >
-                    <div class="flex items-center text-sm text-gray-500 mb-2">
-                      <ArrowLeft className="w-4 h-4 mr-1" />
-                      <span>Önceki</span>
+                    <!-- Number/Status -->
+                    <div class={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5 ${
+                      item.isCurrent
+                        ? 'bg-blue-600 text-white'
+                        : item.isCompleted
+                        ? 'bg-green-500 text-white'
+                        : 'bg-gray-200 text-gray-500'
+                    }`}>
+                      {item.isCompleted && !item.isCurrent ? (
+                        <CheckCircle className="w-3.5 h-3.5" />
+                      ) : (
+                        index + 1
+                      )}
                     </div>
-                    <h3 class="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
-                      {previousItem.title}
-                    </h3>
-                  </a>
-                )}
-                {nextItem && (
-                  <a 
-                    href={`/bilgi-merkezi/teknik-rehberler/${nextItem.slug}`}
-                    class="group p-6 border border-gray-200 rounded-xl hover:border-blue-500 hover:shadow-md transition-all md:ml-auto md:text-right"
-                  >
-                    <div class="flex items-center justify-end text-sm text-gray-500 mb-2">
-                      <span>Sonraki</span>
-                      <ChevronRight className="w-4 h-4 ml-1" />
-                    </div>
-                    <h3 class="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
-                      {nextItem.title}
-                    </h3>
-                  </a>
-                )}
-              </div>
-            </div>
-          )}
 
-        </article>
-
-        <!-- Sidebar (Right) - 4 columns - YouTube Playlist Style -->
-        <aside class="lg:col-span-4">
-          <div class="sticky top-24 space-y-6">
-            
-            {playlistItems.length > 0 && (
-              <div class="bg-gray-50 border border-gray-200 rounded-xl overflow-hidden">
-                
-                <!-- Playlist Header -->
-                <div class="bg-gradient-to-br from-blue-600 to-blue-700 p-6 text-white">
-                  <div class="flex items-start space-x-3 mb-3">
-                    <div class="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center flex-shrink-0">
-                      <BookOpen className="w-5 h-5" />
-                    </div>
+                    <!-- Title & Meta -->
                     <div class="flex-1 min-w-0">
-                      <h3 class="font-bold text-lg mb-1">
-                        {frontmatter.playlistTitle || 'Rehber Serisi'}
-                      </h3>
-                      <p class="text-sm text-blue-100">
-                        {totalCount} bölüm
-                      </p>
-                    </div>
-                  </div>
-                  
-                  <!-- Progress Bar -->
-                  <div class="mt-4">
-                    <div class="flex items-center justify-between text-xs text-blue-100 mb-2">
-                      <span>İlerleme</span>
-                      <span>{completedCount}/{totalCount} tamamlandı</span>
-                    </div>
-                    <div class="w-full bg-blue-800/30 rounded-full h-2 overflow-hidden">
-                      <div 
-                        class="bg-white h-full rounded-full transition-all duration-500"
-                        style={`width: ${progressPercent}%`}
-                      ></div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Playlist Items -->
-                <div class="max-h-[600px] overflow-y-auto">
-                  {playlistItems.map((item, index) => (
-                    <a
-                      href={`/bilgi-merkezi/teknik-rehberler/${item.slug}`}
-                      class={`flex items-start p-4 border-b border-gray-200 transition-all ${
+                      <p class={`text-sm leading-tight ${
                         item.isCurrent
-                          ? 'bg-blue-50 border-l-4 border-l-blue-600'
-                          : item.isCompleted
-                          ? 'bg-white hover:bg-gray-50'
-                          : 'bg-white hover:bg-gray-50'
-                      }`}
-                    >
-                      <!-- Number/Status Icon -->
-                      <div class="flex-shrink-0 mr-3 mt-0.5">
-                        {item.isCurrent ? (
-                          <div class="w-8 h-8 bg-blue-600 text-white rounded-lg flex items-center justify-center font-bold text-sm">
-                            {index + 1}
-                          </div>
-                        ) : item.isCompleted ? (
-                          <div class="w-8 h-8 bg-green-100 text-green-600 rounded-lg flex items-center justify-center">
-                            <CheckCircle2 className="w-5 h-5" />
-                          </div>
-                        ) : (
-                          <div class="w-8 h-8 bg-gray-100 text-gray-500 rounded-lg flex items-center justify-center font-semibold text-sm">
-                            {index + 1}
-                          </div>
-                        )}
-                      </div>
+                          ? 'font-semibold text-blue-700'
+                          : 'font-medium text-gray-700'
+                      }`}>
+                        {item.title}
+                      </p>
+                      <p class="text-xs text-gray-400 mt-0.5">{item.readTime}</p>
+                    </div>
 
-                      <!-- Content -->
-                      <div class="flex-1 min-w-0">
-                        <h4 class={`font-medium text-sm mb-1 line-clamp-2 ${
-                          item.isCurrent 
-                            ? 'text-blue-600 font-semibold' 
-                            : item.isCompleted
-                            ? 'text-gray-700'
-                            : 'text-gray-900'
-                        }`}>
-                          {item.title}
-                        </h4>
-                        <div class="flex items-center space-x-2 text-xs text-gray-500">
-                          <Clock className="w-3 h-3" />
-                          <span>{item.readTime}</span>
-                          {item.isCurrent && (
-                            <span class="ml-auto px-2 py-0.5 bg-blue-100 text-blue-600 rounded text-xs font-medium">
-                              Şu an okuduğunuz
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                    </a>
-                  ))}
-                </div>
-
-                <!-- Playlist Footer -->
-                <div class="p-4 bg-gray-100 border-t border-gray-200">
-                  <a 
-                    href="/bilgi-merkezi/teknik-rehberler" 
-                    class="flex items-center justify-center space-x-2 text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors"
-                  >
-                    <BookOpen className="w-4 h-4" />
-                    <span>Tüm Rehberleri Gör</span>
+                    {item.isCurrent && (
+                      <div class="w-1.5 h-1.5 bg-blue-600 rounded-full animate-pulse flex-shrink-0 mt-2"></div>
+                    )}
                   </a>
-                </div>
-
+                ))}
               </div>
-            )}
-
-            <!-- Related Topics Card -->
-            <div class="bg-white border border-gray-200 rounded-xl p-6">
-              <h3 class="font-bold text-gray-900 mb-4 flex items-center">
-                <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mr-2">
-                  <BookOpen className="w-4 h-4 text-blue-600" />
-                </div>
-                İlgili Konular
-              </h3>
-              <ul class="space-y-3">
-                <li>
-                  <a href="#" class="text-sm text-gray-600 hover:text-blue-600 transition-colors flex items-center">
-                    <ChevronRight className="w-4 h-4 mr-1 flex-shrink-0" />
-                    <span>Jeneratör Bakım Rehberi</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#" class="text-sm text-gray-600 hover:text-blue-600 transition-colors flex items-center">
-                    <ChevronRight className="w-4 h-4 mr-1 flex-shrink-0" />
-                    <span>Yakıt Sistemi Optimizasyonu</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#" class="text-sm text-gray-600 hover:text-blue-600 transition-colors flex items-center">
-                    <ChevronRight className="w-4 h-4 mr-1 flex-shrink-0" />
-                    <span>Güvenlik Kontrol Listesi</span>
-                  </a>
-                </li>
-              </ul>
             </div>
 
             <!-- Help Card -->
-            <div class="bg-gradient-to-br from-blue-50 to-purple-50 border border-blue-200 rounded-xl p-6">
-              <h3 class="font-bold text-gray-900 mb-2">
-                Yardıma mı ihtiyacınız var?
-              </h3>
-              <p class="text-sm text-gray-600 mb-4">
-                Uzman ekibimiz jeneratör seçimi ve teknik konularda size yardımcı olmaya hazır.
-              </p>
-              <a 
-                href="/iletisim" 
-                class="block w-full text-center px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
+            <div class="mt-4 p-4 bg-gray-50 rounded-xl border border-gray-200">
+              <p class="text-xs text-gray-600 mb-3">Sorularınız mı var?</p>
+              <a
+                href="/iletisim"
+                class="block text-center px-4 py-2 bg-white border border-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:border-blue-300 hover:text-blue-600 transition-colors"
               >
                 İletişime Geçin
               </a>
             </div>
-
           </div>
         </aside>
+      )}
 
-      </div>
+      <!-- Main Content -->
+      <article class="flex-1 min-w-0">
+        <!-- Article Header -->
+        <header class="mb-8">
+          <!-- Meta badges -->
+          <div class="flex flex-wrap items-center gap-2 mb-4">
+            {frontmatter.difficulty && (
+              <span class={`px-2.5 py-1 text-xs font-semibold rounded-full ${difficultyColors[frontmatter.difficulty]}`}>
+                {frontmatter.difficulty}
+              </span>
+            )}
+            {frontmatter.category && (
+              <span class="px-2.5 py-1 text-xs font-medium bg-blue-50 text-blue-600 rounded-full">
+                {frontmatter.category}
+              </span>
+            )}
+            <span class="flex items-center text-xs text-gray-500">
+              <Clock className="w-3.5 h-3.5 mr-1" />
+              {frontmatter.readTime || '5 dk okuma'}
+            </span>
+          </div>
+
+          <!-- Title -->
+          <h1 class="text-2xl lg:text-3xl font-bold text-gray-900 mb-3 leading-tight">
+            {frontmatter.title}
+          </h1>
+
+          <!-- Description -->
+          <p class="text-gray-600 leading-relaxed">
+            {frontmatter.description}
+          </p>
+        </header>
+
+        <!-- Article Content -->
+        <div class="prose prose-gray max-w-none
+          prose-headings:font-bold prose-headings:text-gray-900
+          prose-h2:text-xl prose-h2:mt-8 prose-h2:mb-4
+          prose-h3:text-lg prose-h3:mt-6 prose-h3:mb-3
+          prose-p:text-gray-700 prose-p:leading-relaxed prose-p:text-[15px]
+          prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline
+          prose-strong:text-gray-900
+          prose-code:text-blue-600 prose-code:bg-blue-50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm
+          prose-code:before:content-[''] prose-code:after:content-['']
+          prose-pre:bg-gray-900 prose-pre:rounded-lg
+          prose-img:rounded-lg
+          prose-ul:my-4 prose-ol:my-4
+          prose-li:text-gray-700 prose-li:text-[15px] prose-li:my-1">
+          <slot />
+        </div>
+
+        <!-- Navigation Footer -->
+        {(previousItem || nextItem) && (
+          <nav class="mt-12 pt-6 border-t border-gray-200">
+            <div class="grid grid-cols-2 gap-4">
+              {previousItem ? (
+                <a
+                  href={`/bilgi-merkezi/teknik-rehberler/${previousItem.slug}`}
+                  class="group flex items-center gap-3 p-4 bg-gray-50 rounded-xl hover:bg-blue-50 transition-colors"
+                >
+                  <ChevronLeft className="w-5 h-5 text-gray-400 group-hover:text-blue-600 flex-shrink-0" />
+                  <div class="min-w-0">
+                    <p class="text-xs text-gray-500 mb-1">Önceki</p>
+                    <p class="text-sm font-medium text-gray-900 group-hover:text-blue-600 truncate">
+                      {previousItem.title}
+                    </p>
+                  </div>
+                </a>
+              ) : (
+                <div></div>
+              )}
+
+              {nextItem ? (
+                <a
+                  href={`/bilgi-merkezi/teknik-rehberler/${nextItem.slug}`}
+                  class="group flex items-center justify-end gap-3 p-4 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors"
+                >
+                  <div class="min-w-0 text-right">
+                    <p class="text-xs text-blue-200 mb-1">Sonraki</p>
+                    <p class="text-sm font-medium truncate">
+                      {nextItem.title}
+                    </p>
+                  </div>
+                  <ChevronRight className="w-5 h-5 flex-shrink-0" />
+                </a>
+              ) : (
+                <a
+                  href="/bilgi-merkezi/teknik-rehberler"
+                  class="group flex items-center justify-end gap-3 p-4 bg-green-600 text-white rounded-xl hover:bg-green-700 transition-colors col-start-2"
+                >
+                  <div class="min-w-0 text-right">
+                    <p class="text-xs text-green-200 mb-1">Tamamlandı!</p>
+                    <p class="text-sm font-medium">Tüm Rehberler</p>
+                  </div>
+                  <CheckCircle className="w-5 h-5 flex-shrink-0" />
+                </a>
+              )}
+            </div>
+          </nav>
+        )}
+      </article>
     </div>
   </div>
-
-  <!-- Table of Contents (Mobile Bottom Sheet) -->
-  <div class="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg p-4 z-40">
-    <button 
-      class="w-full flex items-center justify-between text-left font-semibold text-gray-900"
-      onclick="document.getElementById('mobile-playlist').classList.toggle('hidden')"
-    >
-      <span>Rehber İçeriği ({totalCount} bölüm)</span>
-      <ChevronRight className="w-5 h-5 transform rotate-90" />
-    </button>
-  </div>
-
 </BaseLayout>
 
 <style>
-  /* Custom scrollbar for playlist */
-  .max-h-\[600px\]::-webkit-scrollbar {
-    width: 6px;
+  /* Mobile drawer open state */
+  .drawer-open #playlist-drawer {
+    transform: translateX(0);
   }
 
-  .max-h-\[600px\]::-webkit-scrollbar-track {
-    background: #f3f4f6;
-  }
-
-  .max-h-\[600px\]::-webkit-scrollbar-thumb {
-    background: #d1d5db;
-    border-radius: 3px;
-  }
-
-  .max-h-\[600px\]::-webkit-scrollbar-thumb:hover {
-    background: #9ca3af;
-  }
-
-  /* Prose styles customization */
-  .prose {
-    color: #374151;
-  }
-
-  .prose h2 {
-    margin-top: 2em;
-    margin-bottom: 1em;
-    scroll-margin-top: 6rem;
-  }
-
-  .prose h3 {
-    margin-top: 1.6em;
-    margin-bottom: 0.8em;
-    scroll-margin-top: 6rem;
-  }
-
-  /* Info box styles */
+  /* Prose blockquote */
   .prose blockquote {
-    border-left: 4px solid #3b82f6;
-    background: #eff6ff;
-    padding: 1rem 1.5rem;
-    border-radius: 0 0.5rem 0.5rem 0;
+    border-left: 3px solid #3b82f6;
+    background: #f8fafc;
+    padding: 1rem 1.25rem;
+    border-radius: 0.5rem;
     font-style: normal;
-    color: #1e40af;
+    margin: 1.5rem 0;
   }
 
-  /* Code block styles */
-  .prose pre {
-    padding: 1.5rem;
-    border-radius: 0.75rem;
-    overflow-x: auto;
+  .prose blockquote p {
+    margin: 0;
+    color: #475569;
   }
 
-  /* Table styles */
+  /* Tables */
   .prose table {
-    border-collapse: collapse;
-    width: 100%;
-    margin: 2rem 0;
+    font-size: 0.875rem;
+    margin: 1.5rem 0;
   }
 
   .prose th {
-    background: #f3f4f6;
+    background: #f9fafb;
     font-weight: 600;
-    text-align: left;
-    padding: 0.75rem 1rem;
+    padding: 0.75rem;
   }
 
   .prose td {
-    padding: 0.75rem 1rem;
-    border-top: 1px solid #e5e7eb;
+    padding: 0.75rem;
+    border-bottom: 1px solid #f3f4f6;
   }
 
-  /* Current page indicator animation */
-  @keyframes pulse-border {
-    0%, 100% {
-      border-left-color: #2563eb;
-    }
-    50% {
-      border-left-color: #3b82f6;
-    }
-  }
-
-  .border-l-blue-600 {
-    animation: pulse-border 2s ease-in-out infinite;
+  /* Reading progress bar */
+  #reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(to right, #2563eb, #06b6d4);
+    z-index: 9999;
+    transition: width 0.1s ease-out;
   }
 </style>
 
-<script lang="ts">
-  // Smooth scroll to anchor links
-  document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      e.preventDefault();
-      const href = this.getAttribute('href');
-      if (!href) return;
-      const target = document.querySelector(href);
-      if (target) {
-        target.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
-      }
-    });
-  });
+<script>
+  // Mobile playlist drawer
+  const toggle = document.getElementById('playlist-toggle');
+  const drawer = document.getElementById('playlist-drawer');
+  const overlay = document.getElementById('playlist-overlay');
+  const closeBtn = document.getElementById('playlist-close');
 
-  // Reading progress indicator
-  window.addEventListener('scroll', () => {
+  function openDrawer() {
+    document.body.classList.add('drawer-open');
+    drawer?.classList.remove('translate-x-full');
+  }
+
+  function closeDrawer() {
+    document.body.classList.remove('drawer-open');
+    drawer?.classList.add('translate-x-full');
+  }
+
+  toggle?.addEventListener('click', openDrawer);
+  overlay?.addEventListener('click', closeDrawer);
+  closeBtn?.addEventListener('click', closeDrawer);
+
+  // Reading progress
+  let progressBar: HTMLElement | null = null;
+
+  function updateProgress() {
     const article = document.querySelector('article');
     if (!article) return;
-    
+
     const windowHeight = window.innerHeight;
-    const documentHeight = article instanceof HTMLElement ? article.offsetHeight : document.body.offsetHeight;
+    const articleHeight = article.offsetHeight;
+    const articleTop = article.getBoundingClientRect().top + window.scrollY;
     const scrollTop = window.scrollY;
-    const scrollPercent = (scrollTop / (documentHeight - windowHeight)) * 100;
-    
-    // Create or update progress bar
-    let progressBar = document.getElementById('reading-progress');
+
+    const scrollProgress = Math.max(0, scrollTop - articleTop + windowHeight * 0.3);
+    const scrollableHeight = Math.max(0, articleHeight);
+    const scrollPercent = scrollableHeight > 0 ? (scrollProgress / scrollableHeight) * 100 : 0;
+
     if (!progressBar) {
       progressBar = document.createElement('div');
       progressBar.id = 'reading-progress';
-      progressBar.className = 'fixed top-0 left-0 h-1 bg-gradient-to-r from-blue-600 to-cyan-500 z-50 transition-all duration-150';
       document.body.appendChild(progressBar);
     }
-    progressBar.style.width = Math.min(scrollPercent, 100) + '%';
+
+    progressBar.style.width = Math.min(Math.max(scrollPercent, 0), 100) + '%';
+  }
+
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        updateProgress();
+        ticking = false;
+      });
+      ticking = true;
+    }
   });
+
+  updateProgress();
 </script>

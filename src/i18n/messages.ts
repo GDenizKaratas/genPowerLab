@@ -7,14 +7,14 @@ export const messages = {
   tr: {
     nav: {
       home: "Ana Sayfa",
-      knowledgeCenter: "Bilgi Merkezi",
-      technicalGuides: "Teknik Rehberler",
+      knowledgeCenter: "İçeriklerimiz",
+      technicalGuides: "Yazılar & Rehberler",
       glossary: "Terimler Sözlüğü",
       applications: "Uygulamalar",
       generatorSelector: "Jeneratör Seçim Rehberi",
       maintenanceAssistant: "Bakım-Onarım Asistanı",
       projects: "Projeler",
-      contact: "İletişim",
+      contact: "Danışmanlık & iletişim",
     },
     footer: {
       description:

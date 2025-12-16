@@ -1,6 +1,6 @@
 ---
 import { useTranslations, languages, type Lang } from '../../i18n/messages';
-import { Menu, ChevronDown, Globe } from 'lucide-react';
+import { Menu, X, ChevronDown, Globe, ChevronRight } from 'lucide-react';
 
 interface Props {
   lang: Lang; // 'tr' | 'en'
@@ -14,17 +14,6 @@ const prefix = lang === 'tr' ? '' : '/' + lang;
 
 // Navigation yapısı - Tutarlı stil
 const navigation = [
-  { 
-    href: `${prefix}/`, 
-    label: t('nav.home')
-  },
-  {
-    label: t('nav.knowledgeCenter'),
-    dropdown: [
-      { href: `${prefix}/bilgi-merkezi/teknik-rehberler`, label: t('nav.technicalGuides') },
-      { href: `${prefix}/bilgi-merkezi/terimler-sozlugu`, label: t('nav.glossary') },
-    ]
-  },
   {
     label: t('nav.applications'),
     dropdown: [
@@ -32,12 +21,20 @@ const navigation = [
       { href: `${prefix}/uygulamalar/bakim-asistan`, label: t('nav.maintenanceAssistant') },
     ]
   },
-  { 
-    href: `${prefix}/projeler`, 
+  {
+    label: t('nav.knowledgeCenter'),
+    dropdown: [
+      { href: `${prefix}/bilgi-merkezi`, label: 'Bilgi Merkezi' },
+      { href: `${prefix}/bilgi-merkezi/teknik-rehberler`, label: t('nav.technicalGuides') },
+      { href: `${prefix}/bilgi-merkezi/terimler-sozlugu`, label: t('nav.glossary') },
+    ]
+  },
+  {
+    href: `${prefix}/projeler`,
     label: t('nav.projects')
   },
-  { 
-    href: `${prefix}/iletisim`, 
+  {
+    href: `${prefix}/iletisim`,
     label: t('nav.contact')
   },
 ];
@@ -56,114 +53,185 @@ const dropdownDelay = 'group-hover:delay-300';
 
 <header class="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
   <nav class="container-custom" aria-label="Ana navigasyon">
-    <div class="flex items-center justify-between h-16 lg:h-20 ">
+    <div class="flex items-center justify-between h-16 lg:h-20">
       <!-- Logo -->
-       <a 
-  href={`${prefix}/`} 
-  class="flex items-center space-x-3 group flex-shrink-0 max-h-20 overflow-hidden"
-  aria-label="Generator Power Lab - Ana sayfa"
->
-<img
-  src="/images/genPowerLab-logo.png"
-  alt="GenPL - Generator Power Lab"
-  class="h-6 sm:h-7 lg:h-8 w-auto object-contain drop-shadow-sm"
-  style="max-height: 202px;"
-  loading="lazy"
-/>
-
-
-  <span class="text-lg lg:text-xl font-bold text-gray-900 hidden sm:block tracking-tight">
-    <!-- Generator Power Lab -->
-  </span>
-</a>
-
-      <!-- <a 
-        href={`${prefix}/`} 
-        class="flex items-center space-x-3 group flex-shrink-0"
+      <a
+        href={`${prefix}/`}
+        class="flex items-center space-x-3 group flex-shrink-0 max-h-20 overflow-hidden"
         aria-label="Generator Power Lab - Ana sayfa"
       >
-        <div class="w-16 h-8 lg:w-20 lg:h-10 bg-gradient-to-br from-gray-900 to-blue-900 rounded-lg flex items-center justify-center group-hover:scale-105 transition-transform duration-200 shadow-md">
-          <span class="text-white font-bold text-sm lg:text-xl tracking-tight">GenPL</span>
-        </div>
+        <img
+          src="/images/genPowerLab-logo.png"
+          alt="GenPL - Generator Power Lab"
+          class="h-6 sm:h-7 lg:h-8 w-auto object-contain drop-shadow-sm"
+          style="max-height: 202px;"
+          loading="lazy"
+        />
         <span class="text-lg lg:text-xl font-bold text-gray-900 hidden sm:block tracking-tight">
-          Generator Power Lab
+          <!-- Generator Power Lab -->
         </span>
-      </a> -->
+      </a>
 
       <!-- MENUUYU SAĞA ALMAK İÇİN CONTAINER -->
-<div class="flex items-center space-x-10">
+      <div class="flex items-center space-x-10">
 
-  <!-- Desktop Navigation - Profesyonel ve Tutarlı -->
-  <div class="hidden lg:flex items-center space-x-1">
-    {navigation.map((item) => (
-      item.dropdown ? (
-        <div class="relative group">
-          <button
-            class="flex items-center space-x-1 px-4 py-2 rounded-lg font-medium text-gray-700 hover:text-blue-700 hover:bg-gray-50 transition-all duration-200 border border-transparent hover:border-gray-200"
-            type="button"
-          >
-            <span>{item.label}</span>
-            <ChevronDown className="w-4 h-4 transition-transform duration-200 group-hover:rotate-180" />
-          </button>
-          
-          <!-- Dropdown with delay and better positioning -->
-          <div
-            class={`absolute left-1/2 transform -translate-x-1/2 mt-2 min-w-64 bg-white rounded-xl shadow-2xl py-3 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 border border-gray-200 ${dropdownDelay}`}
-          >
-            <div class="relative">
-              <!-- Dropdown arrow -->
-              {/* <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white border-t border-l border-gray-200 rotate-45"></div> */}
-              
-              {item.dropdown.map((subItem) => (
-                <a
-                  href={subItem.href}
-                  class="block px-6 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-colors duration-150 border-l-2 border-transparent hover:border-blue-600"
+        <!-- Desktop Navigation - Profesyonel ve Tutarlı -->
+        <div class="hidden lg:flex items-center space-x-1">
+          {navigation.map((item) => (
+            item.dropdown ? (
+              <div class="relative group">
+                <button
+                  class="flex items-center space-x-1 px-4 py-2 rounded-lg font-medium text-gray-700 hover:text-blue-700 hover:bg-gray-50 transition-all duration-200 border border-transparent hover:border-gray-200"
+                  type="button"
                 >
-                  <span class="font-medium">{subItem.label}</span>
-                </a>
-              ))}
+                  <span>{item.label}</span>
+                  <ChevronDown className="w-4 h-4 transition-transform duration-200 group-hover:rotate-180" />
+                </button>
+
+                <!-- Dropdown with delay and better positioning -->
+                <div
+                  class={`absolute left-1/2 transform -translate-x-1/2 mt-2 min-w-64 bg-white rounded-xl shadow-2xl py-3 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 border border-gray-200 ${dropdownDelay}`}
+                >
+                  <div class="relative">
+                    {item.dropdown.map((subItem) => (
+                      <a
+                        href={subItem.href}
+                        class="block px-6 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-colors duration-150 border-l-2 border-transparent hover:border-blue-600"
+                      >
+                        <span class="font-medium">{subItem.label}</span>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <a
+                href={item.href}
+                class={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
+                  isActive(item.href)
+                    ? 'text-blue-700 bg-blue-50 border border-blue-200'
+                    : 'text-gray-700 hover:text-blue-700 hover:bg-gray-50 border border-transparent hover:border-gray-200'
+                }`}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+              >
+                {item.label}
+              </a>
+            )
+          ))}
+        </div>
+
+        <!-- Language Switcher & Mobile Menu -->
+        <div class="flex items-center space-x-3">
+          <!-- Language Switcher - Profesyonel -->
+          <div class="relative group">
+            <button
+              class="flex items-center space-x-2 px-3 py-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-all duration-200 border border-gray-200 hover:border-gray-300"
+              aria-expanded="false"
+              aria-haspopup="true"
+              aria-label="Dil seçenekleri"
+              type="button"
+            >
+              <Globe className="w-4 h-4" />
+              <span class="text-sm font-medium hidden sm:block">{languages[lang]}</span>
+              <ChevronDown className="w-3 h-3 group-hover:rotate-180 transition-transform duration-200" />
+            </button>
+
+            <!-- Language dropdown with delay -->
+            <div
+              class={`absolute right-0 mt-2 w-44 bg-white rounded-xl shadow-2xl py-2 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 border border-gray-200 ${dropdownDelay}`}
+            >
+              <div class="relative">
+                {Object.entries(languages).map(([code, name]) => {
+                  const basePath = currentPath.replace('/en', '');
+                  const targetPath =
+                    code === 'tr'
+                      ? basePath || '/'
+                      : `/en${basePath || '/'}`;
+
+                  return (
+                    <a
+                      href={targetPath}
+                      class={`block px-5 py-2 transition-colors duration-150 ${
+                        code === lang
+                          ? 'bg-blue-50 text-blue-700 font-medium border-r-2 border-blue-600'
+                          : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                      }`}
+                      role="menuitem"
+                      hreflang={code}
+                    >
+                      {name}
+                    </a>
+                  );
+                })}
+              </div>
             </div>
           </div>
-        </div>
-      ) : (
-        <a
-          href={item.href}
-          class={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
-            isActive(item.href)
-              ? 'text-blue-700 bg-blue-50 border border-blue-200'
-              : 'text-gray-700 hover:text-blue-700 hover:bg-gray-50 border border-transparent hover:border-gray-200'
-          }`}
-          aria-current={isActive(item.href) ? 'page' : undefined}
-        >
-          {item.label}
-        </a>
-      )
-    ))}
-  </div>
 
-  <!-- Language Switcher & Mobile Menu -->
-  <div class="flex items-center space-x-3">
-    <!-- Language Switcher - Profesyonel -->
-    <div class="relative group">
-      <button 
-        class="flex items-center space-x-2 px-3 py-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-all duration-200 border border-gray-200 hover:border-gray-300"
-        aria-expanded="false"
-        aria-haspopup="true"
-        aria-label="Dil seçenekleri"
-        type="button"
-      >
-        <Globe className="w-4 h-4" />
-        <span class="text-sm font-medium hidden sm:block">{languages[lang]}</span>
-        <ChevronDown className="w-3 h-3 group-hover:rotate-180 transition-transform duration-200" />
-      </button>
-      
-      <!-- Language dropdown with delay -->
-      <div
-        class={`absolute right-0 mt-2 w-44 bg-white rounded-xl shadow-2xl py-2 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 border border-gray-200 ${dropdownDelay}`}
-      >
-        <div class="relative">
-          <!-- <div class="absolute -top-2 right-4 w-4 h-4 bg-white border-t border-l border-gray-200 rotate-45"></div> -->
-          
+          <!-- Mobile Menu Button -->
+          <button
+            class="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200 border border-gray-200 hover:border-gray-300"
+            aria-label="Mobil menü"
+            aria-expanded="false"
+            id="mobile-menu-button"
+            type="button"
+          >
+            <Menu className="w-5 h-5 text-gray-600" id="menu-icon" />
+            <X className="w-5 h-5 text-gray-600 hidden" id="close-icon" />
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu Panel -->
+  <div
+    id="mobile-menu"
+    class="lg:hidden fixed inset-0 top-16 bg-white z-40 transform translate-x-full transition-transform duration-300 ease-in-out overflow-y-auto"
+  >
+    <div class="container-custom py-6">
+      <!-- Mobile Navigation -->
+      <nav class="space-y-2">
+        {navigation.map((item, index) => (
+          item.dropdown ? (
+            <div class="mobile-dropdown">
+              <button
+                class="mobile-dropdown-trigger w-full flex items-center justify-between px-4 py-3 rounded-xl font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+                type="button"
+                data-dropdown={index}
+              >
+                <span>{item.label}</span>
+                <ChevronRight className="w-5 h-5 text-gray-400 transition-transform duration-200" />
+              </button>
+              <div class="mobile-dropdown-content hidden pl-4 space-y-1 mt-1">
+                {item.dropdown.map((subItem) => (
+                  <a
+                    href={subItem.href}
+                    class="block px-4 py-3 rounded-xl text-gray-600 hover:bg-blue-50 hover:text-blue-700 transition-colors"
+                  >
+                    {subItem.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <a
+              href={item.href}
+              class={`block px-4 py-3 rounded-xl font-medium transition-colors ${
+                isActive(item.href)
+                  ? 'text-blue-700 bg-blue-50'
+                  : 'text-gray-700 hover:bg-gray-50'
+              }`}
+            >
+              {item.label}
+            </a>
+          )
+        ))}
+      </nav>
+
+      <!-- Mobile Language Switcher -->
+      <div class="mt-8 pt-6 border-t border-gray-200">
+        <p class="px-4 text-sm font-medium text-gray-500 mb-3">Dil Seçimi</p>
+        <div class="flex gap-2 px-4">
           {Object.entries(languages).map(([code, name]) => {
             const basePath = currentPath.replace('/en', '');
             const targetPath =
@@ -174,12 +242,11 @@ const dropdownDelay = 'group-hover:delay-300';
             return (
               <a
                 href={targetPath}
-                class={`block px-5 py-2 transition-colors duration-150 ${
+                class={`flex-1 text-center px-4 py-3 rounded-xl font-medium transition-colors ${
                   code === lang
-                    ? 'bg-blue-50 text-blue-700 font-medium border-r-2 border-blue-600'
-                    : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                    ? 'bg-blue-600 text-white'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
-                role="menuitem"
                 hreflang={code}
               >
                 {name}
@@ -188,28 +255,29 @@ const dropdownDelay = 'group-hover:delay-300';
           })}
         </div>
       </div>
-    </div>
 
-    <!-- Mobile Menu Button -->
-    <button 
-      class="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200 border border-gray-200 hover:border-gray-300"
-      aria-label="Mobil menü"
-      aria-expanded="false"
-      id="mobile-menu-button"
-      type="button"
-    >
-      <Menu className="w-5 h-5 text-gray-600" />
-    </button>
-  </div>
-</div>
+      <!-- Mobile CTA -->
+      <div class="mt-8 px-4">
+        <a
+          href={`${prefix}/iletisim`}
+          class="block w-full text-center px-6 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl font-semibold hover:shadow-lg transition-all"
+        >
+          İletişime Geçin
+        </a>
+      </div>
     </div>
-  </nav>
+  </div>
 </header>
+
+<!-- Mobile Menu Overlay -->
+<div
+  id="mobile-menu-overlay"
+  class="fixed inset-0 bg-black/50 z-30 hidden lg:hidden"
+></div>
 
 <style>
   /* Container için tutarlı padding */
   .container-custom {
-    /* max-width: 1200px; */
     margin: 0 auto;
     padding: 0 1rem;
   }
@@ -219,9 +287,107 @@ const dropdownDelay = 'group-hover:delay-300';
     transition-delay: 300ms;
   }
 
+  /* Mobile menu open state */
+  .mobile-menu-open {
+    overflow: hidden;
+  }
+
+  .mobile-menu-open #mobile-menu {
+    transform: translateX(0);
+  }
+
+  .mobile-menu-open #mobile-menu-overlay {
+    display: block;
+  }
+
+  /* Mobile dropdown arrow rotation */
+  .mobile-dropdown-trigger[aria-expanded="true"] svg {
+    transform: rotate(90deg);
+  }
+
   @media (max-width: 1024px) {
     .container-custom {
       padding: 0 0.75rem;
     }
   }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+    const menuIcon = document.getElementById('menu-icon');
+    const closeIcon = document.getElementById('close-icon');
+    const dropdownTriggers = document.querySelectorAll('.mobile-dropdown-trigger');
+
+    let isMenuOpen = false;
+
+    function toggleMenu() {
+      isMenuOpen = !isMenuOpen;
+
+      if (isMenuOpen) {
+        document.body.classList.add('mobile-menu-open');
+        mobileMenuButton?.setAttribute('aria-expanded', 'true');
+        menuIcon?.classList.add('hidden');
+        closeIcon?.classList.remove('hidden');
+      } else {
+        document.body.classList.remove('mobile-menu-open');
+        mobileMenuButton?.setAttribute('aria-expanded', 'false');
+        menuIcon?.classList.remove('hidden');
+        closeIcon?.classList.add('hidden');
+      }
+    }
+
+    function closeMenu() {
+      if (isMenuOpen) {
+        toggleMenu();
+      }
+    }
+
+    // Toggle menu on button click
+    mobileMenuButton?.addEventListener('click', toggleMenu);
+
+    // Close menu on overlay click
+    mobileMenuOverlay?.addEventListener('click', closeMenu);
+
+    // Handle dropdown toggles
+    dropdownTriggers.forEach(trigger => {
+      trigger.addEventListener('click', () => {
+        const content = trigger.nextElementSibling;
+        const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+
+        // Close all other dropdowns
+        dropdownTriggers.forEach(otherTrigger => {
+          if (otherTrigger !== trigger) {
+            otherTrigger.setAttribute('aria-expanded', 'false');
+            otherTrigger.nextElementSibling?.classList.add('hidden');
+          }
+        });
+
+        // Toggle current dropdown
+        trigger.setAttribute('aria-expanded', String(!isExpanded));
+        content?.classList.toggle('hidden');
+      });
+    });
+
+    // Close menu on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isMenuOpen) {
+        closeMenu();
+      }
+    });
+
+    // Close menu on resize to desktop
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 1024 && isMenuOpen) {
+        closeMenu();
+      }
+    });
+
+    // Close menu when clicking a link
+    mobileMenu?.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+  });
+</script>

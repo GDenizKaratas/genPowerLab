@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Home, ArrowLeft, BookOpen, Wrench, MessageCircle } from 'lucide-react';
+---
+
+<BaseLayout
+  title="Sayfa Bulunamadı - GenPowerLab"
+  description="Aradığınız sayfa bulunamadı."
+>
+  <div class="container mx-auto px-4 lg:px-8 py-12">
+    <div class="max-w-xl mx-auto text-center">
+      <!-- 404 -->
+      <div class="mb-6">
+        <span class="text-8xl lg:text-9xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-cyan-200">
+          404
+        </span>
+      </div>
+
+      <h1 class="text-2xl font-bold text-gray-900 mb-3">
+        Sayfa Bulunamadı
+      </h1>
+      <p class="text-gray-600 mb-8">
+        Aradığınız sayfa mevcut değil veya taşınmış olabilir.
+      </p>
+
+      <!-- Actions -->
+      <div class="flex flex-col sm:flex-row gap-3 justify-center mb-10">
+        <a
+          href="/"
+          class="inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition-colors"
+        >
+          <Home className="w-4 h-4 mr-2" />
+          Ana Sayfa
+        </a>
+        <button
+          onclick="history.back()"
+          class="inline-flex items-center justify-center px-6 py-3 bg-gray-100 text-gray-700 rounded-xl font-semibold hover:bg-gray-200 transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4 mr-2" />
+          Geri Dön
+        </button>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="grid grid-cols-3 gap-3">
+        <a
+          href="/bilgi-merkezi"
+          class="group p-4 rounded-xl bg-gray-50 hover:bg-blue-50 transition-colors"
+        >
+          <BookOpen className="w-6 h-6 text-gray-400 group-hover:text-blue-600 mx-auto mb-2 transition-colors" />
+          <span class="text-sm text-gray-600 group-hover:text-blue-600">Bilgi Merkezi</span>
+        </a>
+        <a
+          href="/uygulamalar/jenerator-secim"
+          class="group p-4 rounded-xl bg-gray-50 hover:bg-green-50 transition-colors"
+        >
+          <Wrench className="w-6 h-6 text-gray-400 group-hover:text-green-600 mx-auto mb-2 transition-colors" />
+          <span class="text-sm text-gray-600 group-hover:text-green-600">Jeneratör Seç</span>
+        </a>
+        <a
+          href="/iletisim"
+          class="group p-4 rounded-xl bg-gray-50 hover:bg-orange-50 transition-colors"
+        >
+          <MessageCircle className="w-6 h-6 text-gray-400 group-hover:text-orange-600 mx-auto mb-2 transition-colors" />
+          <span class="text-sm text-gray-600 group-hover:text-orange-600">İletişim</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

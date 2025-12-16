@@ -1,114 +1,102 @@
 ---
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
-import BaseHead from '../../components/BaseHead.astro';
-import Footer from '../../components/Footer.astro';
-import FormattedDate from '../../components/FormattedDate.astro';
-import Header from '../../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import FormattedDate from '../../../components/FormattedDate.astro';
+import { ArrowRight, Clock, User, BookOpen, ChevronRight } from 'lucide-react';
 
 const posts = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<style>
-			main {
-				width: 960px;
-			}
-			ul {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 2rem;
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
-			}
-			ul li {
-				width: calc(50% - 1rem);
-			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
-				text-align: center;
-			}
-			ul li:first-child img {
-				width: 100%;
-			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
-			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: 12px;
-			}
-			ul li a {
-				display: block;
-			}
-			.title {
-				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1;
-			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
-			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
-			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
-			}
-			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
-				}
-				ul li {
-					width: 100%;
-					text-align: center;
-				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1.563em;
-				}
-			}
-		</style>
-	</head>
-	<body>
-		<Header />
-		<main>
-			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									{post.data.heroImage && (
-										<Image width={720} height={360} src={post.data.heroImage} alt="" />
-									)}
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
-			</section>
-		</main>
-		<Footer />
-	</body>
-</html>
+<BaseLayout
+  title="Blog - GenPowerLab"
+  description="Jeneratör ve enerji sektörü hakkında güncel yazılar, haberler ve analizler."
+>
+  <!-- Hero Section -->
+  <section class="relative bg-gradient-to-br from-blue-50 via-white to-cyan-50 py-16 lg:py-20">
+    <div class="container mx-auto px-4 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center">
+        <!-- Breadcrumb -->
+        <nav class="flex items-center justify-center text-sm text-gray-500 mb-6">
+          <a href="/" class="hover:text-blue-600 transition-colors">Ana Sayfa</a>
+          <ChevronRight className="w-4 h-4 mx-2" />
+          <span class="text-gray-900 font-medium">Blog</span>
+        </nav>
+
+        <div class="inline-flex items-center px-4 py-1 rounded-full bg-blue-50 border border-blue-100 text-xs font-semibold text-blue-700 tracking-wide uppercase mb-4">
+          <BookOpen className="w-3 h-3 mr-2" />
+          Blog
+        </div>
+        <h1 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+          Güncel
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-600">
+            Yazılar
+          </span>
+        </h1>
+        <p class="text-xl text-gray-600 leading-relaxed">
+          Jeneratör ve enerji sektöründen haberler, analizler ve uzman görüşleri.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Posts -->
+  <section class="py-12 lg:py-16 bg-gray-50">
+    <div class="container mx-auto px-4 lg:px-8">
+      <div class="max-w-5xl mx-auto">
+        {posts.length > 0 ? (
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {posts.map((post, index) => (
+              <article
+                class={`group bg-white rounded-2xl border border-gray-200 overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300 ${index === 0 ? 'md:col-span-2' : ''}`}
+              >
+                {post.data.heroImage && (
+                  <div class={`aspect-video bg-gray-100 overflow-hidden ${index === 0 ? 'md:aspect-[21/9]' : ''}`}>
+                    <Image
+                      width={index === 0 ? 1200 : 600}
+                      height={index === 0 ? 400 : 300}
+                      src={post.data.heroImage}
+                      alt={post.data.title}
+                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                )}
+                <div class="p-6">
+                  <div class="flex items-center text-sm text-gray-500 mb-3">
+                    <Clock className="w-4 h-4 mr-1" />
+                    <FormattedDate date={post.data.pubDate} />
+                  </div>
+                  <h2 class={`font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors ${index === 0 ? 'text-2xl lg:text-3xl' : 'text-xl'}`}>
+                    <a href={`/tr/blog/${post.id}/`}>
+                      {post.data.title}
+                    </a>
+                  </h2>
+                  {post.data.description && (
+                    <p class="text-gray-600 mb-4 line-clamp-2">
+                      {post.data.description}
+                    </p>
+                  )}
+                  <a
+                    href={`/tr/blog/${post.id}/`}
+                    class="inline-flex items-center text-blue-600 font-semibold hover:text-blue-700"
+                  >
+                    Devamını oku
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        ) : (
+          <div class="text-center py-16 bg-white rounded-2xl border border-gray-200">
+            <BookOpen className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">Henüz yazı yok</h3>
+            <p class="text-gray-600">Yakında yeni içerikler eklenecek.</p>
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

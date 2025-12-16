@@ -1,0 +1,193 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/ui/Breadcrumb.astro';
+import { Search, Hash } from 'lucide-react';
+import glossaryData from '../../../data/glossary.json';
+
+const breadcrumbItems = [
+  { label: 'Bilgi Merkezi', href: '/bilgi-merkezi' },
+  { label: 'Terimler Sözlüğü' }
+];
+
+// Terimleri alfabetik sırala
+const sortedTerms = [...glossaryData.terms].sort((a, b) =>
+  a.term.localeCompare(b.term, 'tr')
+);
+
+// Alfabetik harfler
+const alphabet = [...new Set(sortedTerms.map(term => term.term.charAt(0).toUpperCase()))].sort((a, b) =>
+  a.localeCompare(b, 'tr')
+);
+
+// Terimleri harflere göre grupla
+const termsByLetter = alphabet.reduce((acc, letter) => {
+  acc[letter] = sortedTerms.filter(term => term.term.charAt(0).toUpperCase() === letter);
+  return acc;
+}, {} as Record<string, typeof sortedTerms>);
+---
+
+<BaseLayout
+  title="Jeneratör Terimler Sözlüğü - GenPowerLab"
+  description="Jeneratör ve enerji sektöründe kullanılan teknik terimlerin açıklamaları. A'dan Z'ye kapsamlı sözlük."
+>
+  <div class="container mx-auto px-4 lg:px-8 py-6">
+    <Breadcrumb items={breadcrumbItems} />
+
+    <!-- Compact Header with Search + Alphabet -->
+    <div class="bg-white rounded-xl border border-gray-200 p-4 mb-6 sticky top-16 lg:top-20 z-40 shadow-sm">
+      <div class="flex flex-col lg:flex-row lg:items-center gap-4">
+        <!-- Title + Search -->
+        <div class="flex flex-col sm:flex-row sm:items-center gap-4 flex-1">
+          <h1 class="text-xl font-bold text-gray-900 whitespace-nowrap">
+            Terimler <span class="text-blue-600">Sözlüğü</span>
+          </h1>
+          <div class="relative flex-1 max-w-md">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <input
+              type="text"
+              id="glossary-search"
+              placeholder="Terim ara..."
+              class="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none text-sm"
+            />
+          </div>
+        </div>
+
+        <!-- Alphabet Navigation -->
+        <div class="flex flex-wrap gap-1" id="alphabet-nav">
+          <button
+            data-letter="all"
+            class="w-7 h-7 rounded-md bg-blue-600 text-white font-medium text-xs hover:bg-blue-700 transition-colors flex items-center justify-center"
+            title="Tümü"
+          >
+            <Hash className="w-3 h-3" />
+          </button>
+          {alphabet.map((letter) => (
+            <button
+              data-letter={letter}
+              class="w-7 h-7 rounded-md bg-gray-100 text-gray-700 font-medium text-xs hover:bg-blue-100 hover:text-blue-700 transition-colors flex items-center justify-center"
+            >
+              {letter}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- Terms Grid -->
+    <div id="terms-container">
+      {alphabet.map((letter) => (
+        <div class="letter-group mb-8" data-letter={letter} id={`letter-${letter}`}>
+          <!-- Letter Header -->
+          <div class="flex items-center mb-4">
+            <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-lg flex items-center justify-center text-white font-bold text-lg mr-3">
+              {letter}
+            </div>
+            <div class="flex-1 h-px bg-gray-200"></div>
+            <span class="ml-3 text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
+              {termsByLetter[letter].length}
+            </span>
+          </div>
+
+          <!-- Terms Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {termsByLetter[letter].map((item) => (
+              <article
+                class="term-card bg-white rounded-lg border border-gray-200 p-4 hover:shadow-md hover:border-blue-200 transition-all duration-200"
+                data-term={item.term.toLowerCase()}
+                data-category={item.category}
+              >
+                <div class="flex items-start justify-between gap-2 mb-2">
+                  <h3 class="font-semibold text-gray-900 text-sm">{item.term}</h3>
+                  <span class="px-2 py-0.5 bg-blue-50 text-blue-600 rounded text-xs font-medium whitespace-nowrap">
+                    {item.category}
+                  </span>
+                </div>
+                <p class="text-gray-600 text-sm leading-relaxed">{item.definition}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      ))}
+
+      <!-- No Results -->
+      <div id="no-results" class="hidden text-center py-12">
+        <Search className="w-12 h-12 text-gray-300 mx-auto mb-3" />
+        <p class="text-gray-600">Sonuç bulunamadı. Farklı bir terim deneyin.</p>
+      </div>
+    </div>
+
+    <!-- Stats Footer -->
+    <div class="mt-8 pt-6 border-t border-gray-200 flex items-center justify-between text-sm text-gray-500">
+      <span><strong class="text-gray-900">{sortedTerms.length}</strong> terim</span>
+      <a href="/iletisim" class="text-blue-600 hover:text-blue-700 font-medium">
+        Terim öner →
+      </a>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('glossary-search') as HTMLInputElement;
+    const alphabetButtons = document.querySelectorAll('#alphabet-nav button');
+    const termCards = document.querySelectorAll('.term-card');
+    const letterGroups = document.querySelectorAll('.letter-group');
+    const noResults = document.getElementById('no-results');
+
+    let currentLetter = 'all';
+    let searchTerm = '';
+
+    function filterTerms() {
+      let visibleCount = 0;
+
+      letterGroups.forEach(group => {
+        const letter = group.getAttribute('data-letter');
+        let groupVisible = false;
+
+        const cards = group.querySelectorAll('.term-card');
+        cards.forEach(card => {
+          const term = card.getAttribute('data-term') || '';
+          const matchesLetter = currentLetter === 'all' || letter === currentLetter;
+          const matchesSearch = searchTerm === '' || term.includes(searchTerm.toLowerCase());
+
+          if (matchesLetter && matchesSearch) {
+            (card as HTMLElement).style.display = 'block';
+            groupVisible = true;
+            visibleCount++;
+          } else {
+            (card as HTMLElement).style.display = 'none';
+          }
+        });
+
+        (group as HTMLElement).style.display = groupVisible ? 'block' : 'none';
+      });
+
+      if (noResults) {
+        noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+      }
+    }
+
+    searchInput?.addEventListener('input', (e) => {
+      searchTerm = (e.target as HTMLInputElement).value;
+      filterTerms();
+    });
+
+    alphabetButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        currentLetter = button.getAttribute('data-letter') || 'all';
+
+        alphabetButtons.forEach(btn => {
+          btn.classList.remove('bg-blue-600', 'text-white');
+          btn.classList.add('bg-gray-100', 'text-gray-700');
+        });
+        button.classList.remove('bg-gray-100', 'text-gray-700');
+        button.classList.add('bg-blue-600', 'text-white');
+
+        filterTerms();
+
+        // Scroll to top of terms
+        document.getElementById('terms-container')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  });
+</script>
