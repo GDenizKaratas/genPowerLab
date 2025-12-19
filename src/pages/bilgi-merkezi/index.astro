@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumb from '../../components/ui/Breadcrumb.astro';
+import SupportCTA from '../../components/ui/SupportCTA.astro';
 import { getCollection } from 'astro:content';
 import { BookOpen, FileText, ArrowRight, Clock, BookMarked, Zap, Wrench } from 'lucide-react';
 
@@ -26,7 +27,7 @@ const difficultyStyles = {
   title="Bilgi Merkezi - GenPowerLab"
   description="Jeneratör ve enerji sistemleri hakkında kapsamlı teknik rehberler ve terimler sözlüğü."
 >
-  <div class="container mx-auto px-4 lg:px-8 py-6">
+  <div class="container mx-auto px-4 lg:px-1 py-6">
     <Breadcrumb items={breadcrumbItems} />
 
     <!-- Compact Header -->
@@ -179,4 +180,5 @@ const difficultyStyles = {
       </div>
     </section>
   </div>
+  <SupportCTA />
 </BaseLayout>

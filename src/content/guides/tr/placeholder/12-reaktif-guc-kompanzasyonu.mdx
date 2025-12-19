@@ -1,0 +1,162 @@
+---
+title: "Reaktif Güç Kompanzasyonu: Güç Faktörünü İyileştirme"
+description: "Jeneratör sistemlerinde kompanzasyon stratejileri, güç faktörü iyileştirme yöntemleri ve fatura optimizasyonu."
+pubDate: 2024-01-12
+readTime: "8 dk"
+category: "Güç Kalitesi & Kompanzasyon"
+difficulty: "Orta"
+lang: "tr"
+slug: "reaktif-guc-kompanzasyonu-guc-faktorunu-iyilestirme"
+tags:
+  - "reaktif güç"
+  - "güç faktörü"
+  - "kompanzasyon"
+  - "kondansatör bankı"
+  - "reaktif ceza"
+  - "güç kalitesi"
+---
+
+> Bu rehberde, reaktif güç kompanzasyonunu **saha mühendisi gözüyle**, _fatura etkisi_ ve _sistem sağlığı_ odaklı ele alacağız.
+
+---
+
+## 1. Reaktif Güç Nedir?
+
+Reaktif güç, manyetik alan oluşturan yüklerin (motorlar, transformatörler vb.) şebekeden çektiği ama **doğrudan işe dönüşmeyen** güç bileşenidir.  
+Güç üçgeniyle ifade edilir:
+
+- **Aktif güç (P)** – kW
+- **Reaktif güç (Q)** – kVAr
+- **Görünür güç (S)** – kVA
+
+<figure class="my-6">
+  <img
+    src="/images/guides/reaktif-guc-guc-ucgeni.png"
+    alt="Aktif, reaktif ve görünür gücün güç üçgeniyle gösterimi"
+  />
+  <figcaption class="mt-2 text-sm text-gray-500 text-center">
+    Şekil 1 – Aktif (P), reaktif (Q) ve görünür gücün (S) güç üçgeni
+  </figcaption>
+</figure>
+
+Güç faktörü (cos φ), aktif gücün görünür güce oranıdır ve genellikle **0,8 – 1,0** arasında tutulmak istenir.
+
+---
+
+## 2. Güç Faktörü Düşük Olduğunda Ne Olur?
+
+Güç faktörü düştükçe:
+
+- Aynı aktif güç için **daha yüksek akım** çekilir
+- Kablo, şalter, trafo ve jeneratörler daha çok zorlanır
+- Dağıtım şirketi **reaktif ceza faturası** kesebilir
+- Sistem verimliliği düşer
+
+<figure class="my-6">
+  <img
+    src="/images/guides/reaktif-ceza-ornek-fatura.png"
+    alt="Reaktif ceza içeren örnek elektrik faturası ekran görüntüsü"
+  />
+  <figcaption class="mt-2 text-sm text-gray-500 text-center">
+    Şekil 2 – Güç faktörü düşük olduğunda elektrik faturasındaki reaktif ceza
+    alanı
+  </figcaption>
+</figure>
+
+Basitçe: **cos φ düştükçe, aynı iş için daha fazla parasal bedel ödersiniz.**
+
+---
+
+## 3. Kompanzasyonun Temel Mantığı
+
+Amaç, endüktif yüklerin ürettiği reaktif gücü **kondansatörlerle dengelemek** ve güç faktörünü hedef aralığa (örneğin 0,95 ve üzeri) çekmektir.
+
+Başlıca yöntemler:
+
+- **Sabit kompanzasyon**
+  - Küçük motorlar, sabit yükler için
+- **Otomatik kompanzasyon panosu**
+  - Kademeli kondansatörler, reaktif röle ile kontrol
+- **Özel çözümler**
+  - Harmonik filtreli kompanzasyon
+  - Jeneratörle birlikte çalışan sistemlerde özel ayarlar
+
+---
+
+## 4. Örnek Kompanzasyon Panosu (Görsel)
+
+<figure class="my-6">
+  <img
+    src="/images/guides/kompanzasyon-panosu-ornek.png"
+    alt="Otomatik kompanzasyon panosu ve kademeli kondansatör yapısı"
+  />
+  <figcaption class="mt-2 text-sm text-gray-500 text-center">
+    Şekil 3 – Otomatik kompanzasyon panosu: reaktif röle ve kondansatör
+    kademeleri
+  </figcaption>
+</figure>
+
+Bu tip bir panoda:
+
+- Reaktif röle, anlık güç faktörünü ölçer
+- İhtiyaca göre kondansatör kademelerini devreye alır / çıkarır
+- Hedef cos φ değerini mümkün olduğunca sabit tutmaya çalışır
+
+---
+
+## 5. Jeneratörlü Sistemlerde Nelere Dikkat Etmeli?
+
+Jeneratör devreye girdiğinde:
+
+- Kondansatörlerin bir kısmı **devre dışı bırakılmalıdır**
+- Aşırı kompanzasyon, jeneratör regülatörünü zorlayabilir
+- Özellikle **senkron paralel çalışma** durumlarında kompanzasyon senaryosu yeniden tasarlanmalıdır
+
+> İpucu: Jeneratör için ayrı bir kompanzasyon senaryosu tanımlamak, arıza riskini ve reaktif ceza ihtimalini azaltır.
+
+---
+
+## 6. Örnek Uygulama: 250 kVA Jeneratörlü Bir Fabrika
+
+Aşağıdaki tablo, örnek bir fabrikanın kompanzasyon öncesi/sonrası özet değerlerini gösterir:
+
+| Parametre                | Kompanzasyon Öncesi | Kompanzasyon Sonrası |
+| ------------------------ | ------------------- | -------------------- |
+| Aktif Güç (kW)           | 160                 | 160                  |
+| Görünür Güç (kVA)        | 250                 | 180                  |
+| Güç Faktörü (cos φ)      | 0,64                | 0,89                 |
+| Reaktif Ceza Durumu      | Var                 | Yok                  |
+| Jeneratör Yüklenme Oranı | %100                | %72                  |
+
+Bu iyileştirme sayesinde:
+
+- Aynı üretim için **daha az kVA** kullanılıyor
+- Jeneratör daha güvenli bir çalışma bölgesine çekiliyor
+- Reaktif ceza ortadan kalkıyor
+
+---
+
+## 7. Saha İçin Pratik Kontrol Listesi
+
+- [ ] Elektrik faturalarında reaktif ceza var mı?
+- [ ] Güç faktörü aylık ortalamanız kaç?
+- [ ] Kompanzasyon panosu bakımı düzenli yapılıyor mu?
+- [ ] Jeneratör devreye girdiğinde kondansatör kademeleri için ayrı senaryo tanımlı mı?
+- [ ] Harmonik etkisi yüksek sürücüler / yükler için özel çözüm planlandı mı?
+
+---
+
+## Sık Sorulan Sorular
+
+### Kompanzasyon için hedef güç faktörü ne olmalı?
+
+Genelde **0,95 ve üzeri** hedeflenir. Bazı dağıtım şirketleri sözleşmelerde minimum değeri ayrıca belirtir.
+
+### Jeneratör devredeyken tüm kondansatörleri kapatmak şart mı?
+
+Her zaman değil, ama çoğu sahada **kademelerin bir kısmı devre dışı bırakılır** veya sadece şebeke beslemesi için tasarlanmış kompanzasyon panoları jeneratör devresinden ayrılır.
+
+### Harmonik varsa ne yapmak gerekir?
+
+- Standart kondansatör yerine **reaktörlü (detuned) kompanzasyon** tercih edilebilir
+- Özellikle büyük hız kontrol cihazları varsa harmonik analizine göre çözüm tasarlanmalıdır.

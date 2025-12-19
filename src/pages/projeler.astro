@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumb from '../components/ui/Breadcrumb.astro';
+import SupportCTA from '../components/ui/SupportCTA.astro';
 import { Building2, Factory, Home, Zap, ArrowRight, CheckCircle, Leaf } from 'lucide-react';
 
 const breadcrumbItems = [
@@ -81,8 +82,8 @@ const projects = [
 const stats = [
   { value: '150+', label: 'Proje' },
   { value: '50+', label: 'Müşteri' },
-  { value: '10+', label: 'Yıl' },
-  { value: '%98', label: 'Memnuniyet' },
+  { value: '10+', label: 'Yıllık Deneyim' },
+  // { value: '%98', label: 'Memnuniyet' },
 ];
 ---
 
@@ -90,7 +91,7 @@ const stats = [
   title="Projeler & Referanslar - GenPowerLab"
   description="Türkiye genelinde gerçekleştirdiğimiz jeneratör ve enerji projeleri."
 >
-  <div class="container mx-auto px-4 lg:px-8 py-6">
+  <div class="container mx-auto px-4 lg:px-1 py-6">
     <Breadcrumb items={breadcrumbItems} />
 
     <!-- Compact Header + Stats -->
@@ -176,27 +177,9 @@ const stats = [
       ))}
     </div>
 
-    <!-- CTA -->
-    <div class="bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl p-6 lg:p-8">
-      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-        <div class="text-white">
-          <h2 class="text-xl font-bold mb-2">Projeniz İçin Çözüm Arıyorsanız</h2>
-          <p class="text-blue-100 text-sm">
-            İhtiyacınıza özel jeneratör ve enerji çözümleri için bizimle iletişime geçin.
-          </p>
-        </div>
-        <div class="flex flex-col sm:flex-row gap-3">
-          <a
-            href="/iletisim"
-            class="inline-flex items-center justify-center px-6 py-3 bg-white text-blue-600 rounded-xl font-semibold text-sm hover:bg-gray-100 transition-colors"
-          >
-            Teklif Alın
-            <ArrowRight className="w-4 h-4 ml-2" />
-          </a>
-        </div>
-      </div>
-    </div>
+  
   </div>
+  <SupportCTA />
 </BaseLayout>
 
 <script>

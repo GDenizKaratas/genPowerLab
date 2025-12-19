@@ -37,9 +37,7 @@ const difficultyColors = {
   'İleri': 'bg-red-100 text-red-700',
 };
 
-const completedCount = playlistItems.filter(item => item.isCompleted).length;
 const totalCount = playlistItems.length;
-const progressPercent = totalCount > 0 ? (completedCount / totalCount) * 100 : 0;
 
 const currentIndex = playlistItems.findIndex(item => item.isCurrent);
 const previousItem = currentIndex > 0 ? playlistItems[currentIndex - 1] : null;
@@ -118,49 +116,44 @@ const breadcrumbItems = [
     </div>
   </div>
 
-  <div class="container mx-auto px-4 lg:px-8 py-6">
+  <div class="container px-6 py-3">
     <Breadcrumb items={breadcrumbItems} />
 
     <div class="flex gap-8">
-      <!-- Sidebar - Desktop Only -->
+          <!-- Sidebar - Desktop Only -->
       {playlistItems.length > 0 && (
         <aside class="hidden lg:block w-72 flex-shrink-0">
-          <div class="sticky top-24">
-            <!-- Playlist Header -->
-            <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+          <div class="flex flex-col gap-4">
+            <!-- Playlist Card (sticky) -->
+            <div class="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm sticky top-24 max-h-[calc(100vh-120px)] flex flex-col">
+              <!-- Playlist Header -->
               <div class="p-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white">
-                <h3 class="font-bold text-sm mb-2">{frontmatter.playlistTitle || 'Rehber Serisi'}</h3>
-                <div class="flex items-center justify-between text-xs text-blue-100">
-                  <span>{currentIndex + 1} / {totalCount} bölüm</span>
-                  <span>{Math.round(progressPercent)}% tamamlandı</span>
-                </div>
-                <div class="mt-2 w-full bg-blue-400/30 rounded-full h-1.5">
-                  <div
-                    class="bg-white h-full rounded-full transition-all duration-500"
-                    style={`width: ${progressPercent}%`}
-                  ></div>
-                </div>
+                <h3 class="font-bold text-sm mb-2">
+                  {frontmatter.playlistTitle || 'Rehber Serisi'}
+                </h3>
+                <p class="text-xs text-blue-100">
+                  Bölüm {currentIndex + 1} / {totalCount}
+                </p>
               </div>
 
-              <!-- Playlist Items -->
-              <div class="max-h-[60vh] overflow-y-auto">
+              <!-- Playlist Items (scroll area) -->
+              <div class="playlist-scroll flex-1 min-h-0 overflow-y-auto pr-1 pb-3">
                 {playlistItems.map((item, index) => (
                   <a
                     href={`/bilgi-merkezi/teknik-rehberler/${item.slug}`}
-                    class={`flex items-start gap-3 px-4 py-3 border-b border-gray-100 last:border-0 transition-colors ${
-                      item.isCurrent
-                        ? 'bg-blue-50'
-                        : 'hover:bg-gray-50'
+                    class={`flex items-center gap-3 px-4 py-3 border-b border-gray-100 last:border-0 transition-colors ${
+                      item.isCurrent ? 'bg-blue-50' : 'hover:bg-gray-50'
                     }`}
                   >
-                    <!-- Number/Status -->
-                    <div class={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5 ${
-                      item.isCurrent
-                        ? 'bg-blue-600 text-white'
-                        : item.isCompleted
-                        ? 'bg-green-500 text-white'
-                        : 'bg-gray-200 text-gray-500'
-                    }`}>
+                    <div
+                      class={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5 ${
+                        item.isCurrent
+                          ? 'bg-blue-600 text-white'
+                          : item.isCompleted
+                          ? 'bg-green-500 text-white'
+                          : 'bg-gray-200 text-gray-500'
+                      }`}
+                    >
                       {item.isCompleted && !item.isCurrent ? (
                         <CheckCircle className="w-3.5 h-3.5" />
                       ) : (
@@ -168,16 +161,16 @@ const breadcrumbItems = [
                       )}
                     </div>
 
-                    <!-- Title & Meta -->
                     <div class="flex-1 min-w-0">
-                      <p class={`text-sm leading-tight ${
-                        item.isCurrent
-                          ? 'font-semibold text-blue-700'
-                          : 'font-medium text-gray-700'
-                      }`}>
+                      <p
+                        class={`text-sm leading-snug ${
+                          item.isCurrent
+                            ? 'font-semibold text-blue-700'
+                            : 'font-medium text-gray-700'
+                        }`}
+                      >
                         {item.title}
                       </p>
-                      <p class="text-xs text-gray-400 mt-0.5">{item.readTime}</p>
                     </div>
 
                     {item.isCurrent && (
@@ -188,19 +181,41 @@ const breadcrumbItems = [
               </div>
             </div>
 
-            <!-- Help Card -->
-            <div class="mt-4 p-4 bg-gray-50 rounded-xl border border-gray-200">
-              <p class="text-xs text-gray-600 mb-3">Sorularınız mı var?</p>
+            {/* <!-- Help Card (normal, sticky değil) -->
+            <div class="p-4 rounded-xl border border-transparent bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg">
+              <p class="text-xs text-white/80 mb-3 uppercase tracking-[0.2em]">
+                Destek
+              </p>
+              <p class="text-sm font-semibold mb-4">
+                Jeneratör ve enerji projeleriniz için bize ulaşabilirsiniz.
+              </p>
               <a
                 href="/iletisim"
-                class="block text-center px-4 py-2 bg-white border border-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:border-blue-300 hover:text-blue-600 transition-colors"
+                class="block text-center px-4 py-2 bg-white text-blue-600 text-sm font-semibold rounded-lg hover:bg-blue-50 transition-colors"
+              >
+                İletişime Geçin
+              </a>
+            </div> */}
+          </div>
+            <!-- Help Card -->
+            <div class="mt-4 p-4 rounded-xl border border-transparent bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg">
+              <p class="text-xs text-white/80 mb-3 uppercase tracking-[0.2em]">Destek</p>
+              <p class="text-sm font-semibold mb-4">Jeneratör ve enerji projeleriniz için bize ulaşabilirsiniz.</p>
+              <a
+                href="/iletisim"
+                class="block text-center px-4 py-2 bg-white text-blue-600 text-sm font-semibold rounded-lg hover:bg-blue-50 transition-colors"
               >
                 İletişime Geçin
               </a>
             </div>
-          </div>
         </aside>
+
+       
       )}
+
+
+
+
 
       <!-- Main Content -->
       <article class="flex-1 min-w-0">
@@ -253,18 +268,22 @@ const breadcrumbItems = [
         </div>
 
         <!-- Navigation Footer -->
+        <div class="mt-8 text-sm text-gray-500">
+          Bölüm {currentIndex + 1} / {totalCount}
+        </div>
+
         {(previousItem || nextItem) && (
-          <nav class="mt-12 pt-6 border-t border-gray-200">
+          <nav class="mt-4 pt-6 border-t border-gray-200">
             <div class="grid grid-cols-2 gap-4">
               {previousItem ? (
                 <a
                   href={`/bilgi-merkezi/teknik-rehberler/${previousItem.slug}`}
-                  class="group flex items-center gap-3 p-4 bg-gray-50 rounded-xl hover:bg-blue-50 transition-colors"
+                  class="group flex items-center gap-3 p-4 bg-gray-100 rounded-xl hover:bg-gray-200 transition-colors"
                 >
-                  <ChevronLeft className="w-5 h-5 text-gray-400 group-hover:text-blue-600 flex-shrink-0" />
+                  <ChevronLeft className="w-5 h-5 text-gray-500 group-hover:text-gray-700 flex-shrink-0" />
                   <div class="min-w-0">
                     <p class="text-xs text-gray-500 mb-1">Önceki</p>
-                    <p class="text-sm font-medium text-gray-900 group-hover:text-blue-600 truncate">
+                    <p class="text-sm font-medium text-gray-900 truncate">
                       {previousItem.title}
                     </p>
                   </div>
@@ -276,10 +295,9 @@ const breadcrumbItems = [
               {nextItem ? (
                 <a
                   href={`/bilgi-merkezi/teknik-rehberler/${nextItem.slug}`}
-                  class="group flex items-center justify-end gap-3 p-4 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors"
-                >
+                  class="group flex items-center justify-end gap-3 p-4 bg-gray-300 text-gray-800 rounded-xl hover:bg-gray-300 transition-colors col-start-2">
                   <div class="min-w-0 text-right">
-                    <p class="text-xs text-blue-200 mb-1">Sonraki</p>
+                    <p class="text-xs text-gray-600 mb-1">Sonraki</p>
                     <p class="text-sm font-medium truncate">
                       {nextItem.title}
                     </p>
@@ -289,10 +307,10 @@ const breadcrumbItems = [
               ) : (
                 <a
                   href="/bilgi-merkezi/teknik-rehberler"
-                  class="group flex items-center justify-end gap-3 p-4 bg-green-600 text-white rounded-xl hover:bg-green-700 transition-colors col-start-2"
+                  class="group flex items-center justify-end gap-3 p-4 bg-gray-200 text-gray-800 rounded-xl hover:bg-gray-300 transition-colors col-start-2"
                 >
                   <div class="min-w-0 text-right">
-                    <p class="text-xs text-green-200 mb-1">Tamamlandı!</p>
+                    <p class="text-xs text-gray-500 mb-1">Tamamlandı</p>
                     <p class="text-sm font-medium">Tüm Rehberler</p>
                   </div>
                   <CheckCircle className="w-5 h-5 flex-shrink-0" />
@@ -333,6 +351,24 @@ const breadcrumbItems = [
     margin: 1.5rem 0;
   }
 
+  .playlist-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(148, 163, 184, 0.7) transparent;
+  }
+
+  .playlist-scroll::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .playlist-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .playlist-scroll::-webkit-scrollbar-thumb {
+    background-color: rgba(148, 163, 184, 0.7);
+    border-radius: 9999px;
+  }
+
   .prose th {
     background: #f9fafb;
     font-weight: 600;
@@ -344,16 +380,6 @@ const breadcrumbItems = [
     border-bottom: 1px solid #f3f4f6;
   }
 
-  /* Reading progress bar */
-  #reading-progress {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 3px;
-    background: linear-gradient(to right, #2563eb, #06b6d4);
-    z-index: 9999;
-    transition: width 0.1s ease-out;
-  }
 </style>
 
 <script>
@@ -376,42 +402,4 @@ const breadcrumbItems = [
   toggle?.addEventListener('click', openDrawer);
   overlay?.addEventListener('click', closeDrawer);
   closeBtn?.addEventListener('click', closeDrawer);
-
-  // Reading progress
-  let progressBar: HTMLElement | null = null;
-
-  function updateProgress() {
-    const article = document.querySelector('article');
-    if (!article) return;
-
-    const windowHeight = window.innerHeight;
-    const articleHeight = article.offsetHeight;
-    const articleTop = article.getBoundingClientRect().top + window.scrollY;
-    const scrollTop = window.scrollY;
-
-    const scrollProgress = Math.max(0, scrollTop - articleTop + windowHeight * 0.3);
-    const scrollableHeight = Math.max(0, articleHeight);
-    const scrollPercent = scrollableHeight > 0 ? (scrollProgress / scrollableHeight) * 100 : 0;
-
-    if (!progressBar) {
-      progressBar = document.createElement('div');
-      progressBar.id = 'reading-progress';
-      document.body.appendChild(progressBar);
-    }
-
-    progressBar.style.width = Math.min(Math.max(scrollPercent, 0), 100) + '%';
-  }
-
-  let ticking = false;
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      window.requestAnimationFrame(() => {
-        updateProgress();
-        ticking = false;
-      });
-      ticking = true;
-    }
-  });
-
-  updateProgress();
 </script>

@@ -5,9 +5,12 @@ export const languages = {
 
 export const messages = {
   tr: {
+    brand: {
+      tagline: "Jeneratör & enerji bilgi platformu",
+    },
     nav: {
       home: "Ana Sayfa",
-      knowledgeCenter: "İçeriklerimiz",
+      knowledgeCenter: "Bilgi Merkezi",
       technicalGuides: "Yazılar & Rehberler",
       glossary: "Terimler Sözlüğü",
       applications: "Uygulamalar",
@@ -22,9 +25,14 @@ export const messages = {
       quickLinks: "Hızlı Linkler",
       followUs: "Bizi Takip Edin",
       rights: "Tüm hakları saklıdır.",
+      privacy: "Gizlilik Politikası",
+      terms: "Kullanım Şartları",
     },
   },
   en: {
+    brand: {
+      tagline: "Generator & energy knowledge platform",
+    },
     nav: {
       home: "Home",
       knowledgeCenter: "Knowledge Center",
@@ -42,6 +50,8 @@ export const messages = {
       quickLinks: "Quick Links",
       followUs: "Follow Us",
       rights: "All rights reserved.",
+      privacy: "Privacy Policy",
+      terms: "Terms of Use",
     },
   },
 } as const;

@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumb from '../../../components/ui/Breadcrumb.astro';
-import { Search, Hash } from 'lucide-react';
+import SupportCTA from '../../../components/ui/SupportCTA.astro';
+import { Search, X, BookOpen, Tag, Hash } from 'lucide-react';
 import glossaryData from '../../../data/glossary.json';
 
 const breadcrumbItems = [
@@ -24,170 +25,770 @@ const termsByLetter = alphabet.reduce((acc, letter) => {
   acc[letter] = sortedTerms.filter(term => term.term.charAt(0).toUpperCase() === letter);
   return acc;
 }, {} as Record<string, typeof sortedTerms>);
+
+// İlk terim varsayılan olarak seçili
+const firstTerm = sortedTerms[0];
 ---
 
 <BaseLayout
   title="Jeneratör Terimler Sözlüğü - GenPowerLab"
   description="Jeneratör ve enerji sektöründe kullanılan teknik terimlerin açıklamaları. A'dan Z'ye kapsamlı sözlük."
 >
-  <div class="container mx-auto px-4 lg:px-8 py-6">
+  <div class="container mx-auto px-4 lg:px-1 py-6">
     <Breadcrumb items={breadcrumbItems} />
 
-    <!-- Compact Header with Search + Alphabet -->
-    <div class="bg-white rounded-xl border border-gray-200 p-4 mb-6 sticky top-16 lg:top-20 z-40 shadow-sm">
-      <div class="flex flex-col lg:flex-row lg:items-center gap-4">
-        <!-- Title + Search -->
-        <div class="flex flex-col sm:flex-row sm:items-center gap-4 flex-1">
-          <h1 class="text-xl font-bold text-gray-900 whitespace-nowrap">
-            Terimler <span class="text-blue-600">Sözlüğü</span>
-          </h1>
-          <div class="relative flex-1 max-w-md">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+    <!-- Main Content: 3 Column Layout -->
+    <div class="glossary-layout">
+
+      <!-- Sol: Harf Navigasyonu -->
+      <div class="alphabet-sidebar" id="alphabet-nav">
+        <button
+          class="alphabet-tab active"
+          data-letter="all"
+          title="Tümü"
+        >
+          <Hash className="w-3 h-3" />
+        </button>
+        {alphabet.map((letter) => (
+          <button
+            class="alphabet-tab"
+            data-letter={letter}
+            title={letter}
+          >
+            {letter}
+          </button>
+        ))}
+      </div>
+
+      <!-- Orta: Terimler Listesi -->
+      <div class="terms-list-panel">
+        <div class="terms-list-header" id="current-letter-display">
+          <span class="letter-badge">Tümü</span>
+          <div class="search-box">
+            <Search className="search-icon w-3.5 h-3.5" />
             <input
               type="text"
               id="glossary-search"
               placeholder="Terim ara..."
-              class="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none text-sm"
+              class="search-input"
             />
+            <button
+              type="button"
+              id="glossary-clear"
+              class="search-clear hidden"
+              aria-label="Aramayı temizle"
+            >
+              <X className="w-3 h-3" />
+            </button>
+          </div>
+          <span class="term-count">{sortedTerms.length} terim</span>
+        </div>
+        <div class="terms-list-container" id="terms-list">
+          {alphabet.map((letter) => (
+            <div class="letter-section" data-letter={letter}>
+              {termsByLetter[letter].map((item, index) => (
+                <button
+                  class={`term-item ${letter === alphabet[0] && index === 0 ? 'active' : ''}`}
+                  data-term={item.term}
+                  data-definition={item.definition}
+                  data-category={item.category}
+                  data-letter={letter}
+                  data-image={item.image || ''}
+                >
+                  <span class="term-name">{item.term}</span>
+                  <span class="term-category">{item.category}</span>
+                </button>
+              ))}
+            </div>
+          ))}
+          <!-- Arama sonucu yok -->
+          <div class="empty-list hidden" id="empty-list">
+            <Search className="w-12 h-12 text-gray-300 mx-auto mb-4" />
+            <p class="empty-title">Terim bulunamadı</p>
+            <p class="empty-desc">Farklı bir arama terimi deneyin</p>
           </div>
         </div>
-
-        <!-- Alphabet Navigation -->
-        <div class="flex flex-wrap gap-1" id="alphabet-nav">
-          <button
-            data-letter="all"
-            class="w-7 h-7 rounded-md bg-blue-600 text-white font-medium text-xs hover:bg-blue-700 transition-colors flex items-center justify-center"
-            title="Tümü"
-          >
-            <Hash className="w-3 h-3" />
-          </button>
-          {alphabet.map((letter) => (
-            <button
-              data-letter={letter}
-              class="w-7 h-7 rounded-md bg-gray-100 text-gray-700 font-medium text-xs hover:bg-blue-100 hover:text-blue-700 transition-colors flex items-center justify-center"
-            >
-              {letter}
-            </button>
-          ))}
-        </div>
       </div>
-    </div>
 
-    <!-- Terms Grid -->
-    <div id="terms-container">
-      {alphabet.map((letter) => (
-        <div class="letter-group mb-8" data-letter={letter} id={`letter-${letter}`}>
-          <!-- Letter Header -->
-          <div class="flex items-center mb-4">
-            <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-lg flex items-center justify-center text-white font-bold text-lg mr-3">
-              {letter}
-            </div>
-            <div class="flex-1 h-px bg-gray-200"></div>
-            <span class="ml-3 text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
-              {termsByLetter[letter].length}
+      <!-- Sağ Panel: Terim Detayı -->
+      <div class="term-detail-panel" id="term-detail">
+        <div class="term-detail-content">
+          <div class="term-detail-header">
+            <h2 class="term-detail-title" id="detail-title">{firstTerm.term}</h2>
+            <span class="term-detail-category" id="detail-category">
+              <Tag className="w-3.5 h-3.5" />
+              {firstTerm.category}
             </span>
           </div>
 
-          <!-- Terms Grid -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {termsByLetter[letter].map((item) => (
-              <article
-                class="term-card bg-white rounded-lg border border-gray-200 p-4 hover:shadow-md hover:border-blue-200 transition-all duration-200"
-                data-term={item.term.toLowerCase()}
-                data-category={item.category}
-              >
-                <div class="flex items-start justify-between gap-2 mb-2">
-                  <h3 class="font-semibold text-gray-900 text-sm">{item.term}</h3>
-                  <span class="px-2 py-0.5 bg-blue-50 text-blue-600 rounded text-xs font-medium whitespace-nowrap">
-                    {item.category}
-                  </span>
-                </div>
-                <p class="text-gray-600 text-sm leading-relaxed">{item.definition}</p>
-              </article>
-            ))}
+          <div class="term-detail-body">
+            <div class="term-illustration" id="detail-illustration">
+              {firstTerm.image ? (
+                <img
+                  src={firstTerm.image}
+                  alt={firstTerm.term}
+                  id="detail-image"
+                  class="term-image"
+                />
+              ) : (
+                <BookOpen className="w-12 h-12 text-blue-400" id="detail-placeholder" />
+              )}
+            </div>
+
+            <div class="term-definition">
+              <h3 class="definition-label">Tanım</h3>
+              <p class="definition-text" id="detail-definition">
+                {firstTerm.definition}
+              </p>
+            </div>
           </div>
         </div>
-      ))}
 
-      <!-- No Results -->
-      <div id="no-results" class="hidden text-center py-12">
-        <Search className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-        <p class="text-gray-600">Sonuç bulunamadı. Farklı bir terim deneyin.</p>
+       
       </div>
+
     </div>
 
     <!-- Stats Footer -->
-    <div class="mt-8 pt-6 border-t border-gray-200 flex items-center justify-between text-sm text-gray-500">
-      <span><strong class="text-gray-900">{sortedTerms.length}</strong> terim</span>
-      <a href="/iletisim" class="text-blue-600 hover:text-blue-700 font-medium">
-        Terim öner →
-      </a>
+    <div class="mt-8 flex items-center justify-between bg-gray-50 border border-gray-200 rounded-xl p-4 text-sm text-gray-600">
+      <span>Toplam <strong class="text-gray-900">{sortedTerms.length}</strong> terim</span>
+      <span class="text-gray-400">{alphabet.length} harf grubunda</span>
     </div>
   </div>
+
+  <SupportCTA />
 </BaseLayout>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('glossary-search') as HTMLInputElement;
-    const alphabetButtons = document.querySelectorAll('#alphabet-nav button');
-    const termCards = document.querySelectorAll('.term-card');
-    const letterGroups = document.querySelectorAll('.letter-group');
+    const clearButton = document.getElementById('glossary-clear');
+    const termItems = document.querySelectorAll('.term-item');
+    const letterSections = document.querySelectorAll('.letter-section');
+    const alphabetTabs = document.querySelectorAll('.alphabet-tab');
+    const currentLetterDisplay = document.getElementById('current-letter-display');
+
+    const detailTitle = document.getElementById('detail-title');
+    const detailCategory = document.getElementById('detail-category');
+    const detailDefinition = document.getElementById('detail-definition');
+    const detailIllustration = document.getElementById('detail-illustration');
+    const detailContent = document.querySelector('.term-detail-content') as HTMLElement;
     const noResults = document.getElementById('no-results');
+    const emptyList = document.getElementById('empty-list');
 
-    let currentLetter = 'all';
     let searchTerm = '';
+    let currentLetter = 'all';
 
-    function filterTerms() {
-      let visibleCount = 0;
+    // Terim seçme
+    function selectTerm(item: Element) {
+      termItems.forEach(t => t.classList.remove('active'));
+      item.classList.add('active');
 
-      letterGroups.forEach(group => {
-        const letter = group.getAttribute('data-letter');
-        let groupVisible = false;
+      const term = item.getAttribute('data-term') || '';
+      const definition = item.getAttribute('data-definition') || '';
+      const category = item.getAttribute('data-category') || '';
+      const image = item.getAttribute('data-image') || '';
 
-        const cards = group.querySelectorAll('.term-card');
-        cards.forEach(card => {
-          const term = card.getAttribute('data-term') || '';
-          const matchesLetter = currentLetter === 'all' || letter === currentLetter;
-          const matchesSearch = searchTerm === '' || term.includes(searchTerm.toLowerCase());
+      if (detailTitle) detailTitle.textContent = term;
+      if (detailDefinition) detailDefinition.textContent = definition;
+      if (detailCategory) {
+        const textNode = detailCategory.childNodes[detailCategory.childNodes.length - 1];
+        if (textNode.nodeType === Node.TEXT_NODE) {
+          textNode.textContent = ' ' + category;
+        } else {
+          detailCategory.innerHTML = detailCategory.innerHTML.replace(/(<\/svg>).*$/, '$1 ' + category);
+        }
+      }
 
-          if (matchesLetter && matchesSearch) {
-            (card as HTMLElement).style.display = 'block';
-            groupVisible = true;
-            visibleCount++;
-          } else {
-            (card as HTMLElement).style.display = 'none';
-          }
-        });
+      // Görsel güncelle
+      if (detailIllustration) {
+        if (image) {
+          detailIllustration.innerHTML = `<img src="${image}" alt="${term}" class="term-image" />`;
+        } else {
+          detailIllustration.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>`;
+        }
+      }
 
-        (group as HTMLElement).style.display = groupVisible ? 'block' : 'none';
+      if (detailContent) detailContent.classList.remove('hidden');
+      if (noResults) noResults.classList.add('hidden');
+    }
+
+    // Harf seçme - sadece o harfin terimlerini göster
+    function selectLetter(letter: string) {
+      currentLetter = letter;
+
+      // Tab aktifliğini güncelle
+      alphabetTabs.forEach(tab => {
+        const tabLetter = tab.getAttribute('data-letter');
+        tab.classList.toggle('active', tabLetter === letter);
       });
 
-      if (noResults) {
-        noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+      // Header'ı güncelle
+      if (currentLetterDisplay) {
+        const letterBadge = currentLetterDisplay.querySelector('.letter-badge');
+
+        if (letterBadge) {
+          letterBadge.textContent = letter === 'all' ? 'Tümü' : letter;
+        }
+      }
+
+      // Terimleri filtrele
+      filterTerms();
+
+      // İlk görünen terimi seç
+      const firstVisibleItem = document.querySelector('.term-item:not([style*="display: none"])') as HTMLElement;
+      if (firstVisibleItem) {
+        selectTerm(firstVisibleItem);
       }
     }
 
-    searchInput?.addEventListener('input', (e) => {
-      searchTerm = (e.target as HTMLInputElement).value;
-      filterTerms();
+    // Filtreleme - arama her zaman tüm terimlerde yapılır
+    function filterTerms() {
+      let visibleCount = 0;
+      const search = searchTerm.toLowerCase();
+
+      letterSections.forEach(section => {
+        const items = section.querySelectorAll('.term-item');
+        let sectionHasVisible = false;
+
+        items.forEach(item => {
+          const term = (item.getAttribute('data-term') || '').toLowerCase();
+          const category = (item.getAttribute('data-category') || '').toLowerCase();
+          const definition = (item.getAttribute('data-definition') || '').toLowerCase();
+          const itemLetter = item.getAttribute('data-letter');
+
+          // Arama her zaman tüm terimlerde yapılır
+          const matchesSearch = search === '' ||
+            term.includes(search) ||
+            category.includes(search) ||
+            definition.includes(search);
+
+          // Harf filtresi sadece arama yokken uygulanır
+          const matchesLetter = search !== '' || currentLetter === 'all' || itemLetter === currentLetter;
+
+          const isVisible = matchesSearch && matchesLetter;
+
+          (item as HTMLElement).style.display = isVisible ? 'flex' : 'none';
+          if (isVisible) {
+            sectionHasVisible = true;
+            visibleCount++;
+          }
+        });
+
+        (section as HTMLElement).style.display = sectionHasVisible ? 'block' : 'none';
+      });
+
+      // Term count güncelle
+      if (currentLetterDisplay) {
+        const termCount = currentLetterDisplay.querySelector('.term-count');
+        if (termCount) {
+          termCount.textContent = `${visibleCount} terim`;
+        }
+
+        // Arama varken badge'i güncelle
+        const letterBadge = currentLetterDisplay.querySelector('.letter-badge');
+        if (letterBadge) {
+          if (search !== '') {
+            letterBadge.textContent = 'Arama';
+          } else {
+            letterBadge.textContent = currentLetter === 'all' ? 'Tümü' : currentLetter;
+          }
+        }
+      }
+
+      // Sonuç yoksa
+      if (visibleCount === 0) {
+        if (emptyList) emptyList.classList.remove('hidden');
+        if (noResults) noResults.classList.remove('hidden');
+        if (detailContent) detailContent.classList.add('hidden');
+      } else {
+        if (emptyList) emptyList.classList.add('hidden');
+        if (noResults) noResults.classList.add('hidden');
+        if (detailContent) detailContent.classList.remove('hidden');
+
+        // Aktif terim gizliyse ilk görünen terimi seç
+        const activeItem = document.querySelector('.term-item.active') as HTMLElement;
+        if (activeItem && activeItem.style.display === 'none') {
+          const firstVisible = document.querySelector('.term-item:not([style*="display: none"])') as HTMLElement;
+          if (firstVisible) selectTerm(firstVisible);
+        }
+      }
+    }
+
+    // Clear butonu
+    function updateClearButton() {
+      if (clearButton) {
+        clearButton.classList.toggle('hidden', searchTerm.length === 0);
+      }
+    }
+
+    // Event listeners
+    termItems.forEach(item => {
+      item.addEventListener('click', () => selectTerm(item));
     });
 
-    alphabetButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        currentLetter = button.getAttribute('data-letter') || 'all';
-
-        alphabetButtons.forEach(btn => {
-          btn.classList.remove('bg-blue-600', 'text-white');
-          btn.classList.add('bg-gray-100', 'text-gray-700');
-        });
-        button.classList.remove('bg-gray-100', 'text-gray-700');
-        button.classList.add('bg-blue-600', 'text-white');
-
-        filterTerms();
-
-        // Scroll to top of terms
-        document.getElementById('terms-container')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    alphabetTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const letter = tab.getAttribute('data-letter');
+        if (letter) {
+          // Arama varsa temizle
+          if (searchTerm !== '') {
+            searchInput.value = '';
+            searchTerm = '';
+            updateClearButton();
+          }
+          selectLetter(letter);
+        }
       });
     });
+
+    searchInput?.addEventListener('input', (e) => {
+      searchTerm = (e.target as HTMLInputElement).value;
+      updateClearButton();
+      filterTerms();
+
+      // Arama sonucu varsa ilk terimi seç
+      if (searchTerm !== '') {
+        const firstVisible = document.querySelector('.term-item:not([style*="display: none"])') as HTMLElement;
+        if (firstVisible) selectTerm(firstVisible);
+      }
+    });
+
+    clearButton?.addEventListener('click', () => {
+      searchInput.value = '';
+      searchTerm = '';
+      updateClearButton();
+      filterTerms();
+      searchInput.focus();
+    });
+
+    // İlk terimi seç
+    const firstItem = document.querySelector('.term-item');
+    if (firstItem) selectTerm(firstItem);
   });
 </script>
+
+<style>
+  /* Ana Layout */
+  .glossary-layout {
+    display: grid;
+    grid-template-columns: auto 1fr 1fr;
+    gap: 0;
+    height: calc(100vh - 220px);
+    min-height: 500px;
+    max-height: 700px;
+  }
+
+  /* Harf Sidebar */
+  .alphabet-sidebar {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(180deg, #1e40af 0%, #1e3a8a 100%);
+    border-radius: 1rem 0 0 1rem;
+    overflow-y: auto;
+    padding: 0.25rem;
+    gap: 0;
+  }
+
+  .alphabet-tab {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2rem;
+    border: none;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 600;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .alphabet-tab:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .alphabet-tab.active {
+    color: #1e40af;
+    background: white;
+    font-weight: 700;
+    border-radius: 0.5rem 0 0 0.5rem;
+    width: 3rem;
+    margin-right: -0.5rem;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+  }
+
+  .alphabet-tab.active::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: #2563eb;
+    border-radius: 3px 0 0 3px;
+  }
+
+  /* Orta Panel - Terimler Listesi */
+  .terms-list-panel {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-left: none;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .terms-list-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid #e5e7eb;
+    background: #f8fafc;
+  }
+
+  .letter-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2rem;
+    height: 2rem;
+    padding: 0 0.75rem;
+    background: linear-gradient(135deg, #2563eb, #0891b2);
+    color: white;
+    font-weight: 700;
+    font-size: 0.875rem;
+    border-radius: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  /* Search Box */
+  .search-box {
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 0.625rem;
+    color: #94a3b8;
+    pointer-events: none;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 0.5rem 2rem 0.5rem 2rem;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    color: #1f2937;
+    font-size: 0.8125rem;
+    outline: none;
+    transition: all 0.15s ease;
+  }
+
+  .search-input::placeholder {
+    color: #94a3b8;
+  }
+
+  .search-input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+  }
+
+  .search-clear {
+    position: absolute;
+    right: 0.375rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    border: none;
+    background: #e2e8f0;
+    color: #64748b;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .search-clear:hover {
+    background: #cbd5e1;
+    color: #334155;
+  }
+
+  .term-count {
+    font-size: 0.75rem;
+    color: #64748b;
+    font-weight: 500;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  .terms-list-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.5rem;
+  }
+
+  .empty-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    text-align: center;
+  }
+
+  .empty-list.hidden {
+    display: none;
+  }
+
+  .empty-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #64748b;
+    margin: 0 0 0.25rem 0;
+  }
+
+  .empty-desc {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    margin: 0;
+  }
+
+  .letter-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .term-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    padding: 0.625rem 0.75rem;
+    border: none;
+    background: transparent;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.15s ease;
+  }
+
+  .term-item:hover {
+    background: #f1f5f9;
+  }
+
+  .term-item.active {
+    background: #eff6ff;
+    border-left: 3px solid #2563eb;
+  }
+
+  .term-name {
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: #1f2937;
+    line-height: 1.3;
+  }
+
+  .term-category {
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-top: 0.125rem;
+  }
+
+  /* Sağ Panel - Detay */
+  .term-detail-panel {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-left: none;
+    border-radius: 0 1rem 1rem 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .term-detail-content {
+    padding: 1.5rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .term-detail-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .term-detail-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 0.5rem 0;
+    line-height: 1.2;
+  }
+
+  .term-detail-category {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.375rem 0.75rem;
+    background: #eff6ff;
+    color: #1d4ed8;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .term-detail-body {
+    flex: 1;
+  }
+
+  .term-illustration {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 180px;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border-radius: 1rem;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+  }
+
+  .term-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .term-definition {
+    background: #f9fafb;
+    border-radius: 0.75rem;
+    padding: 1rem;
+  }
+
+  .definition-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .definition-text {
+    font-size: 0.9375rem;
+    color: #374151;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .term-detail-no-results {
+    padding: 3rem 1.5rem;
+    text-align: center;
+  }
+
+  /* Scrollbar Styling */
+  .terms-list-container::-webkit-scrollbar,
+  .alphabet-sidebar::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .terms-list-container::-webkit-scrollbar-track {
+    background: #f1f5f9;
+  }
+
+  .terms-list-container::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 2px;
+  }
+
+  .alphabet-sidebar::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .alphabet-sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+  }
+
+  /* Mobile Responsive */
+  @media (max-width: 1024px) {
+    .glossary-layout {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto 1fr;
+      height: auto;
+      max-height: none;
+      gap: 0;
+    }
+
+    .alphabet-sidebar {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      border-radius: 1rem 1rem 0 0;
+      padding: 0.5rem;
+      gap: 0.25rem;
+    }
+
+    .alphabet-tab {
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: 0.5rem;
+    }
+
+    .alphabet-tab.active {
+      width: 2.25rem;
+      margin-right: 0;
+      border-radius: 0.5rem;
+    }
+
+    .alphabet-tab.active::after {
+      display: none;
+    }
+
+    .terms-list-panel {
+      border-left: 1px solid #e5e7eb;
+      border-radius: 0;
+      max-height: 250px;
+    }
+
+    .term-detail-panel {
+      border-left: 1px solid #e5e7eb;
+      border-radius: 0 0 1rem 1rem;
+      min-height: 280px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .alphabet-tab {
+      width: 2rem;
+      height: 2rem;
+      font-size: 0.7rem;
+    }
+
+    .term-detail-title {
+      font-size: 1.25rem;
+    }
+
+    .term-illustration {
+      height: 80px;
+    }
+
+    .letter-badge {
+      min-width: 1.75rem;
+      height: 1.75rem;
+      font-size: 0.75rem;
+    }
+  }
+</style>

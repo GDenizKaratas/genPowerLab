@@ -231,31 +231,6 @@ a:focus {
   outline-offset: 2px;
 }
 
-/* Improved Form Elements */
-input,
-textarea,
-select {
-  font-size: var(--text-base);
-  font-family: inherit;
-  border: 1px solid rgb(var(--gray-light));
-  border-radius: 6px;
-  padding: 0.75rem 1rem;
-  transition: all 0.2s ease-in-out;
-}
-
-input:focus,
-textarea:focus,
-select:focus {
-  outline: none;
-  border-color: var(--primary-light);
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-}
-
-textarea {
-  resize: vertical;
-  min-height: 120px;
-}
-
 /* Improved Tables */
 table {
   width: 100%;

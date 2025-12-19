@@ -19,12 +19,13 @@ const navigation = [
     dropdown: [
       { href: `${prefix}/uygulamalar/jenerator-secim`, label: t('nav.generatorSelector') },
       { href: `${prefix}/uygulamalar/bakim-asistan`, label: t('nav.maintenanceAssistant') },
-    ]
+    ],
+    highlight: true,
   },
   {
     label: t('nav.knowledgeCenter'),
+    href: `${prefix}/bilgi-merkezi`,
     dropdown: [
-      { href: `${prefix}/bilgi-merkezi`, label: 'Bilgi Merkezi' },
       { href: `${prefix}/bilgi-merkezi/teknik-rehberler`, label: t('nav.technicalGuides') },
       { href: `${prefix}/bilgi-merkezi/terimler-sozlugu`, label: t('nav.glossary') },
     ]
@@ -53,23 +54,31 @@ const dropdownDelay = 'group-hover:delay-300';
 
 <header class="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
   <nav class="container-custom" aria-label="Ana navigasyon">
-    <div class="flex items-center justify-between h-16 lg:h-20">
+    <div class="flex items-center justify-between h-16 lg:h-20 pl-2">
       <!-- Logo -->
+       <!-- Logo (ikon + metin, kompakt) -->
       <a
         href={`${prefix}/`}
-        class="flex items-center space-x-3 group flex-shrink-0 max-h-20 overflow-hidden"
-        aria-label="Generator Power Lab - Ana sayfa"
+        class="flex items-center gap-3 flex-shrink-0"
+        aria-label="GenPowerLab - Ana sayfa"
       >
-        <img
-          src="/images/genPowerLab-logo.png"
-          alt="GenPL - Generator Power Lab"
-          class="h-6 sm:h-7 lg:h-8 w-auto object-contain drop-shadow-sm"
-          style="max-height: 202px;"
-          loading="lazy"
-        />
-        <span class="text-lg lg:text-xl font-bold text-gray-900 hidden sm:block tracking-tight">
-          <!-- Generator Power Lab -->
-        </span>
+        <div class="w-10 h-10 lg:w-11 lg:h-11 rounded-xl bg-slate-900/90  flex items-center justify-center overflow-hidden">
+          <img
+            src="/images/genPowerLab.png"
+            alt="GenPL logo"
+            class="w-full h-full scale-400 bg-white  object-cover"
+            loading="lazy"
+          />
+        </div>
+
+        <div class="sm:flex flex-col leading-tight">
+          <span class="text-base lg:text-lg font-semibold text-gray-900 tracking-tight">
+            GenPowerLab
+          </span>
+          <span class="hidden sm:flex text-[0.65rem] lg:text-[0.7rem] font-medium text-gray-500 uppercase tracking-[0.22em]">
+            {t('brand.tagline')}
+          </span>
+        </div>
       </a>
 
       <!-- MENUUYU SAĞA ALMAK İÇİN CONTAINER -->
@@ -80,15 +89,32 @@ const dropdownDelay = 'group-hover:delay-300';
           {navigation.map((item) => (
             item.dropdown ? (
               <div class="relative group">
-                <button
-                  class="flex items-center space-x-1 px-4 py-2 rounded-lg font-medium text-gray-700 hover:text-blue-700 hover:bg-gray-50 transition-all duration-200 border border-transparent hover:border-gray-200"
-                  type="button"
-                >
-                  <span>{item.label}</span>
-                  <ChevronDown className="w-4 h-4 transition-transform duration-200 group-hover:rotate-180" />
-                </button>
+                {item.href ? (
+                  <a
+                    href={item.href}
+                    class={`flex items-center space-x-1 px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
+                      item.highlight
+                        ? 'text-white bg-gradient-to-r from-blue-600 to-indigo-600 shadow-sm hover:shadow-lg rounded-xl font-semibold'
+                        : 'text-gray-700 hover:text-blue-700 hover:bg-gray-50 border border-transparent hover:border-gray-200'
+                    }`}
+                  >
+                    <span>{item.label}</span>
+                    <ChevronDown className="w-4 h-4 transition-transform duration-200 group-hover:rotate-180" />
+                  </a>
+                ) : (
+                  <button
+                    class={`flex items-center space-x-1 px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
+                      item.highlight
+                        ? 'text-white bg-gradient-to-r from-blue-600 to-indigo-600 shadow-sm hover:shadow-lg rounded-xl font-semibold'
+                        : 'text-gray-700 hover:text-blue-700 hover:bg-gray-50 border border-transparent hover:border-gray-200'
+                    }`}
+                    type="button"
+                  >
+                    <span>{item.label}</span>
+                    <ChevronDown className="w-4 h-4 transition-transform duration-200 group-hover:rotate-180" />
+                  </button>
+                )}
 
-                <!-- Dropdown with delay and better positioning -->
                 <div
                   class={`absolute left-1/2 transform -translate-x-1/2 mt-2 min-w-64 bg-white rounded-xl shadow-2xl py-3 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 border border-gray-200 ${dropdownDelay}`}
                 >
@@ -193,15 +219,32 @@ const dropdownDelay = 'group-hover:delay-300';
       <nav class="space-y-2">
         {navigation.map((item, index) => (
           item.dropdown ? (
-            <div class="mobile-dropdown">
-              <button
-                class="mobile-dropdown-trigger w-full flex items-center justify-between px-4 py-3 rounded-xl font-medium text-gray-700 hover:bg-gray-50 transition-colors"
-                type="button"
-                data-dropdown={index}
-              >
-                <span>{item.label}</span>
-                <ChevronRight className="w-5 h-5 text-gray-400 transition-transform duration-200" />
-              </button>
+            <div class="mobile-dropdown space-y-1">
+              <div class="flex items-center justify-between">
+                {item.href ? (
+                  <a
+                    href={item.href}
+                    class={`flex-1 px-4 py-3 rounded-xl font-semibold ${
+                      item.highlight ? 'text-blue-700' : 'text-gray-800'
+                    }`}
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <span class="flex-1 px-4 py-3 rounded-xl font-semibold text-gray-800">
+                    {item.label}
+                  </span>
+                )}
+                <button
+                  class={`mobile-dropdown-trigger p-2 mr-2 rounded-xl border ${
+                    item.highlight ? 'text-blue-700 bg-blue-50 border-blue-100' : 'text-gray-700 border-transparent hover:bg-gray-50'
+                  }`}
+                  type="button"
+                  data-dropdown={index}
+                >
+                  <ChevronRight className="w-5 h-5 text-gray-400 transition-transform duration-200" />
+                </button>
+              </div>
               <div class="mobile-dropdown-content hidden pl-4 space-y-1 mt-1">
                 {item.dropdown.map((subItem) => (
                   <a
