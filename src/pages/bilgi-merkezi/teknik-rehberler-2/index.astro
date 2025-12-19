@@ -1,0 +1,775 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/ui/Breadcrumb.astro';
+import SupportCTA from '../../../components/ui/SupportCTA.astro';
+import { getCollection } from 'astro:content';
+import { BookOpen, Clock, ArrowRight, Search, X, Filter, ChevronRight } from 'lucide-react';
+
+const breadcrumbItems = [
+  { label: 'Bilgi Merkezi', href: '/bilgi-merkezi' },
+  { label: 'Teknik Rehberler' }
+];
+
+const guides = await getCollection('guides');
+const trGuides = guides.filter(guide => guide.data.lang === 'tr');
+
+const sortedGuides = trGuides.sort((a, b) =>
+  new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
+);
+
+const difficulties = ['Başlangıç', 'Orta', 'İleri'];
+const difficultyStyles = {
+  'Başlangıç': { bg: 'bg-emerald-50', text: 'text-emerald-700', dot: 'bg-emerald-500' },
+  'Orta': { bg: 'bg-amber-50', text: 'text-amber-700', dot: 'bg-amber-500' },
+  'İleri': { bg: 'bg-rose-50', text: 'text-rose-700', dot: 'bg-rose-500' }
+};
+
+const categories = Array.from(
+  new Set(
+    sortedGuides
+      .map((guide) => guide.data.category)
+      .filter((cat): cat is string => Boolean(cat)),
+  ),
+).sort();
+---
+
+<BaseLayout
+  title="Teknik Rehberler - GenPowerLab"
+  description="Jeneratörler hakkında kapsamlı teknik rehberler ve yazılar."
+>
+  <div class="container mx-auto px-4 lg:px-1 py-6">
+    <Breadcrumb items={breadcrumbItems} />
+
+    <!-- Main Layout -->
+    <div class="guides-layout">
+
+      <!-- Sol Panel: Filtreler -->
+      <aside class="filters-sidebar">
+        <div class="filters-header">
+          <Filter className="w-4 h-4" />
+          <span>Filtrele</span>
+        </div>
+
+        <!-- Seviye Filtreleri -->
+        <div class="filter-group">
+          <h3 class="filter-title">Seviye</h3>
+          <div class="filter-options">
+            <label class="filter-option">
+              <input type="radio" name="difficulty" value="all" checked />
+              <span class="filter-label">Tümü</span>
+              <span class="filter-count">{sortedGuides.length}</span>
+            </label>
+            {difficulties.map((diff) => {
+              const count = sortedGuides.filter(g => g.data.difficulty === diff).length;
+              const style = difficultyStyles[diff as keyof typeof difficultyStyles];
+              return (
+                <label class="filter-option">
+                  <input type="radio" name="difficulty" value={diff} />
+                  <span class={`filter-dot ${style.dot}`}></span>
+                  <span class="filter-label">{diff}</span>
+                  <span class="filter-count">{count}</span>
+                </label>
+              );
+            })}
+          </div>
+        </div>
+
+        <!-- Kategori Filtreleri -->
+        <div class="filter-group">
+          <h3 class="filter-title">Kategori</h3>
+          <div class="filter-options">
+            <label class="filter-option">
+              <input type="radio" name="category" value="all" checked />
+              <span class="filter-label">Tümü</span>
+              <span class="filter-count">{sortedGuides.length}</span>
+            </label>
+            {categories.map((cat) => {
+              const count = sortedGuides.filter(g => g.data.category === cat).length;
+              return (
+                <label class="filter-option">
+                  <input type="radio" name="category" value={cat} />
+                  <span class="filter-label">{cat}</span>
+                  <span class="filter-count">{count}</span>
+                </label>
+              );
+            })}
+          </div>
+        </div>
+
+        <!-- Filtre Temizle -->
+        <button id="clear-filters" class="clear-filters-btn hidden">
+          <X className="w-3.5 h-3.5" />
+          Filtreleri Temizle
+        </button>
+      </aside>
+
+      <!-- Sağ Panel: Liste -->
+      <main class="guides-main">
+        <!-- Arama ve Bilgi Çubuğu -->
+        <div class="list-header">
+          <div class="search-box">
+            <Search className="search-icon w-4 h-4" />
+            <input
+              type="text"
+              id="guide-search"
+              placeholder="Rehber ara..."
+              class="search-input"
+            />
+            <button
+              type="button"
+              id="guide-clear"
+              class="search-clear hidden"
+              aria-label="Aramayı temizle"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          </div>
+          <div class="list-info">
+            <span class="result-count"><strong id="results-count">{sortedGuides.length}</strong> rehber</span>
+          </div>
+        </div>
+
+        <!-- Rehber Listesi -->
+        <div class="guides-list" id="guides-list">
+          {sortedGuides.length > 0 ? (
+            sortedGuides.map((guide) => {
+              const slug = guide.id.replace(/\.(md|mdx)$/, '');
+              const diffStyle = guide.data.difficulty
+                ? difficultyStyles[guide.data.difficulty as keyof typeof difficultyStyles]
+                : null;
+
+              return (
+                <a
+                  href={`/bilgi-merkezi/teknik-rehberler/${slug}`}
+                  class="guide-item"
+                  data-difficulty={guide.data.difficulty || ''}
+                  data-category={guide.data.category || ''}
+                  data-title={guide.data.title.toLowerCase()}
+                >
+                  <!-- İkon/Thumbnail Alanı -->
+                  <div class="guide-icon">
+                    <BookOpen className="w-5 h-5 text-blue-500" />
+                  </div>
+
+                  <!-- İçerik -->
+                  <div class="guide-content">
+                    <h2 class="guide-title">{guide.data.title}</h2>
+                    <p class="guide-description">{guide.data.description}</p>
+                  </div>
+
+                  <!-- Meta Bilgiler -->
+                  <div class="guide-meta">
+                    {diffStyle && (
+                      <span class={`difficulty-badge ${diffStyle.bg} ${diffStyle.text}`}>
+                        <span class={`difficulty-dot ${diffStyle.dot}`}></span>
+                        {guide.data.difficulty}
+                      </span>
+                    )}
+                    {guide.data.category && (
+                      <span class="category-badge">
+                        {guide.data.category}
+                      </span>
+                    )}
+                    <span class="read-time">
+                      <Clock className="w-3.5 h-3.5" />
+                      {guide.data.readTime || '5 dk'}
+                    </span>
+                  </div>
+
+                  <!-- Ok İkonu -->
+                  <div class="guide-arrow">
+                    <ChevronRight className="w-5 h-5" />
+                  </div>
+                </a>
+              );
+            })
+          ) : (
+            <div class="empty-state">
+              <BookOpen className="w-12 h-12 text-gray-300" />
+              <p>Henüz rehber eklenmemiş.</p>
+            </div>
+          )}
+        </div>
+
+        <!-- Sonuç Yok -->
+        <div id="no-results" class="no-results hidden">
+          <Search className="w-10 h-10 text-gray-300" />
+          <p class="no-results-title">Sonuç bulunamadı</p>
+          <p class="no-results-desc">Farklı bir arama terimi veya filtre deneyin.</p>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <SupportCTA />
+</BaseLayout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('guide-search') as HTMLInputElement;
+    const difficultyRadios = document.querySelectorAll('input[name="difficulty"]');
+    const categoryRadios = document.querySelectorAll('input[name="category"]');
+    const guideItems = document.querySelectorAll('.guide-item');
+    const noResults = document.getElementById('no-results');
+    const resultsCount = document.getElementById('results-count');
+    const clearButton = document.getElementById('guide-clear');
+    const clearFiltersBtn = document.getElementById('clear-filters');
+    const guidesList = document.getElementById('guides-list');
+
+    let currentDifficulty = 'all';
+    let currentCategory = 'all';
+    let searchTerm = '';
+
+    function filterGuides() {
+      let visibleCount = 0;
+
+      guideItems.forEach(item => {
+        const difficulty = item.getAttribute('data-difficulty') || '';
+        const category = item.getAttribute('data-category') || '';
+        const title = item.getAttribute('data-title') || '';
+
+        const matchesDifficulty = currentDifficulty === 'all' || difficulty === currentDifficulty;
+        const matchesCategory = currentCategory === 'all' || category === currentCategory;
+        const matchesSearch = searchTerm === '' || title.includes(searchTerm.toLowerCase());
+
+        if (matchesDifficulty && matchesCategory && matchesSearch) {
+          (item as HTMLElement).style.display = 'flex';
+          visibleCount++;
+        } else {
+          (item as HTMLElement).style.display = 'none';
+        }
+      });
+
+      if (resultsCount) resultsCount.textContent = visibleCount.toString();
+
+      if (noResults && guidesList) {
+        if (visibleCount === 0) {
+          noResults.classList.remove('hidden');
+          guidesList.style.display = 'none';
+        } else {
+          noResults.classList.add('hidden');
+          guidesList.style.display = 'flex';
+        }
+      }
+
+      // Filtre temizle butonunu göster/gizle
+      if (clearFiltersBtn) {
+        const hasActiveFilters = currentDifficulty !== 'all' || currentCategory !== 'all' || searchTerm !== '';
+        clearFiltersBtn.classList.toggle('hidden', !hasActiveFilters);
+      }
+    }
+
+    function updateClearButton() {
+      if (clearButton) {
+        clearButton.classList.toggle('hidden', searchTerm.length === 0);
+      }
+    }
+
+    searchInput?.addEventListener('input', (e) => {
+      searchTerm = (e.target as HTMLInputElement).value;
+      updateClearButton();
+      filterGuides();
+    });
+
+    difficultyRadios.forEach(radio => {
+      radio.addEventListener('change', (e) => {
+        currentDifficulty = (e.target as HTMLInputElement).value;
+        filterGuides();
+      });
+    });
+
+    categoryRadios.forEach(radio => {
+      radio.addEventListener('change', (e) => {
+        currentCategory = (e.target as HTMLInputElement).value;
+        filterGuides();
+      });
+    });
+
+    clearButton?.addEventListener('click', () => {
+      searchInput.value = '';
+      searchTerm = '';
+      updateClearButton();
+      filterGuides();
+      searchInput.focus();
+    });
+
+    clearFiltersBtn?.addEventListener('click', () => {
+      // Tüm filtreleri sıfırla
+      searchInput.value = '';
+      searchTerm = '';
+      currentDifficulty = 'all';
+      currentCategory = 'all';
+
+      // Radio butonları sıfırla
+      const allDifficultyRadio = document.querySelector('input[name="difficulty"][value="all"]') as HTMLInputElement;
+      const allCategoryRadio = document.querySelector('input[name="category"][value="all"]') as HTMLInputElement;
+      if (allDifficultyRadio) allDifficultyRadio.checked = true;
+      if (allCategoryRadio) allCategoryRadio.checked = true;
+
+      updateClearButton();
+      filterGuides();
+    });
+
+    updateClearButton();
+  });
+</script>
+
+<style>
+  /* Ana Layout */
+  .guides-layout {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 1.5rem;
+    min-height: calc(100vh - 280px);
+  }
+
+  /* Sol Sidebar - Filtreler */
+  .filters-sidebar {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 1rem;
+    padding: 1rem;
+    height: fit-content;
+    position: sticky;
+    top: 1.5rem;
+  }
+
+  .filters-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: #374151;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #e5e7eb;
+    margin-bottom: 1rem;
+  }
+
+  .filter-group {
+    margin-bottom: 1.25rem;
+  }
+
+  .filter-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 0.625rem 0;
+  }
+
+  .filter-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .filter-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.625rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background 0.15s ease;
+    font-size: 0.8125rem;
+  }
+
+  .filter-option:hover {
+    background: #f3f4f6;
+  }
+
+  .filter-option:has(input:checked) {
+    background: #eff6ff;
+  }
+
+  .filter-option input {
+    display: none;
+  }
+
+  .filter-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .filter-label {
+    flex: 1;
+    color: #374151;
+  }
+
+  .filter-count {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    background: #f3f4f6;
+    padding: 0.125rem 0.5rem;
+    border-radius: 9999px;
+  }
+
+  .clear-filters-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    width: 100%;
+    padding: 0.625rem;
+    background: #fef2f2;
+    color: #dc2626;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+
+  .clear-filters-btn:hover {
+    background: #fee2e2;
+  }
+
+  .clear-filters-btn.hidden {
+    display: none;
+  }
+
+  /* Sağ Ana Panel */
+  .guides-main {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .list-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    background: white;
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    border: 1px solid #e5e7eb;
+  }
+
+  .search-box {
+    position: relative;
+    flex: 1;
+    max-width: 320px;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9ca3af;
+    pointer-events: none;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 0.625rem 2.25rem 0.625rem 2.25rem;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    color: #1f2937;
+    outline: none;
+    transition: all 0.15s ease;
+  }
+
+  .search-input::placeholder {
+    color: #9ca3af;
+  }
+
+  .search-input:focus {
+    background: white;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+
+  .search-clear {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: #e5e7eb;
+    border: none;
+    border-radius: 50%;
+    color: #6b7280;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .search-clear:hover {
+    background: #d1d5db;
+    color: #374151;
+  }
+
+  .search-clear.hidden {
+    display: none;
+  }
+
+  .list-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: auto;
+  }
+
+  .result-count {
+    font-size: 0.875rem;
+    color: #6b7280;
+  }
+
+  .result-count strong {
+    color: #111827;
+  }
+
+  /* Rehber Listesi */
+  .guides-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .guide-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .guide-item:hover {
+    border-color: #3b82f6;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
+    transform: translateX(4px);
+  }
+
+  .guide-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: 0.625rem;
+    flex-shrink: 0;
+  }
+
+  .guide-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .guide-title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: #111827;
+    margin: 0 0 0.25rem 0;
+    line-height: 1.3;
+  }
+
+  .guide-description {
+    font-size: 0.8125rem;
+    color: #6b7280;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .guide-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .difficulty-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.25rem 0.625rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .difficulty-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+
+  .category-badge {
+    display: inline-flex;
+    padding: 0.25rem 0.625rem;
+    background: #f3f4f6;
+    color: #4b5563;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .read-time {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: #9ca3af;
+    font-size: 0.75rem;
+  }
+
+  .guide-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #d1d5db;
+    transition: all 0.2s ease;
+  }
+
+  .guide-item:hover .guide-arrow {
+    color: #3b82f6;
+    transform: translateX(4px);
+  }
+
+  /* Boş Durum */
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 1rem;
+    text-align: center;
+  }
+
+  .empty-state p {
+    margin: 1rem 0 0 0;
+    color: #6b7280;
+  }
+
+  .no-results {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 1rem;
+    text-align: center;
+  }
+
+  .no-results.hidden {
+    display: none;
+  }
+
+  .no-results-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #374151;
+    margin: 1rem 0 0.25rem 0;
+  }
+
+  .no-results-desc {
+    font-size: 0.875rem;
+    color: #9ca3af;
+    margin: 0;
+  }
+
+  /* Mobile Responsive */
+  @media (max-width: 1024px) {
+    .guides-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .filters-sidebar {
+      position: static;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .filters-header {
+      grid-column: 1 / -1;
+    }
+
+    .filter-group {
+      margin-bottom: 0;
+    }
+
+    .clear-filters-btn {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .filters-sidebar {
+      grid-template-columns: 1fr;
+    }
+
+    .list-header {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .search-box {
+      max-width: none;
+    }
+
+    .list-info {
+      margin-left: 0;
+      justify-content: center;
+    }
+
+    .guide-item {
+      flex-wrap: wrap;
+      padding: 1rem;
+    }
+
+    .guide-icon {
+      display: none;
+    }
+
+    .guide-content {
+      flex: 1 1 calc(100% - 40px);
+      order: 1;
+    }
+
+    .guide-meta {
+      flex: 1 1 100%;
+      order: 3;
+      margin-top: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .guide-arrow {
+      order: 2;
+    }
+
+    .guide-description {
+      -webkit-line-clamp: 2;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .difficulty-badge,
+    .category-badge {
+      font-size: 0.6875rem;
+      padding: 0.1875rem 0.5rem;
+    }
+  }
+</style>
