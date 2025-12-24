@@ -1,5 +1,5 @@
 ---
-import { MessageCircle, ArrowRight, Mail } from 'lucide-react';
+import { MessageCircle, ArrowRight, Mail } from 'lucide-astro';
 
 interface Props {
   title?: string;
@@ -30,7 +30,7 @@ const {
       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
         <div class="space-y-3 max-w-2xl">
           <div class="inline-flex items-center gap-2 text-xs font-semibold text-white/80 uppercase tracking-[0.2em]">
-            <MessageCircle className="w-4 h-4" />
+            <MessageCircle class="w-4 h-4" />
             {badgeLabel}
           </div>
           <h3 class="text-2xl lg:text-3xl font-bold">{title}</h3>
@@ -46,15 +46,15 @@ const {
             href={link}
             class="inline-flex items-center justify-center px-6 py-3 bg-white text-blue-600 rounded-xl font-semibold hover:bg-blue-50 transition-colors gap-2"
           >
-            <MessageCircle className="w-4 h-4" />
+            <MessageCircle class="w-4 h-4" />
             {buttonLabel}
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight class="w-4 h-4" />
           </a>
           <a
             href={secondaryLink}
             class="inline-flex items-center justify-center px-6 py-3 border border-white/40 rounded-xl text-sm font-medium text-white hover:border-white transition-colors gap-2"
           >
-            <Mail className="w-4 h-4" />
+            <Mail class="w-4 h-4" />
             {secondaryLabel}
           </a>
         </div>

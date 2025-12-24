@@ -3,7 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumb from '../../../components/ui/Breadcrumb.astro';
 import SupportCTA from '../../../components/ui/SupportCTA.astro';
 import { getCollection } from 'astro:content';
-import { BookOpen, Clock, ArrowRight, Search, X } from 'lucide-react';
+import { BookOpen, Clock, ArrowRight, Search, X } from 'lucide-astro';
 
 const breadcrumbItems = [
   { label: 'Bilgi Merkezi', href: '/bilgi-merkezi' },
@@ -46,7 +46,7 @@ const categories = Array.from(
         <!-- Search Input -->
         <div class="relative flex-1 mt-6">
           <div class="absolute inset-y-0 left-0 flex items-center pl-2 text-gray-400 peer-focus-within:text-blue-500 transition-colors">
-            <Search className="w-4 h-4" />
+            <Search class="w-4 h-4" />
           </div>
           <input
             type="text"
@@ -60,7 +60,7 @@ const categories = Array.from(
             class="input-clear hidden"
             aria-label="Aramayı temizle"
           >
-            <X className="w-4 h-4" />
+            <X class="w-4 h-4" />
           </button>
           <!-- Border div that gets focus styles -->
           <div class="absolute inset-0 border border-gray-200 rounded-xl peer-focus-within:border-blue-500 peer-focus-within:ring-2 peer-focus-within:ring-blue-100 pointer-events-none transition-all"></div>
@@ -95,7 +95,7 @@ const categories = Array.from(
       <span class="text-gray-500">Filtrelenen sonuç: <strong id="results-count" class="text-gray-900 text-base">{sortedGuides.length}</strong></span>
       <div class="flex items-center gap-2 text-xs text-gray-500">
         <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-gray-100 text-gray-700">
-          <Clock className="w-3.5 h-3.5" />
+          <Clock class="w-3.5 h-3.5" />
           Ortalama {Math.round(sortedGuides.reduce((acc, item) => acc + parseInt(item.data.readTime || '5'), 0) / (sortedGuides.length || 1)) || 0} dk
         </span>
         <span class="hidden sm:inline">•</span>
@@ -133,7 +133,7 @@ const categories = Array.from(
                   )}
                 </div>
                 <span class="text-xs text-gray-400 flex items-center gap-1">
-                  <Clock className="w-3.5 h-3.5" />
+                  <Clock class="w-3.5 h-3.5" />
                   {guide.data.readTime || '5 dk'}
                 </span>
               </div>
@@ -158,7 +158,7 @@ const categories = Array.from(
                   class="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors"
                 >
                   Oku
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight class="w-4 h-4" />
                 </a>
               </div>
             </article>
@@ -166,7 +166,7 @@ const categories = Array.from(
         })
       ) : (
         <div class="text-center py-12 bg-white rounded-xl border border-gray-200">
-          <BookOpen className="w-12 h-12 text-gray-300 mx-auto mb-3" />
+          <BookOpen class="w-12 h-12 text-gray-300 mx-auto mb-3" />
           <p class="text-gray-600">Henüz rehber eklenmemiş.</p>
         </div>
       )}
@@ -174,7 +174,7 @@ const categories = Array.from(
 
     <!-- No Results -->
     <div id="no-results" class="hidden text-center py-16 px-6 bg-white rounded-2xl border border-gray-200 mt-6">
-      <Search className="w-10 h-10 text-gray-300 mx-auto mb-3" />
+      <Search class="w-10 h-10 text-gray-300 mx-auto mb-3" />
       <p class="text-gray-600 mb-2">Aradığınız kriterlere uygun sonuç bulunamadı.</p>
       <p class="text-sm text-gray-500">Filtreleri temizleyerek yeniden deneyebilirsiniz.</p>
     </div>

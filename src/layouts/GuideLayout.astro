@@ -1,7 +1,7 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import Breadcrumb from '../components/ui/Breadcrumb.astro';
-import { Clock, ChevronLeft, ChevronRight, CheckCircle, Circle, PlayCircle, List } from 'lucide-react';
+import { Clock, ChevronLeft, ChevronRight, CheckCircle, Circle, PlayCircle, List } from 'lucide-astro';
 
 interface Props {
   frontmatter: {
@@ -60,7 +60,7 @@ const breadcrumbItems = [
       id="playlist-toggle"
       class="lg:hidden fixed bottom-4 right-4 z-50 flex items-center gap-2 px-4 py-3 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-colors"
     >
-      <List className="w-5 h-5" />
+      <List class="w-5 h-5" />
       <span class="text-sm font-medium">{currentIndex + 1}/{totalCount}</span>
     </button>
   )}
@@ -75,7 +75,7 @@ const breadcrumbItems = [
       <div class="sticky top-0 bg-white border-b border-gray-200 p-4 flex items-center justify-between">
         <h3 class="font-bold text-gray-900">{frontmatter.playlistTitle || 'İçindekiler'}</h3>
         <button id="playlist-close" class="p-2 hover:bg-gray-100 rounded-lg">
-          <ChevronRight className="w-5 h-5 text-gray-500" />
+          <ChevronRight class="w-5 h-5 text-gray-500" />
         </button>
       </div>
       <div class="p-2">
@@ -96,7 +96,7 @@ const breadcrumbItems = [
                 : 'bg-gray-100 text-gray-500'
             }`}>
               {item.isCompleted && !item.isCurrent ? (
-                <CheckCircle className="w-4 h-4" />
+                <CheckCircle class="w-4 h-4" />
               ) : (
                 index + 1
               )}
@@ -108,7 +108,7 @@ const breadcrumbItems = [
               <p class="text-xs text-gray-500">{item.readTime}</p>
             </div>
             {item.isCurrent && (
-              <PlayCircle className="w-5 h-5 text-blue-600 flex-shrink-0" />
+              <PlayCircle class="w-5 h-5 text-blue-600 flex-shrink-0" />
             )}
           </a>
         ))}
@@ -155,7 +155,7 @@ const breadcrumbItems = [
                       }`}
                     >
                       {item.isCompleted && !item.isCurrent ? (
-                        <CheckCircle className="w-3.5 h-3.5" />
+                        <CheckCircle class="w-3.5 h-3.5" />
                       ) : (
                         index + 1
                       )}
@@ -234,7 +234,7 @@ const breadcrumbItems = [
               </span>
             )}
             <span class="flex items-center text-xs text-gray-500">
-              <Clock className="w-3.5 h-3.5 mr-1" />
+              <Clock class="w-3.5 h-3.5 mr-1" />
               {frontmatter.readTime || '5 dk okuma'}
             </span>
           </div>
@@ -280,7 +280,7 @@ const breadcrumbItems = [
                   href={`/bilgi-merkezi/teknik-rehberler/${previousItem.slug}`}
                   class="group flex items-center gap-3 p-4 bg-gray-100 rounded-xl hover:bg-gray-200 transition-colors"
                 >
-                  <ChevronLeft className="w-5 h-5 text-gray-500 group-hover:text-gray-700 flex-shrink-0" />
+                  <ChevronLeft class="w-5 h-5 text-gray-500 group-hover:text-gray-700 flex-shrink-0" />
                   <div class="min-w-0">
                     <p class="text-xs text-gray-500 mb-1">Önceki</p>
                     <p class="text-sm font-medium text-gray-900 truncate">
@@ -302,7 +302,7 @@ const breadcrumbItems = [
                       {nextItem.title}
                     </p>
                   </div>
-                  <ChevronRight className="w-5 h-5 flex-shrink-0" />
+                  <ChevronRight class="w-5 h-5 flex-shrink-0" />
                 </a>
               ) : (
                 <a
@@ -313,7 +313,7 @@ const breadcrumbItems = [
                     <p class="text-xs text-gray-500 mb-1">Tamamlandı</p>
                     <p class="text-sm font-medium">Tüm Rehberler</p>
                   </div>
-                  <CheckCircle className="w-5 h-5 flex-shrink-0" />
+                  <CheckCircle class="w-5 h-5 flex-shrink-0" />
                 </a>
               )}
             </div>

@@ -2,7 +2,7 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumb from '../../../components/ui/Breadcrumb.astro';
 import SupportCTA from '../../../components/ui/SupportCTA.astro';
-import { Search, X, BookOpen, Tag, Hash } from 'lucide-react';
+import { Search, X, BookOpen, Tag, Hash } from 'lucide-astro';
 import glossaryData from '../../../data/glossary.json';
 
 const breadcrumbItems = [
@@ -47,7 +47,7 @@ const firstTerm = sortedTerms[0];
           data-letter="all"
           title="Tümü"
         >
-          <Hash className="w-3 h-3" />
+          <Hash class="w-3 h-3" />
         </button>
         {alphabet.map((letter) => (
           <button
@@ -65,7 +65,7 @@ const firstTerm = sortedTerms[0];
         <div class="terms-list-header" id="current-letter-display">
           <span class="letter-badge">Tümü</span>
           <div class="search-box">
-            <Search className="search-icon w-3.5 h-3.5" />
+            <Search class="search-icon w-3.5 h-3.5" />
             <input
               type="text"
               id="glossary-search"
@@ -78,7 +78,7 @@ const firstTerm = sortedTerms[0];
               class="search-clear hidden"
               aria-label="Aramayı temizle"
             >
-              <X className="w-3 h-3" />
+              <X class="w-3 h-3" />
             </button>
           </div>
           <span class="term-count">{sortedTerms.length} terim</span>
@@ -103,7 +103,7 @@ const firstTerm = sortedTerms[0];
           ))}
           <!-- Arama sonucu yok -->
           <div class="empty-list hidden" id="empty-list">
-            <Search className="w-12 h-12 text-gray-300 mx-auto mb-4" />
+            <Search class="w-12 h-12 text-gray-300 mx-auto mb-4" />
             <p class="empty-title">Terim bulunamadı</p>
             <p class="empty-desc">Farklı bir arama terimi deneyin</p>
           </div>
@@ -116,7 +116,7 @@ const firstTerm = sortedTerms[0];
           <div class="term-detail-header">
             <h2 class="term-detail-title" id="detail-title">{firstTerm.term}</h2>
             <span class="term-detail-category" id="detail-category">
-              <Tag className="w-3.5 h-3.5" />
+              <Tag class="w-3.5 h-3.5" />
               {firstTerm.category}
             </span>
           </div>
@@ -131,7 +131,7 @@ const firstTerm = sortedTerms[0];
                   class="term-image"
                 />
               ) : (
-                <BookOpen className="w-12 h-12 text-blue-400" id="detail-placeholder" />
+                <BookOpen class="w-12 h-12 text-blue-400" id="detail-placeholder" />
               )}
             </div>
 

@@ -3,7 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumb from '../../../components/ui/Breadcrumb.astro';
 import SupportCTA from '../../../components/ui/SupportCTA.astro';
 import { getCollection } from 'astro:content';
-import { BookOpen, Clock, ArrowRight, Search, X, Filter, ChevronRight } from 'lucide-react';
+import { BookOpen, Clock, ArrowRight, Search, X, Filter, ChevronRight } from 'lucide-astro';
 
 const breadcrumbItems = [
   { label: 'Bilgi Merkezi', href: '/bilgi-merkezi' },
@@ -46,7 +46,7 @@ const categories = Array.from(
       <!-- Sol Panel: Filtreler -->
       <aside class="filters-sidebar">
         <div class="filters-header">
-          <Filter className="w-4 h-4" />
+          <Filter class="w-4 h-4" />
           <span>Filtrele</span>
         </div>
 
@@ -98,7 +98,7 @@ const categories = Array.from(
 
         <!-- Filtre Temizle -->
         <button id="clear-filters" class="clear-filters-btn hidden">
-          <X className="w-3.5 h-3.5" />
+          <X class="w-3.5 h-3.5" />
           Filtreleri Temizle
         </button>
       </aside>
@@ -108,7 +108,7 @@ const categories = Array.from(
         <!-- Arama ve Bilgi Çubuğu -->
         <div class="list-header">
           <div class="search-box">
-            <Search className="search-icon w-4 h-4" />
+            <Search class="search-icon w-4 h-4" />
             <input
               type="text"
               id="guide-search"
@@ -121,7 +121,7 @@ const categories = Array.from(
               class="search-clear hidden"
               aria-label="Aramayı temizle"
             >
-              <X className="w-3.5 h-3.5" />
+              <X class="w-3.5 h-3.5" />
             </button>
           </div>
           <div class="list-info">
@@ -148,7 +148,7 @@ const categories = Array.from(
                 >
                   <!-- İkon/Thumbnail Alanı -->
                   <div class="guide-icon">
-                    <BookOpen className="w-5 h-5 text-blue-500" />
+                    <BookOpen class="w-5 h-5 text-blue-500" />
                   </div>
 
                   <!-- İçerik -->
@@ -171,21 +171,21 @@ const categories = Array.from(
                       </span>
                     )}
                     <span class="read-time">
-                      <Clock className="w-3.5 h-3.5" />
+                      <Clock class="w-3.5 h-3.5" />
                       {guide.data.readTime || '5 dk'}
                     </span>
                   </div>
 
                   <!-- Ok İkonu -->
                   <div class="guide-arrow">
-                    <ChevronRight className="w-5 h-5" />
+                    <ChevronRight class="w-5 h-5" />
                   </div>
                 </a>
               );
             })
           ) : (
             <div class="empty-state">
-              <BookOpen className="w-12 h-12 text-gray-300" />
+              <BookOpen class="w-12 h-12 text-gray-300" />
               <p>Henüz rehber eklenmemiş.</p>
             </div>
           )}
@@ -193,7 +193,7 @@ const categories = Array.from(
 
         <!-- Sonuç Yok -->
         <div id="no-results" class="no-results hidden">
-          <Search className="w-10 h-10 text-gray-300" />
+          <Search class="w-10 h-10 text-gray-300" />
           <p class="no-results-title">Sonuç bulunamadı</p>
           <p class="no-results-desc">Farklı bir arama terimi veya filtre deneyin.</p>
         </div>

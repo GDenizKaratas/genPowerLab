@@ -1,6 +1,6 @@
 ---
 import { useTranslations, languages, type Lang } from '../../i18n/messages';
-import { Mail, Phone, MapPin, Linkedin, Twitter, Youtube } from 'lucide-react';
+import { Mail, Phone, MapPin, Linkedin, Twitter, Youtube } from 'lucide-astro';
 
 interface Props {
   lang: 'tr' | 'en';
@@ -53,15 +53,15 @@ const socialLinks = [
         <!-- Contact Info -->
         <div class="space-y-3 footer-links">
           <a href="mailto:info@jenatorhub.com" class="flex items-center space-x-2 text-sm hover:text-blue-400 transition-colors">
-            <Mail className="w-4 h-4" />
+            <Mail class="w-4 h-4" />
             <span>info@jenatorhub.com</span>
           </a>
           <!-- <a href="tel:+902121234567" class="flex items-center space-x-2 text-sm hover:text-blue-400 transition-colors">
-            <Phone className="w-4 h-4" />
+            <Phone class="w-4 h-4" />
             <span>+90 (212) 123 45 67</span>
           </a> -->
           <div class="flex items-start space-x-2 text-sm">
-            <MapPin className="w-4 h-4 mt-1 flex-shrink-0" />
+            <MapPin class="w-4 h-4 mt-1 flex-shrink-0" />
             <span> Türkiye</span>
           </div>
         </div>
@@ -120,7 +120,7 @@ const socialLinks = [
                   aria-label={social.label}
                   class="w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center hover:bg-blue-600 transition-colors"
                 >
-                  <Icon className="w-7 h-7" />
+                  <Icon class="w-7 h-7" />
                 </a>
               );
             })}

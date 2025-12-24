@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumb from '../components/ui/Breadcrumb.astro';
 import SupportCTA from '../components/ui/SupportCTA.astro';
-import { Building2, Factory, Home, Zap, ArrowRight, CheckCircle, Leaf } from 'lucide-react';
+import { Building2, Factory, Home, Zap, ArrowRight, CheckCircle, Leaf } from 'lucide-astro';
 
 const breadcrumbItems = [
   { label: 'Projeler & Referanslar' }
@@ -141,7 +141,7 @@ const stats = [
           <!-- Header -->
           <div class="bg-gradient-to-br from-gray-100 to-gray-50 p-4 flex items-center justify-between">
             <div class="flex items-center gap-2 text-sm text-gray-600">
-              <Building2 className="w-4 h-4" />
+              <Building2 class="w-4 h-4" />
               <span>{project.location}</span>
             </div>
             <div class="flex items-center gap-2">
@@ -167,7 +167,7 @@ const stats = [
             <div class="space-y-1.5">
               {project.features.map((feature) => (
                 <div class="flex items-center text-xs text-gray-500">
-                  <CheckCircle className="w-3.5 h-3.5 text-green-500 mr-2 flex-shrink-0" />
+                  <CheckCircle class="w-3.5 h-3.5 text-green-500 mr-2 flex-shrink-0" />
                   <span>{feature}</span>
                 </div>
               ))}
