@@ -1,4 +1,4 @@
-import { X, Cpu, Settings2, Calculator } from 'lucide-react';
+import { X, Cpu, Settings2, Calculator } from '../icons';
 
 interface HowItWorksModalProps {
   onClose: () => void;

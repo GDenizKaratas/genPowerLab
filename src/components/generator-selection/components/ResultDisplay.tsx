@@ -3,7 +3,7 @@ import {
   AlertTriangle,
   Phone,
   ArrowRight
-} from 'lucide-react';
+} from '../icons';
 import type { CalculationResult, UsageEnvironment } from '../types';
 import { getKvaRangeLabel } from '../utils/calculations';
 

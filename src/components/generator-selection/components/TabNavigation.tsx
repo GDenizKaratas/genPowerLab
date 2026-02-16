@@ -2,7 +2,7 @@ import {
   Cpu,
   Settings2,
   SlidersHorizontal
-} from 'lucide-react';
+} from '../icons';
 
 type TabType = 'devices' | 'usage' | 'preferences';
 

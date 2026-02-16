@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { X, Zap, Info } from 'lucide-react';
+import { X, Zap, Info } from '../icons';
 import type { SelectedDevice } from '../types';
 import { generateDeviceId, wattToKva } from '../utils/calculations';
 

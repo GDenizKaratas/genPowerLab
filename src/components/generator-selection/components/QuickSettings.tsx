@@ -13,7 +13,7 @@ import {
   Music,
   Globe,
   Check
-} from 'lucide-react';
+} from '../icons';
 import type { UsageEnvironment } from '../types';
 
 interface QuickSettingsProps {

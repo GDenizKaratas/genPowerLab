@@ -1,5 +1,5 @@
 import { useState, useMemo, useCallback, useEffect } from 'react';
-import { Settings2, Globe, ChevronDown, ChevronUp, HelpCircle } from 'lucide-react';
+import { Settings2, Globe, ChevronDown, ChevronUp, HelpCircle } from './icons';
 import type { SelectedDevice, UsageEnvironment, CalculationResult } from './types';
 import { calculateKva } from './utils/calculations';
 

@@ -8,7 +8,6 @@ import {
   Plus,
   Minus,
   Search,
-  // Device icons
   Lightbulb,
   Tv,
   Monitor,
@@ -30,7 +29,7 @@ import {
   Coffee,
   Milk,
   PlusCircle
-} from 'lucide-react';
+} from '../icons';
 import type { Device, DeviceCategory, SelectedDevice } from '../types';
 import { generateDeviceId, formatWatt } from '../utils/calculations';
 import { CustomDeviceModal } from './CustomDeviceModal';

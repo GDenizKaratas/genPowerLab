@@ -1,4 +1,4 @@
-import { Check, Globe, CheckCircle, CircleDot } from 'lucide-react';
+import { Check, Globe, CheckCircle, CircleDot } from '../icons';
 import calculationConfig from '../../../data/generator-selection/calculation-config.json';
 
 interface PreferencesSelectorProps {

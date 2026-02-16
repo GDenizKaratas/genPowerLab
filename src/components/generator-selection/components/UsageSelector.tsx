@@ -17,7 +17,7 @@ import {
   Shield,
   Zap,
   Check
-} from 'lucide-react';
+} from '../icons';
 import type { UsageEnvironment, UsageDuration, Priority } from '../types';
 
 interface UsageSelectorProps {

@@ -1,4 +1,4 @@
-import { Trash2, Zap, Package } from 'lucide-react';
+import { Trash2, Zap, Package } from '../icons';
 import type { SelectedDevice } from '../types';
 import { formatWatt } from '../utils/calculations';
 
