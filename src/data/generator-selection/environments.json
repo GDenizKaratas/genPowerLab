@@ -1,0 +1,216 @@
+{
+  "usageEnvironments": [
+    {
+      "id": "home",
+      "name": "Ev / Villa",
+      "icon": "Home",
+      "description": "Konut tipi kullanım, düşük yoğunluklu çalışma",
+      "demandFactor": 0.6,
+      "protectionLevel": "basic",
+      "recommendedFeatures": ["low-noise", "compact"]
+    },
+    {
+      "id": "apartment",
+      "name": "Apartman / Site",
+      "icon": "Building",
+      "description": "Çoklu konut, orta yoğunluklu sürekli kullanım",
+      "demandFactor": 0.65,
+      "protectionLevel": "standard",
+      "recommendedFeatures": ["low-noise", "auto-start"]
+    },
+    {
+      "id": "office",
+      "name": "Ofis / İş Yeri",
+      "icon": "Briefcase",
+      "description": "Ticari kullanım, iş saatlerinde yoğun",
+      "demandFactor": 0.7,
+      "protectionLevel": "standard",
+      "recommendedFeatures": ["low-noise", "auto-start", "ups-compatible"]
+    },
+    {
+      "id": "retail",
+      "name": "Mağaza / AVM",
+      "icon": "Store",
+      "description": "Perakende, sürekli aydınlatma ve soğutma",
+      "demandFactor": 0.75,
+      "protectionLevel": "standard",
+      "recommendedFeatures": ["auto-start", "remote-monitoring"]
+    },
+    {
+      "id": "hospital",
+      "name": "Hastane / Sağlık Tesisi",
+      "icon": "Heart",
+      "description": "Kritik yük, kesintisiz güç şart",
+      "demandFactor": 0.9,
+      "protectionLevel": "premium",
+      "recommendedFeatures": ["auto-start", "redundant", "low-noise", "ups-compatible"]
+    },
+    {
+      "id": "factory",
+      "name": "Fabrika / Üretim Tesisi",
+      "icon": "Factory",
+      "description": "Endüstriyel üretim, yüksek yoğunluklu kullanım",
+      "demandFactor": 0.85,
+      "protectionLevel": "industrial",
+      "recommendedFeatures": ["heavy-duty", "remote-monitoring", "auto-start"]
+    },
+    {
+      "id": "construction",
+      "name": "İnşaat / Şantiye",
+      "icon": "HardHat",
+      "description": "Tozlu, zorlu koşullar, mobil kullanım",
+      "demandFactor": 0.8,
+      "protectionLevel": "rugged",
+      "recommendedFeatures": ["dust-proof", "mobile", "heavy-duty"]
+    },
+    {
+      "id": "mining",
+      "name": "Maden / Taş Ocağı",
+      "icon": "Mountain",
+      "description": "Aşırı zorlu koşullar, sürekli çalışma",
+      "demandFactor": 0.95,
+      "protectionLevel": "extreme",
+      "recommendedFeatures": ["dust-proof", "explosion-proof", "heavy-duty", "remote-monitoring"]
+    },
+    {
+      "id": "agriculture",
+      "name": "Tarım / Çiftlik",
+      "icon": "Wheat",
+      "description": "Açık alan, mevsimsel yoğun kullanım",
+      "demandFactor": 0.7,
+      "protectionLevel": "rugged",
+      "recommendedFeatures": ["weather-proof", "mobile", "easy-maintenance"]
+    },
+    {
+      "id": "marine",
+      "name": "Denizcilik / Liman",
+      "icon": "Ship",
+      "description": "Tuzlu, nemli ortam, deniz koşulları",
+      "demandFactor": 0.85,
+      "protectionLevel": "marine",
+      "recommendedFeatures": ["corrosion-resistant", "marine-grade", "weather-proof"]
+    },
+    {
+      "id": "telecom",
+      "name": "Telekomünikasyon",
+      "icon": "Radio",
+      "description": "Baz istasyonu, kesintisiz 7/24 çalışma",
+      "demandFactor": 0.95,
+      "protectionLevel": "premium",
+      "recommendedFeatures": ["auto-start", "remote-monitoring", "low-noise", "compact"]
+    },
+    {
+      "id": "events",
+      "name": "Etkinlik / Festival",
+      "icon": "Music",
+      "description": "Geçici kurulum, ses ve ışık sistemleri",
+      "demandFactor": 0.75,
+      "protectionLevel": "standard",
+      "recommendedFeatures": ["low-noise", "mobile", "quick-connect"]
+    }
+  ],
+  "protectionLevels": {
+    "basic": {
+      "name": "Temel Koruma",
+      "description": "Standart ev/ofis kullanımı için yeterli",
+      "ipRating": "IP23",
+      "features": ["Aşırı yük koruması", "Kısa devre koruması"]
+    },
+    "standard": {
+      "name": "Standart Koruma",
+      "description": "Ticari kullanım için önerilen",
+      "ipRating": "IP44",
+      "features": ["Aşırı yük koruması", "Kısa devre koruması", "Düşük yağ basıncı koruması", "Yüksek sıcaklık koruması"]
+    },
+    "industrial": {
+      "name": "Endüstriyel Koruma",
+      "description": "Fabrika ve üretim tesisleri için",
+      "ipRating": "IP54",
+      "features": ["Tam elektriksel koruma", "Motor koruması", "Otomatik şarj sistemi", "Uzaktan izleme hazır"]
+    },
+    "rugged": {
+      "name": "Dayanıklı Koruma",
+      "description": "Zorlu saha koşulları için",
+      "ipRating": "IP55",
+      "features": ["Toz ve su koruması", "Titreşim dayanımı", "Güçlendirilmiş şasi", "Kolay taşıma"]
+    },
+    "premium": {
+      "name": "Premium Koruma",
+      "description": "Kritik uygulamalar için",
+      "ipRating": "IP65",
+      "features": ["Tam koruma paketi", "Redundant sistemler", "7/24 izleme", "Otomatik failover"]
+    },
+    "extreme": {
+      "name": "Ekstrem Koruma",
+      "description": "En zorlu koşullar için",
+      "ipRating": "IP66",
+      "features": ["Patlama korumalı seçenek", "Aşırı toz koruması", "Geniş sıcaklık aralığı", "Maksimum dayanıklılık"]
+    },
+    "marine": {
+      "name": "Deniz Tipi Koruma",
+      "description": "Denizcilik uygulamaları için",
+      "ipRating": "IP56",
+      "features": ["Korozyon direnci", "Tuzlu su koruması", "Deniz sınıfı malzemeler", "Özel kaplama"]
+    }
+  },
+  "usageDurations": [
+    {
+      "id": "emergency",
+      "name": "Acil Durum (Kesinti anında)",
+      "description": "Sadece elektrik kesintilerinde",
+      "hoursPerDay": 2,
+      "daysPerWeek": 1,
+      "maintenanceInterval": "yearly"
+    },
+    {
+      "id": "backup",
+      "name": "Yedek Güç (Haftada birkaç saat)",
+      "description": "Düzenli kısa süreli kullanım",
+      "hoursPerDay": 4,
+      "daysPerWeek": 3,
+      "maintenanceInterval": "6months"
+    },
+    {
+      "id": "regular",
+      "name": "Düzenli Kullanım (Günlük)",
+      "description": "Her gün birkaç saat çalışma",
+      "hoursPerDay": 8,
+      "daysPerWeek": 5,
+      "maintenanceInterval": "quarterly"
+    },
+    {
+      "id": "continuous",
+      "name": "Sürekli Çalışma (7/24)",
+      "description": "Kesintisiz ana güç kaynağı",
+      "hoursPerDay": 24,
+      "daysPerWeek": 7,
+      "maintenanceInterval": "monthly"
+    }
+  ],
+  "priorities": [
+    {
+      "id": "cost",
+      "name": "Maliyet Öncelikli",
+      "icon": "DollarSign",
+      "description": "En ekonomik çözüm, temel ihtiyaçları karşılar"
+    },
+    {
+      "id": "balanced",
+      "name": "Dengeli",
+      "icon": "Scale",
+      "description": "Fiyat/performans dengesi, önerilen seçim"
+    },
+    {
+      "id": "durability",
+      "name": "Dayanıklılık Öncelikli",
+      "icon": "Shield",
+      "description": "Uzun ömür, zorlu koşullara dayanıklı"
+    },
+    {
+      "id": "performance",
+      "name": "Performans Öncelikli",
+      "icon": "Zap",
+      "description": "Maksimum verimlilik ve güvenilirlik"
+    }
+  ]
+}

@@ -1,0 +1,651 @@
+{
+  "categories": [
+    {
+      "id": "home",
+      "name": "Ev & Genel Kullanım",
+      "icon": "Home",
+      "devices": [
+        {
+          "id": "refrigerator",
+          "name": "Buzdolabı",
+          "defaultWatt": 150,
+          "powerFactor": 0.85,
+          "inrushMultiplier": 3,
+          "phase": "single",
+          "description": "No-frost buzdolabı"
+        },
+        {
+          "id": "freezer",
+          "name": "Derin Dondurucu",
+          "defaultWatt": 200,
+          "powerFactor": 0.85,
+          "inrushMultiplier": 3,
+          "phase": "single",
+          "description": "Sandık tipi dondurucu"
+        },
+        {
+          "id": "ac-9000",
+          "name": "Klima 9.000 BTU",
+          "defaultWatt": 900,
+          "powerFactor": 0.9,
+          "inrushMultiplier": 4,
+          "phase": "single",
+          "description": "Split klima"
+        },
+        {
+          "id": "ac-12000",
+          "name": "Klima 12.000 BTU",
+          "defaultWatt": 1200,
+          "powerFactor": 0.9,
+          "inrushMultiplier": 4,
+          "phase": "single",
+          "description": "Split klima"
+        },
+        {
+          "id": "ac-18000",
+          "name": "Klima 18.000 BTU",
+          "defaultWatt": 1800,
+          "powerFactor": 0.9,
+          "inrushMultiplier": 4,
+          "phase": "single",
+          "description": "Split klima"
+        },
+        {
+          "id": "ac-24000",
+          "name": "Klima 24.000 BTU",
+          "defaultWatt": 2500,
+          "powerFactor": 0.9,
+          "inrushMultiplier": 4,
+          "phase": "single",
+          "description": "Split klima"
+        },
+        {
+          "id": "tv-led-32",
+          "name": "LED TV 32\"",
+          "defaultWatt": 50,
+          "powerFactor": 0.95,
+          "inrushMultiplier": 1,
+          "phase": "single",
+          "description": "LED televizyon"
+        },
+        {
+          "id": "tv-led-55",
+          "name": "LED TV 55\"",
+          "defaultWatt": 120,
+          "powerFactor": 0.95,
+          "inrushMultiplier": 1,
+          "phase": "single",
+          "description": "LED televizyon"
+        },
+        {
+          "id": "washing-machine",
+          "name": "Çamaşır Makinesi",
+          "defaultWatt": 500,
+          "powerFactor": 0.85,
+          "inrushMultiplier": 3,
+          "phase": "single",
+          "description": "Otomatik çamaşır makinesi"
+        },
+        {
+          "id": "dishwasher",
+          "name": "Bulaşık Makinesi",
+          "defaultWatt": 1800,
+          "powerFactor": 0.95,
+          "inrushMultiplier": 1.5,
+          "phase": "single",
+          "description": "Ankastre bulaşık makinesi"
+        },
+        {
+          "id": "microwave",
+          "name": "Mikrodalga Fırın",
+          "defaultWatt": 1200,
+          "powerFactor": 0.95,
+          "inrushMultiplier": 1,
+          "phase": "single",
+          "description": "Mikrodalga fırın"
+        },
+        {
+          "id": "electric-oven",
+          "name": "Elektrikli Fırın",
+          "defaultWatt": 2500,
+          "powerFactor": 0.98,
+          "inrushMultiplier": 1,
+          "phase": "single",
+          "description": "Ankastre elektrikli fırın"
+        },
+        {
+          "id": "water-heater",
+          "name": "Elektrikli Şofben",
+          "defaultWatt": 2000,
+          "powerFactor": 1,
+          "inrushMultiplier": 1,
+          "phase": "single",
+          "description": "Ani su ısıtıcı"
+        },
+        {
+          "id": "vacuum-cleaner",
+          "name": "Elektrik Süpürgesi",
+          "defaultWatt": 1400,
+          "powerFactor": 0.95,
+          "inrushMultiplier": 2,
+          "phase": "single",
+          "description": "Toz torbalı süpürge"
+        },
+        {
+          "id": "iron",
+          "name": "Ütü",
+          "defaultWatt": 2200,
+          "powerFactor": 1,
+          "inrushMultiplier": 1,
+          "phase": "single",
+          "description": "Buharlı ütü"
+        },
+        {
+          "id": "hair-dryer",
+          "name": "Saç Kurutma Makinesi",
+          "defaultWatt": 1800,
+          "powerFactor": 0.98,
+          "inrushMultiplier": 1,
+          "phase": "single",
+          "description": "Profesyonel saç kurutma"
+        },
+        {
+          "id": "computer-desktop",
+          "name": "Masaüstü Bilgisayar",
+          "defaultWatt": 400,
+          "powerFactor": 0.85,
+          "inrushMultiplier": 1.5,
+          "phase": "single",
+          "description": "Monitör dahil"
+        },
+        {
+          "id": "laptop",
+          "name": "Laptop",
+          "defaultWatt": 65,
+          "powerFactor": 0.95,
+          "inrushMultiplier": 1,
+          "phase": "single",
+          "description": "Dizüstü bilgisayar"
+        },
+        {
+          "id": "led-lighting",
+          "name": "LED Aydınlatma (oda)",
+          "defaultWatt": 50,
+          "powerFactor": 0.92,
+          "inrushMultiplier": 1,
+          "phase": "single",
+          "description": "Bir oda için LED aydınlatma"
+        },
+        {
+          "id": "water-pump-05hp",
+          "name": "Su Pompası 0.5 HP",
+          "defaultWatt": 370,
+          "powerFactor": 0.8,
+          "inrushMultiplier": 4,
+          "phase": "single",
+          "description": "Ev tipi hidrofor"
+        },
+        {
+          "id": "water-pump-1hp",
+          "name": "Su Pompası 1 HP",
+          "defaultWatt": 750,
+          "powerFactor": 0.8,
+          "inrushMultiplier": 4,
+          "phase": "single",
+          "description": "Hidrofor pompası"
+        }
+      ]
+    },
+    {
+      "id": "commercial",
+      "name": "Ticari Kullanım",
+      "icon": "Store",
+      "devices": [
+        {
+          "id": "commercial-refrigerator",
+          "name": "Ticari Buzdolabı",
+          "defaultWatt": 500,
+          "powerFactor": 0.85,
+          "inrushMultiplier": 3,
+          "phase": "single",
+          "description": "Dik tip ticari soğutucu"
+        },
+        {
+          "id": "display-cooler",
+          "name": "Teşhir Dolabı",
+          "defaultWatt": 400,
+          "powerFactor": 0.85,
+          "inrushMultiplier": 3,
+          "phase": "single",
+          "description": "Cam kapaklı teşhir"
+        },
+        {
+          "id": "ice-machine",
+          "name": "Buz Makinesi",
+          "defaultWatt": 800,
+          "powerFactor": 0.85,
+          "inrushMultiplier": 3,
+          "phase": "single",
+          "description": "Ticari buz üretici"
+        },
+        {
+          "id": "coffee-machine",
+          "name": "Kahve Makinesi",
+          "defaultWatt": 2500,
+          "powerFactor": 0.95,
+          "inrushMultiplier": 1,
+          "phase": "single",
+          "description": "Profesyonel espresso makinesi"
+        },
+        {
+          "id": "pos-system",
+          "name": "POS Kasa Sistemi",
+          "defaultWatt": 150,
+          "powerFactor": 0.9,
+          "inrushMultiplier": 1,
+          "phase": "single",
+          "description": "Yazarkasa + bilgisayar"
+        },
+        {
+          "id": "commercial-ac",
+          "name": "Ticari Klima Sistemi",
+          "defaultWatt": 5000,
+          "powerFactor": 0.9,
+          "inrushMultiplier": 4,
+          "phase": "three",
+          "description": "VRF/Multi split sistem"
+        },
+        {
+          "id": "elevator-small",
+          "name": "Asansör (4 Kişilik)",
+          "defaultWatt": 5500,
+          "powerFactor": 0.8,
+          "inrushMultiplier": 4,
+          "phase": "three",
+          "description": "Küçük bina asansörü"
+        },
+        {
+          "id": "elevator-medium",
+          "name": "Asansör (8 Kişilik)",
+          "defaultWatt": 11000,
+          "powerFactor": 0.8,
+          "inrushMultiplier": 4,
+          "phase": "three",
+          "description": "Orta boy asansör"
+        }
+      ]
+    },
+    {
+      "id": "industrial",
+      "name": "Endüstriyel",
+      "icon": "Factory",
+      "devices": [
+        {
+          "id": "motor-1hp",
+          "name": "Elektrik Motoru 1 HP",
+          "defaultWatt": 750,
+          "powerFactor": 0.8,
+          "inrushMultiplier": 5,
+          "phase": "single",
+          "description": "Asenkron motor"
+        },
+        {
+          "id": "motor-2hp",
+          "name": "Elektrik Motoru 2 HP",
+          "defaultWatt": 1500,
+          "powerFactor": 0.82,
+          "inrushMultiplier": 5,
+          "phase": "single",
+          "description": "Asenkron motor"
+        },
+        {
+          "id": "motor-3hp",
+          "name": "Elektrik Motoru 3 HP",
+          "defaultWatt": 2200,
+          "powerFactor": 0.83,
+          "inrushMultiplier": 5,
+          "phase": "three",
+          "description": "Asenkron motor"
+        },
+        {
+          "id": "motor-5hp",
+          "name": "Elektrik Motoru 5 HP",
+          "defaultWatt": 3700,
+          "powerFactor": 0.85,
+          "inrushMultiplier": 5,
+          "phase": "three",
+          "description": "Asenkron motor"
+        },
+        {
+          "id": "motor-7.5hp",
+          "name": "Elektrik Motoru 7.5 HP",
+          "defaultWatt": 5500,
+          "powerFactor": 0.86,
+          "inrushMultiplier": 5,
+          "phase": "three",
+          "description": "Asenkron motor"
+        },
+        {
+          "id": "motor-10hp",
+          "name": "Elektrik Motoru 10 HP",
+          "defaultWatt": 7500,
+          "powerFactor": 0.87,
+          "inrushMultiplier": 5,
+          "phase": "three",
+          "description": "Asenkron motor"
+        },
+        {
+          "id": "motor-15hp",
+          "name": "Elektrik Motoru 15 HP",
+          "defaultWatt": 11000,
+          "powerFactor": 0.88,
+          "inrushMultiplier": 5,
+          "phase": "three",
+          "description": "Asenkron motor"
+        },
+        {
+          "id": "motor-20hp",
+          "name": "Elektrik Motoru 20 HP",
+          "defaultWatt": 15000,
+          "powerFactor": 0.88,
+          "inrushMultiplier": 5,
+          "phase": "three",
+          "description": "Asenkron motor"
+        },
+        {
+          "id": "motor-30hp",
+          "name": "Elektrik Motoru 30 HP",
+          "defaultWatt": 22000,
+          "powerFactor": 0.89,
+          "inrushMultiplier": 5,
+          "phase": "three",
+          "description": "Asenkron motor"
+        },
+        {
+          "id": "motor-50hp",
+          "name": "Elektrik Motoru 50 HP",
+          "defaultWatt": 37000,
+          "powerFactor": 0.9,
+          "inrushMultiplier": 5,
+          "phase": "three",
+          "description": "Asenkron motor"
+        },
+        {
+          "id": "compressor-3hp",
+          "name": "Kompresör 3 HP",
+          "defaultWatt": 2200,
+          "powerFactor": 0.8,
+          "inrushMultiplier": 5,
+          "phase": "single",
+          "description": "Pistonlu kompresör"
+        },
+        {
+          "id": "compressor-5hp",
+          "name": "Kompresör 5 HP",
+          "defaultWatt": 3700,
+          "powerFactor": 0.82,
+          "inrushMultiplier": 5,
+          "phase": "three",
+          "description": "Pistonlu kompresör"
+        },
+        {
+          "id": "compressor-10hp",
+          "name": "Kompresör 10 HP",
+          "defaultWatt": 7500,
+          "powerFactor": 0.85,
+          "inrushMultiplier": 5,
+          "phase": "three",
+          "description": "Vidalı kompresör"
+        },
+        {
+          "id": "welder-arc",
+          "name": "Kaynak Makinesi (Ark)",
+          "defaultWatt": 5000,
+          "powerFactor": 0.7,
+          "inrushMultiplier": 2,
+          "phase": "single",
+          "description": "Elektrot kaynak"
+        },
+        {
+          "id": "welder-mig",
+          "name": "Kaynak Makinesi (MIG/MAG)",
+          "defaultWatt": 8000,
+          "powerFactor": 0.75,
+          "inrushMultiplier": 2,
+          "phase": "three",
+          "description": "MIG/MAG kaynak"
+        },
+        {
+          "id": "cnc-lathe",
+          "name": "CNC Torna Tezgahı",
+          "defaultWatt": 15000,
+          "powerFactor": 0.85,
+          "inrushMultiplier": 3,
+          "phase": "three",
+          "description": "Orta boy CNC torna"
+        },
+        {
+          "id": "cnc-milling",
+          "name": "CNC Freze Tezgahı",
+          "defaultWatt": 18000,
+          "powerFactor": 0.85,
+          "inrushMultiplier": 3,
+          "phase": "three",
+          "description": "Dikey işleme merkezi"
+        },
+        {
+          "id": "hydraulic-press",
+          "name": "Hidrolik Pres",
+          "defaultWatt": 11000,
+          "powerFactor": 0.8,
+          "inrushMultiplier": 4,
+          "phase": "three",
+          "description": "100 ton pres"
+        },
+        {
+          "id": "crane-5ton",
+          "name": "Vinç 5 Ton",
+          "defaultWatt": 7500,
+          "powerFactor": 0.8,
+          "inrushMultiplier": 4,
+          "phase": "three",
+          "description": "Köprü vinç"
+        },
+        {
+          "id": "crane-10ton",
+          "name": "Vinç 10 Ton",
+          "defaultWatt": 15000,
+          "powerFactor": 0.8,
+          "inrushMultiplier": 4,
+          "phase": "three",
+          "description": "Köprü vinç"
+        },
+        {
+          "id": "conveyor-belt",
+          "name": "Konveyör Bant",
+          "defaultWatt": 3700,
+          "powerFactor": 0.8,
+          "inrushMultiplier": 4,
+          "phase": "three",
+          "description": "Endüstriyel bant sistemi"
+        },
+        {
+          "id": "industrial-fan",
+          "name": "Endüstriyel Fan",
+          "defaultWatt": 2200,
+          "powerFactor": 0.85,
+          "inrushMultiplier": 3,
+          "phase": "three",
+          "description": "Havalandırma fanı"
+        },
+        {
+          "id": "chiller",
+          "name": "Chiller (Soğutma Grubu)",
+          "defaultWatt": 25000,
+          "powerFactor": 0.85,
+          "inrushMultiplier": 4,
+          "phase": "three",
+          "description": "Endüstriyel soğutucu"
+        }
+      ]
+    },
+    {
+      "id": "construction",
+      "name": "İnşaat & Şantiye",
+      "icon": "HardHat",
+      "devices": [
+        {
+          "id": "concrete-mixer",
+          "name": "Beton Mikseri",
+          "defaultWatt": 2200,
+          "powerFactor": 0.8,
+          "inrushMultiplier": 4,
+          "phase": "single",
+          "description": "Küçük şantiye mikseri"
+        },
+        {
+          "id": "concrete-vibrator",
+          "name": "Beton Vibratörü",
+          "defaultWatt": 1500,
+          "powerFactor": 0.85,
+          "inrushMultiplier": 3,
+          "phase": "single",
+          "description": "Şantiye vibratörü"
+        },
+        {
+          "id": "angle-grinder",
+          "name": "Taşlama Makinesi",
+          "defaultWatt": 2200,
+          "powerFactor": 0.85,
+          "inrushMultiplier": 3,
+          "phase": "single",
+          "description": "Büyük spiral"
+        },
+        {
+          "id": "circular-saw",
+          "name": "Daire Testere",
+          "defaultWatt": 2000,
+          "powerFactor": 0.85,
+          "inrushMultiplier": 3,
+          "phase": "single",
+          "description": "El tipi daire testere"
+        },
+        {
+          "id": "hammer-drill",
+          "name": "Kırıcı Delici",
+          "defaultWatt": 1500,
+          "powerFactor": 0.85,
+          "inrushMultiplier": 2,
+          "phase": "single",
+          "description": "SDS-Max kırıcı"
+        },
+        {
+          "id": "site-lighting",
+          "name": "Şantiye Aydınlatması",
+          "defaultWatt": 2000,
+          "powerFactor": 0.95,
+          "inrushMultiplier": 1,
+          "phase": "single",
+          "description": "Projektör seti"
+        },
+        {
+          "id": "tower-crane",
+          "name": "Kule Vinç",
+          "defaultWatt": 45000,
+          "powerFactor": 0.8,
+          "inrushMultiplier": 4,
+          "phase": "three",
+          "description": "Şantiye kule vinci"
+        },
+        {
+          "id": "construction-elevator",
+          "name": "İnşaat Asansörü",
+          "defaultWatt": 15000,
+          "powerFactor": 0.8,
+          "inrushMultiplier": 4,
+          "phase": "three",
+          "description": "Şantiye yük asansörü"
+        }
+      ]
+    },
+    {
+      "id": "agriculture",
+      "name": "Tarım & Hayvancılık",
+      "icon": "Wheat",
+      "devices": [
+        {
+          "id": "irrigation-pump-3hp",
+          "name": "Sulama Pompası 3 HP",
+          "defaultWatt": 2200,
+          "powerFactor": 0.8,
+          "inrushMultiplier": 5,
+          "phase": "single",
+          "description": "Dalgıç pompa"
+        },
+        {
+          "id": "irrigation-pump-5hp",
+          "name": "Sulama Pompası 5 HP",
+          "defaultWatt": 3700,
+          "powerFactor": 0.82,
+          "inrushMultiplier": 5,
+          "phase": "three",
+          "description": "Dalgıç pompa"
+        },
+        {
+          "id": "irrigation-pump-10hp",
+          "name": "Sulama Pompası 10 HP",
+          "defaultWatt": 7500,
+          "powerFactor": 0.85,
+          "inrushMultiplier": 5,
+          "phase": "three",
+          "description": "Dalgıç pompa"
+        },
+        {
+          "id": "milking-machine",
+          "name": "Süt Sağım Makinesi",
+          "defaultWatt": 2200,
+          "powerFactor": 0.8,
+          "inrushMultiplier": 4,
+          "phase": "single",
+          "description": "Vakumlu sağım sistemi"
+        },
+        {
+          "id": "milk-cooler",
+          "name": "Süt Soğutma Tankı",
+          "defaultWatt": 3000,
+          "powerFactor": 0.85,
+          "inrushMultiplier": 3,
+          "phase": "three",
+          "description": "500 litre tank"
+        },
+        {
+          "id": "feed-mixer",
+          "name": "Yem Karma Makinesi",
+          "defaultWatt": 5500,
+          "powerFactor": 0.8,
+          "inrushMultiplier": 4,
+          "phase": "three",
+          "description": "Yatay karıştırıcı"
+        },
+        {
+          "id": "grain-dryer",
+          "name": "Tahıl Kurutma Makinesi",
+          "defaultWatt": 15000,
+          "powerFactor": 0.85,
+          "inrushMultiplier": 3,
+          "phase": "three",
+          "description": "Endüstriyel kurutucu"
+        },
+        {
+          "id": "greenhouse-heating",
+          "name": "Sera Isıtma Sistemi",
+          "defaultWatt": 10000,
+          "powerFactor": 0.95,
+          "inrushMultiplier": 1,
+          "phase": "three",
+          "description": "Elektrikli sera ısıtıcı"
+        }
+      ]
+    }
+  ]
+}
