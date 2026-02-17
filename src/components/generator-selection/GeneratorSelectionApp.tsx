@@ -1,5 +1,11 @@
 import { useState, useMemo, useCallback, useEffect } from "react";
-import { Settings2, ChevronDown, ChevronUp, HelpCircle } from "./icons";
+import {
+  Settings2,
+  ChevronDown,
+  ChevronUp,
+  HelpCircle,
+  CheckCircle,
+} from "./icons";
 import type {
   SelectedDevice,
   UsageEnvironment,
@@ -8,6 +14,8 @@ import type {
   GeneratorGroup,
   StepLoadPercent,
   CabinPreference,
+  SwitchPreference,
+  AtsPreference,
 } from "./types";
 import { calculateKva } from "./utils/calculations";
 
@@ -39,12 +47,16 @@ export function GeneratorSelectionApp() {
   >("any");
   const [cabinPreference, setCabinPreference] =
     useState<CabinPreference>("without-cabin");
+  const [switchPreference, setSwitchPreference] =
+    useState<SwitchPreference>("yok");
+  const [atsPreference, setAtsPreference] = useState<AtsPreference>("yok");
   const [usageType, setUsageType] = useState<UsageType>("standby");
   const [generatorGroup, setGeneratorGroup] = useState<GeneratorGroup>("any");
   const [stepLoadPercent, setStepLoadPercent] =
     useState<StepLoadPercent>("any");
   const [showHowItWorks, setShowHowItWorks] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   // Show "How it works" modal on first visit
   useEffect(() => {
@@ -65,6 +77,12 @@ export function GeneratorSelectionApp() {
       setStepLoadPercent("any");
     }
   }, [generatorGroup]);
+
+  useEffect(() => {
+    if (!toastMessage) return;
+    const timeout = window.setTimeout(() => setToastMessage(null), 2200);
+    return () => window.clearTimeout(timeout);
+  }, [toastMessage]);
 
   const allEnvironments = useMemo(
     () => environmentsData.usageEnvironments as UsageEnvironment[],
@@ -111,10 +129,10 @@ export function GeneratorSelectionApp() {
 
   // Device handlers
   const handleAddDevice = useCallback((device: SelectedDevice) => {
+    const existing = selectedDevices.find(
+      (d) => d.deviceId === device.deviceId && !d.isCustom,
+    );
     setSelectedDevices((prev) => {
-      const existing = prev.find(
-        (d) => d.deviceId === device.deviceId && !d.isCustom,
-      );
       if (existing) {
         return prev.map((d) =>
           d.id === existing.id
@@ -124,7 +142,9 @@ export function GeneratorSelectionApp() {
       }
       return [...prev, device];
     });
-  }, []);
+    setShowSettings(true);
+    setToastMessage(existing ? `${device.name} adedi artırıldı` : `${device.name} eklendi`);
+  }, [selectedDevices]);
 
   const handleRemoveDevice = useCallback((id: string) => {
     setSelectedDevices((prev) => prev.filter((d) => d.id !== id));
@@ -164,6 +184,8 @@ export function GeneratorSelectionApp() {
     selectedMotorOrigin !== "any",
     selectedAlternatorOrigin !== "any",
     cabinPreference !== "without-cabin",
+    switchPreference !== "yok",
+    atsPreference !== "yok",
   ].filter(Boolean).length;
 
   return (
@@ -238,6 +260,8 @@ export function GeneratorSelectionApp() {
                 selectedMotorOrigin={selectedMotorOrigin}
                 selectedAlternatorOrigin={selectedAlternatorOrigin}
                 cabinPreference={cabinPreference}
+                switchPreference={switchPreference}
+                atsPreference={atsPreference}
                 usageType={usageType}
                 generatorGroup={generatorGroup}
                 stepLoadPercent={stepLoadPercent}
@@ -246,6 +270,8 @@ export function GeneratorSelectionApp() {
                 onMotorOriginChange={setSelectedMotorOrigin}
                 onAlternatorOriginChange={setSelectedAlternatorOrigin}
                 onCabinPreferenceChange={setCabinPreference}
+                onSwitchPreferenceChange={setSwitchPreference}
+                onAtsPreferenceChange={setAtsPreference}
                 onUsageTypeChange={setUsageType}
                 onGeneratorGroupChange={setGeneratorGroup}
                 onStepLoadPercentChange={setStepLoadPercent}
@@ -262,6 +288,8 @@ export function GeneratorSelectionApp() {
               motorOrigin={selectedMotorOrigin}
               alternatorOrigin={selectedAlternatorOrigin}
               cabinPreference={cabinPreference}
+              switchPreference={switchPreference}
+              atsPreference={atsPreference}
               devices={selectedDevices}
               usageType={usageType}
               generatorGroup={generatorGroup}
@@ -270,6 +298,15 @@ export function GeneratorSelectionApp() {
           )}
         </div>
       </div>
+
+      {toastMessage && (
+        <div className="fixed right-4 bottom-4 z-50">
+          <div className="flex items-center gap-2 px-3 py-2 rounded-lg shadow-lg border border-emerald-200 bg-emerald-50 text-emerald-900 text-sm">
+            <CheckCircle className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+            <span>{toastMessage}</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

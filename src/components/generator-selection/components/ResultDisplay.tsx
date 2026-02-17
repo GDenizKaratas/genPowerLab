@@ -16,6 +16,8 @@ import type {
   GeneratorGroup,
   StepLoadPercent,
   CabinPreference,
+  SwitchPreference,
+  AtsPreference,
 } from "../types";
 import { getKvaRangeLabel, formatWatt } from "../utils/calculations";
 
@@ -45,6 +47,8 @@ interface ResultDisplayProps {
   motorOrigin: "europe" | "china" | "any";
   alternatorOrigin: "europe" | "china" | "any";
   cabinPreference: CabinPreference;
+  switchPreference: SwitchPreference;
+  atsPreference: AtsPreference;
   devices: SelectedDevice[];
   usageType: UsageType;
   generatorGroup: GeneratorGroup;
@@ -66,6 +70,11 @@ const originLabels: Record<string, string> = {
 const cabinLabels: Record<CabinPreference, string> = {
   "without-cabin": "Kabinsiz",
   "with-cabin": "Kabinli",
+};
+
+const boolPreferenceLabels: Record<SwitchPreference | AtsPreference, string> = {
+  yok: "Yok",
+  var: "Var",
 };
 
 const stepLoadLabels: Record<StepLoadPercent, string> = {
@@ -111,6 +120,8 @@ export function ResultDisplay({
   motorOrigin,
   alternatorOrigin,
   cabinPreference,
+  switchPreference,
+  atsPreference,
   devices,
   usageType,
   generatorGroup,
@@ -119,7 +130,20 @@ export function ResultDisplay({
   const handleDownloadPDF = useCallback(() => {
     const doc = new jsPDF("p", "mm", "a4");
     const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+    const bottomMargin = 22;
     let y = 20;
+
+    const startNewPage = () => {
+      doc.addPage();
+      y = 20;
+    };
+
+    const ensureSpace = (requiredHeight: number) => {
+      if (y + requiredHeight > pageHeight - bottomMargin) {
+        startNewPage();
+      }
+    };
 
     // Header
     doc.setFillColor(37, 99, 235);
@@ -162,29 +186,36 @@ export function ResultDisplay({
     });
     y += 10;
 
-    // Device table
-    doc.setTextColor(0, 0, 0);
-    doc.setFontSize(12);
-    doc.text(tr("Seçilen Cihazlar"), 15, y);
-    y += 7;
+    const drawDeviceTableHeader = (continuation = false) => {
+      ensureSpace(18);
+      doc.setTextColor(0, 0, 0);
+      doc.setFontSize(12);
+      doc.text(
+        continuation ? tr("Seçilen Cihazlar (Devam)") : tr("Seçilen Cihazlar"),
+        15,
+        y,
+      );
+      y += 7;
 
-    // Table header
-    doc.setFillColor(243, 244, 246);
-    doc.rect(15, y, pageWidth - 30, 7, "F");
-    doc.setFontSize(9);
-    doc.setTextColor(75, 85, 99);
-    doc.text("Cihaz", 18, y + 5);
-    doc.text("Adet", 110, y + 5);
-    doc.text(tr("Güç"), 140, y + 5);
-    doc.text("Toplam", 165, y + 5);
-    y += 9;
+      doc.setFillColor(243, 244, 246);
+      doc.rect(15, y, pageWidth - 30, 7, "F");
+      doc.setFontSize(9);
+      doc.setTextColor(75, 85, 99);
+      doc.text("Cihaz", 18, y + 5);
+      doc.text("Adet", 110, y + 5);
+      doc.text(tr("Güç"), 140, y + 5);
+      doc.text("Toplam", 165, y + 5);
+      y += 9;
+    };
+
+    drawDeviceTableHeader();
 
     // Table rows
     doc.setTextColor(0, 0, 0);
     devices.forEach((device) => {
-      if (y > 270) {
-        doc.addPage();
-        y = 20;
+      if (y + 9 > pageHeight - bottomMargin) {
+        startNewPage();
+        drawDeviceTableHeader(true);
       }
       doc.setFontSize(9);
       doc.text(tr(device.name), 18, y + 4);
@@ -198,11 +229,6 @@ export function ResultDisplay({
 
     y += 7;
 
-    if (y > 220) {
-      doc.addPage();
-      y = 20;
-    }
-
     // Summary stats table
     const detailsRows: Array<[string, string]> = [
       [tr("Toplam Güç"), formatWatt(result.totalWatt)],
@@ -213,6 +239,8 @@ export function ResultDisplay({
       [tr("Motor Menşei"), tr(originLabels[motorOrigin])],
       [tr("Alternatör Menşei"), tr(originLabels[alternatorOrigin])],
       [tr("Kabin Tercihi"), tr(cabinLabels[cabinPreference])],
+      [tr("Şalter Tercihi"), tr(boolPreferenceLabels[switchPreference])],
+      [tr("ATS Tercihi"), tr(boolPreferenceLabels[atsPreference])],
     ];
 
     if (generatorGroup !== "any") {
@@ -234,11 +262,6 @@ export function ResultDisplay({
       ]);
     }
 
-    doc.setFontSize(12);
-    doc.setTextColor(0, 0, 0);
-    doc.text(tr("Hesaplama Detayları"), 15, y);
-    y += 4;
-
     const tableX = 15;
     const tableWidth = pageWidth - 30;
     const leftColWidth = 52;
@@ -246,16 +269,32 @@ export function ResultDisplay({
     const headerHeight = 7;
     const lineHeight = 4;
 
-    doc.setFillColor(243, 244, 246);
-    doc.rect(tableX, y, tableWidth, headerHeight, "F");
-    doc.setDrawColor(229, 231, 235);
-    doc.rect(tableX, y, tableWidth, headerHeight);
-    doc.line(tableX + leftColWidth, y, tableX + leftColWidth, y + headerHeight);
-    doc.setFontSize(9);
-    doc.setTextColor(75, 85, 99);
-    doc.text(tr("Parametre"), tableX + 3, y + 4.8);
-    doc.text(tr("Değer"), tableX + leftColWidth + 3, y + 4.8);
-    y += headerHeight;
+    const drawDetailsHeader = (continuation = false) => {
+      ensureSpace(18);
+      doc.setFontSize(12);
+      doc.setTextColor(0, 0, 0);
+      doc.text(
+        continuation
+          ? tr("Hesaplama Detayları (Devam)")
+          : tr("Hesaplama Detayları"),
+        15,
+        y,
+      );
+      y += 4;
+
+      doc.setFillColor(243, 244, 246);
+      doc.rect(tableX, y, tableWidth, headerHeight, "F");
+      doc.setDrawColor(229, 231, 235);
+      doc.rect(tableX, y, tableWidth, headerHeight);
+      doc.line(tableX + leftColWidth, y, tableX + leftColWidth, y + headerHeight);
+      doc.setFontSize(9);
+      doc.setTextColor(75, 85, 99);
+      doc.text(tr("Parametre"), tableX + 3, y + 4.8);
+      doc.text(tr("Değer"), tableX + leftColWidth + 3, y + 4.8);
+      y += headerHeight;
+    };
+
+    drawDetailsHeader();
 
     doc.setFontSize(9);
     doc.setTextColor(0, 0, 0);
@@ -265,6 +304,13 @@ export function ResultDisplay({
       const valueLines = doc.splitTextToSize(value, rightColWidth - 6) as string[];
       const rowLineCount = Math.max(labelLines.length, valueLines.length);
       const rowHeight = Math.max(7, rowLineCount * lineHeight + 2);
+
+      if (y + rowHeight > pageHeight - bottomMargin) {
+        startNewPage();
+        drawDetailsHeader(true);
+        doc.setFontSize(9);
+        doc.setTextColor(0, 0, 0);
+      }
 
       doc.rect(tableX, y, tableWidth, rowHeight);
       doc.line(tableX + leftColWidth, y, tableX + leftColWidth, y + rowHeight);
@@ -277,6 +323,7 @@ export function ResultDisplay({
 
     // Warnings
     if (result.hasThreePhase || result.largestMotorKva > 5) {
+      ensureSpace(16);
       doc.setFontSize(11);
       doc.setTextColor(0, 0, 0);
       doc.text(tr("Uyarılar"), 20, y);
@@ -284,20 +331,20 @@ export function ResultDisplay({
 
       doc.setFontSize(9);
       if (result.hasThreePhase) {
+        ensureSpace(6);
         doc.setTextColor(107, 33, 168);
         doc.text(tr("! 3 Faz bağlantı gereklidir"), 20, y);
         y += 6;
       }
       if (result.largestMotorKva > 5) {
+        ensureSpace(6);
         doc.setTextColor(180, 83, 9);
-        doc.text(
-          tr(
-            `! Büyük motor: ${result.largestMotorKva.toFixed(1)} kVA başlangıç yükü`,
-          ),
-          20,
-          y,
-        );
-        y += 6;
+        const warningLines = doc.splitTextToSize(
+          tr(`! Büyük motor: ${result.largestMotorKva.toFixed(1)} kVA başlangıç yükü`),
+          pageWidth - 40,
+        ) as string[];
+        doc.text(warningLines, 20, y);
+        y += warningLines.length * 4;
       }
     }
 
@@ -322,6 +369,8 @@ export function ResultDisplay({
     motorOrigin,
     alternatorOrigin,
     cabinPreference,
+    switchPreference,
+    atsPreference,
     usageType,
     generatorGroup,
     stepLoadPercent,

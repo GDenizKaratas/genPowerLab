@@ -22,6 +22,8 @@ import type {
   GeneratorGroup,
   StepLoadPercent,
   CabinPreference,
+  SwitchPreference,
+  AtsPreference,
 } from "../types";
 import { InfoTooltip } from "./InfoTooltip";
 
@@ -32,6 +34,8 @@ interface QuickSettingsProps {
   selectedMotorOrigin: "europe" | "china" | "any";
   selectedAlternatorOrigin: "europe" | "china" | "any";
   cabinPreference: CabinPreference;
+  switchPreference: SwitchPreference;
+  atsPreference: AtsPreference;
   usageType: UsageType;
   generatorGroup: GeneratorGroup;
   stepLoadPercent: StepLoadPercent;
@@ -40,6 +44,8 @@ interface QuickSettingsProps {
   onMotorOriginChange: (origin: "europe" | "china" | "any") => void;
   onAlternatorOriginChange: (origin: "europe" | "china" | "any") => void;
   onCabinPreferenceChange: (preference: CabinPreference) => void;
+  onSwitchPreferenceChange: (preference: SwitchPreference) => void;
+  onAtsPreferenceChange: (preference: AtsPreference) => void;
   onUsageTypeChange: (type: UsageType) => void;
   onGeneratorGroupChange: (group: GeneratorGroup) => void;
   onStepLoadPercentChange: (percent: StepLoadPercent) => void;
@@ -163,6 +169,8 @@ export function QuickSettings({
   selectedMotorOrigin,
   selectedAlternatorOrigin,
   cabinPreference,
+  switchPreference,
+  atsPreference,
   usageType,
   generatorGroup,
   stepLoadPercent,
@@ -171,6 +179,8 @@ export function QuickSettings({
   onMotorOriginChange,
   onAlternatorOriginChange,
   onCabinPreferenceChange,
+  onSwitchPreferenceChange,
+  onAtsPreferenceChange,
   onUsageTypeChange,
   onGeneratorGroupChange,
   onStepLoadPercentChange,
@@ -568,6 +578,80 @@ export function QuickSettings({
                 >
                   {option.desc}
                 </span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Switch Preference */}
+      <div>
+        <div className="flex items-center gap-1.5 mb-2">
+          <Shield className="w-3.5 h-3.5 text-gray-500" />
+          <label className="text-xs font-medium text-gray-600">
+            Şalter Tercihi
+          </label>
+        </div>
+        <div className="grid grid-cols-2 gap-2">
+          {[
+            { id: "yok" as const, label: "Yok" },
+            { id: "var" as const, label: "Var" },
+          ].map((option) => {
+            const isSelected = switchPreference === option.id;
+            return (
+              <button
+                key={`switch-${option.id}`}
+                onClick={() => onSwitchPreferenceChange(option.id)}
+                className={`
+                  p-2 rounded-lg border text-center transition-all text-xs font-medium
+                  ${
+                    isSelected
+                      ? "border-blue-500 bg-blue-50 text-blue-700"
+                      : "border-gray-200 hover:border-gray-300 hover:bg-gray-50 text-gray-600"
+                  }
+                `}
+              >
+                {option.label}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* ATS Preference */}
+      <div>
+        <div className="flex items-center gap-1.5 mb-2">
+          <Zap className="w-3.5 h-3.5 text-gray-500" />
+          <label className="text-xs font-medium text-gray-600">
+            ATS Tercihi
+          </label>
+          <InfoTooltip
+            title="ATS Tercihi"
+            content="Automatic Transfer Switch (ATS) var/yok tercihini belirtir."
+            openMode="modal"
+            fullscreenModal
+          />
+        </div>
+        <div className="grid grid-cols-2 gap-2">
+          {[
+            { id: "yok" as const, label: "Yok" },
+            { id: "var" as const, label: "Var" },
+          ].map((option) => {
+            const isSelected = atsPreference === option.id;
+            return (
+              <button
+                key={`ats-${option.id}`}
+                onClick={() => onAtsPreferenceChange(option.id)}
+                className={`
+                  p-2 rounded-lg border text-center transition-all text-xs font-medium
+                  ${
+                    isSelected
+                      ? "border-blue-500 bg-blue-50 text-blue-700"
+                      : "border-gray-200 hover:border-gray-300 hover:bg-gray-50 text-gray-600"
+                  }
+                `}
+              >
+                {option.label}
               </button>
             );
           })}

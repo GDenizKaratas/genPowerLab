@@ -178,6 +178,8 @@ export function DeviceSelector({
 }: DeviceSelectorProps) {
   const [activeCategory, setActiveCategory] = useState<string>(ALL_CATEGORY_ID);
   const [searchQuery, setSearchQuery] = useState("");
+  const [lastCategoryBeforeSearch, setLastCategoryBeforeSearch] =
+    useState<string>(ALL_CATEGORY_ID);
   const [showCustomModal, setShowCustomModal] = useState(false);
 
   const categoryTabs = useMemo(
@@ -195,8 +197,9 @@ export function DeviceSelector({
       })),
     );
 
+    const shouldSearchAll = normalizedQuery.length > 0;
     const categoryFiltered =
-      activeCategory === ALL_CATEGORY_ID
+      shouldSearchAll || activeCategory === ALL_CATEGORY_ID
         ? flatDevices
         : flatDevices.filter((item) => item.categoryId === activeCategory);
 
@@ -282,7 +285,22 @@ export function DeviceSelector({
                 : "Cihaz ara..."
             }
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => {
+              const value = e.target.value;
+              const hasQuery = value.trim().length > 0;
+              const hadQuery = searchQuery.trim().length > 0;
+
+              if (hasQuery && !hadQuery && activeCategory !== ALL_CATEGORY_ID) {
+                setLastCategoryBeforeSearch(activeCategory);
+                setActiveCategory(ALL_CATEGORY_ID);
+              }
+
+              if (!hasQuery && hadQuery) {
+                setActiveCategory(lastCategoryBeforeSearch);
+              }
+
+              setSearchQuery(value);
+            }}
             className="w-full pl-9 pr-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           />
         </div>

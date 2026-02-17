@@ -1,41 +1,43 @@
-import { useState } from 'react';
-import { X, Zap, Info } from '../icons';
-import type { SelectedDevice } from '../types';
-import { generateDeviceId, wattToKva } from '../utils/calculations';
+import { useState } from "react";
+import { X, Zap, Info } from "../icons";
+import type { SelectedDevice } from "../types";
+import { generateDeviceId, wattToKva } from "../utils/calculations";
 
 interface CustomDeviceModalProps {
   onClose: () => void;
   onAdd: (device: SelectedDevice) => void;
 }
 
-type InputMode = 'watt' | 'ampere';
+type InputMode = "watt" | "ampere";
 
 export function CustomDeviceModal({ onClose, onAdd }: CustomDeviceModalProps) {
-  const [inputMode, setInputMode] = useState<InputMode>('watt');
-  const [name, setName] = useState('');
+  const [inputMode, setInputMode] = useState<InputMode>("watt");
+  const [name, setName] = useState("");
   const [quantity, setQuantity] = useState(1);
 
   // Watt mode
-  const [watt, setWatt] = useState<number | ''>('');
+  const [watt, setWatt] = useState<number | "">("");
   const [powerFactor, setPowerFactor] = useState(0.85);
 
   // Ampere mode
   const [voltage, setVoltage] = useState(220);
-  const [ampere, setAmpere] = useState<number | ''>('');
-  const [phase, setPhase] = useState<'single' | 'three'>('single');
+  const [ampere, setAmpere] = useState<number | "">("");
+  const [phase, setPhase] = useState<"single" | "three">("single");
 
   // Common
   const [inrushMultiplier, setInrushMultiplier] = useState(1);
   const [isMotor, setIsMotor] = useState(false);
 
   // Calculate watt from ampere inputs
-  const calculatedWatt = inputMode === 'ampere' && ampere
-    ? phase === 'three'
-      ? voltage * Number(ampere) * Math.sqrt(3) * powerFactor
-      : voltage * Number(ampere) * powerFactor
-    : Number(watt) || 0;
+  const calculatedWatt =
+    inputMode === "ampere" && ampere
+      ? phase === "three"
+        ? voltage * Number(ampere) * Math.sqrt(3) * powerFactor
+        : voltage * Number(ampere) * powerFactor
+      : Number(watt) || 0;
 
-  const calculatedKva = calculatedWatt > 0 ? wattToKva(calculatedWatt, powerFactor) : 0;
+  const calculatedKva =
+    calculatedWatt > 0 ? wattToKva(calculatedWatt, powerFactor) : 0;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,16 +46,16 @@ export function CustomDeviceModal({ onClose, onAdd }: CustomDeviceModalProps) {
 
     const device: SelectedDevice = {
       id: generateDeviceId(),
-      deviceId: 'custom',
+      deviceId: "custom",
       name: name.trim(),
       quantity,
       watt: Math.round(calculatedWatt),
       powerFactor,
       inrushMultiplier: isMotor ? inrushMultiplier : 1,
-      phase: inputMode === 'ampere' ? phase : 'single',
+      phase: inputMode === "ampere" ? phase : "single",
       isCustom: true,
-      customVoltage: inputMode === 'ampere' ? voltage : undefined,
-      customAmpere: inputMode === 'ampere' ? Number(ampere) : undefined,
+      customVoltage: inputMode === "ampere" ? voltage : undefined,
+      customAmpere: inputMode === "ampere" ? Number(ampere) : undefined,
     };
 
     onAdd(device);
@@ -64,7 +66,9 @@ export function CustomDeviceModal({ onClose, onAdd }: CustomDeviceModalProps) {
       <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-100">
-          <h3 className="text-lg font-semibold text-gray-900">Özel Cihaz Ekle</h3>
+          <h3 className="text-lg font-semibold text-gray-900">
+            Özel Cihaz Ekle
+          </h3>
           <button
             onClick={onClose}
             className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
@@ -98,22 +102,24 @@ export function CustomDeviceModal({ onClose, onAdd }: CustomDeviceModalProps) {
             <div className="flex gap-2">
               <button
                 type="button"
-                onClick={() => setInputMode('watt')}
+                onClick={() => setInputMode("watt")}
                 className={`flex-1 py-2.5 px-4 rounded-lg font-medium text-sm transition-all
-                  ${inputMode === 'watt'
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  ${
+                    inputMode === "watt"
+                      ? "bg-blue-600 text-white"
+                      : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                   }`}
               >
                 Watt / kW
               </button>
               <button
                 type="button"
-                onClick={() => setInputMode('ampere')}
+                onClick={() => setInputMode("ampere")}
                 className={`flex-1 py-2.5 px-4 rounded-lg font-medium text-sm transition-all
-                  ${inputMode === 'ampere'
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  ${
+                    inputMode === "ampere"
+                      ? "bg-blue-600 text-white"
+                      : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                   }`}
               >
                 Voltaj / Amper
@@ -122,7 +128,7 @@ export function CustomDeviceModal({ onClose, onAdd }: CustomDeviceModalProps) {
           </div>
 
           {/* Watt Input Mode */}
-          {inputMode === 'watt' && (
+          {inputMode === "watt" && (
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1.5">
@@ -131,7 +137,9 @@ export function CustomDeviceModal({ onClose, onAdd }: CustomDeviceModalProps) {
                 <input
                   type="number"
                   value={watt}
-                  onChange={(e) => setWatt(e.target.value ? Number(e.target.value) : '')}
+                  onChange={(e) =>
+                    setWatt(e.target.value ? Number(e.target.value) : "")
+                  }
                   placeholder="3000"
                   min="1"
                   className="w-full px-4 py-2.5 border border-gray-200 rounded-lg
@@ -162,7 +170,7 @@ export function CustomDeviceModal({ onClose, onAdd }: CustomDeviceModalProps) {
           )}
 
           {/* Ampere Input Mode */}
-          {inputMode === 'ampere' && (
+          {inputMode === "ampere" && (
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -187,7 +195,9 @@ export function CustomDeviceModal({ onClose, onAdd }: CustomDeviceModalProps) {
                   <input
                     type="number"
                     value={ampere}
-                    onChange={(e) => setAmpere(e.target.value ? Number(e.target.value) : '')}
+                    onChange={(e) =>
+                      setAmpere(e.target.value ? Number(e.target.value) : "")
+                    }
                     placeholder="10"
                     min="0.1"
                     step="0.1"
@@ -205,7 +215,9 @@ export function CustomDeviceModal({ onClose, onAdd }: CustomDeviceModalProps) {
                   </label>
                   <select
                     value={phase}
-                    onChange={(e) => setPhase(e.target.value as 'single' | 'three')}
+                    onChange={(e) =>
+                      setPhase(e.target.value as "single" | "three")
+                    }
                     className="w-full px-4 py-2.5 border border-gray-200 rounded-lg
                                focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   >
@@ -251,7 +263,9 @@ export function CustomDeviceModal({ onClose, onAdd }: CustomDeviceModalProps) {
                            focus:ring-blue-500"
               />
               <div>
-                <span className="font-medium text-amber-900">Bu bir motorlu cihaz mı?</span>
+                <span className="font-medium text-amber-900">
+                  Bu bir asenkron motor mu?
+                </span>
                 <p className="text-sm text-amber-700 mt-0.5">
                   Motorlar çalışırken yüksek başlangıç akımı çeker
                 </p>
@@ -269,6 +283,8 @@ export function CustomDeviceModal({ onClose, onAdd }: CustomDeviceModalProps) {
                   className="w-full px-4 py-2.5 border border-amber-200 rounded-lg bg-white
                              focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
                 >
+                  <option value={1}>1x</option>
+                  <option value={2}>2x</option>
                   <option value={3}>3x (Hafif yük başlangıcı)</option>
                   <option value={4}>4x (Normal başlangıç)</option>
                   <option value={5}>5x (DOL - Direkt başlangıç)</option>
@@ -283,39 +299,20 @@ export function CustomDeviceModal({ onClose, onAdd }: CustomDeviceModalProps) {
             <label className="block text-sm font-medium text-gray-700 mb-1.5">
               Adet
             </label>
-            <div className="flex items-center gap-3">
-              <button
-                type="button"
-                onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                className="w-10 h-10 flex items-center justify-center border border-gray-200
-                           rounded-lg text-gray-600 hover:bg-gray-100 transition-colors"
-              >
-                -
-              </button>
-              <input
-                type="number"
-                min="1"
-                value={quantity}
-                onChange={(e) => {
-                  const val = parseInt(e.target.value, 10);
-                  if (!isNaN(val) && val >= 1) setQuantity(val);
-                }}
-                onBlur={(e) => {
-                  if (!e.target.value || parseInt(e.target.value, 10) < 1) setQuantity(1);
-                }}
-                className="text-lg font-semibold min-w-[3rem] text-center border border-gray-200 rounded-lg h-10
-                           focus:outline-none focus:ring-1 focus:ring-blue-400
-                           [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-              />
-              <button
-                type="button"
-                onClick={() => setQuantity(quantity + 1)}
-                className="w-10 h-10 flex items-center justify-center border border-gray-200
-                           rounded-lg text-gray-600 hover:bg-gray-100 transition-colors"
-              >
-                +
-              </button>
-            </div>
+            <select
+              value={quantity}
+              onChange={(e) => setQuantity(Number(e.target.value))}
+              className="w-32 px-3 py-2.5 border border-gray-200 rounded-lg text-sm
+                         focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            >
+              {Array.from({ length: 10 }, (_, index) => index + 1).map(
+                (value) => (
+                  <option key={value} value={value}>
+                    {value}x
+                  </option>
+                ),
+              )}
+            </select>
           </div>
 
           {/* Calculated Preview */}
@@ -329,7 +326,7 @@ export function CustomDeviceModal({ onClose, onAdd }: CustomDeviceModalProps) {
                 <div>
                   <span className="text-blue-700">Toplam Güç:</span>
                   <span className="ml-2 font-semibold text-blue-900">
-                    {(calculatedWatt * quantity / 1000).toFixed(2)} kW
+                    {((calculatedWatt * quantity) / 1000).toFixed(2)} kW
                   </span>
                 </div>
                 <div>
@@ -354,8 +351,8 @@ export function CustomDeviceModal({ onClose, onAdd }: CustomDeviceModalProps) {
           <div className="flex items-start gap-2 p-3 bg-gray-50 rounded-lg text-sm text-gray-600">
             <Info className="w-4 h-4 mt-0.5 flex-shrink-0" />
             <p>
-              Cihazınızın etiketindeki değerleri girin. Güç faktörünü bilmiyorsanız
-              genel endüstriyel değer olan 0.85 kullanılabilir.
+              Cihazınızın etiketindeki değerleri girin. Güç faktörünü
+              bilmiyorsanız genel endüstriyel değer olan 0.85 kullanılabilir.
             </p>
           </div>
 

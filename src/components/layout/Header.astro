@@ -15,11 +15,8 @@ const prefix = lang === 'tr' ? '' : '/' + lang;
 // Navigation yapısı - Tutarlı stil
 const navigation = [
   {
-    label: t('nav.applications'),
-    dropdown: [
-      { href: `${prefix}/uygulamalar/jenerator-secim`, label: t('nav.generatorSelector') },
-      { href: `${prefix}/uygulamalar/bakim-asistan`, label: t('nav.maintenanceAssistant') },
-    ],
+    label: lang === 'tr' ? 'Jeneratör Seçim Asistanı' : 'Generator Selection Assistant',
+    href: `${prefix}/uygulamalar/jenerator-secim`,
     highlight: true,
   },
   {
@@ -134,11 +131,13 @@ const dropdownDelay = 'group-hover:delay-300';
               <a
                 href={item.href}
                 class={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
-                  isActive(item.href)
+                  item.highlight
+                    ? 'text-white bg-gradient-to-r from-blue-600 to-indigo-600 shadow-sm hover:shadow-lg rounded-xl font-semibold'
+                    : isActive(item.href)
                     ? 'text-blue-700 bg-blue-50 border border-blue-200'
                     : 'text-gray-700 hover:text-blue-700 hover:bg-gray-50 border border-transparent hover:border-gray-200'
                 }`}
-                aria-current={isActive(item.href) ? 'page' : undefined}
+                aria-current={isActive(item.href) || item.highlight ? 'page' : undefined}
               >
                 {item.label}
               </a>
@@ -260,7 +259,9 @@ const dropdownDelay = 'group-hover:delay-300';
             <a
               href={item.href}
               class={`block px-4 py-3 rounded-xl font-medium transition-colors ${
-                isActive(item.href)
+                item.highlight
+                  ? 'text-blue-700 bg-blue-50'
+                  : isActive(item.href)
                   ? 'text-blue-700 bg-blue-50'
                   : 'text-gray-700 hover:bg-gray-50'
               }`}
