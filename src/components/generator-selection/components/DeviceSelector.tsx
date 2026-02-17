@@ -27,7 +27,6 @@ import {
   Coffee,
   Milk,
   PlusCircle,
-  X,
 } from "../icons";
 import type { Device, DeviceCategory, SelectedDevice } from "../types";
 import { generateDeviceId, formatWatt } from "../utils/calculations";
@@ -180,10 +179,6 @@ export function DeviceSelector({
   const [activeCategory, setActiveCategory] = useState<string>(ALL_CATEGORY_ID);
   const [searchQuery, setSearchQuery] = useState("");
   const [showCustomModal, setShowCustomModal] = useState(false);
-  const [pendingAddItem, setPendingAddItem] = useState<DeviceListItem | null>(
-    null,
-  );
-  const [pendingQuantity, setPendingQuantity] = useState(1);
 
   const categoryTabs = useMemo(
     () => [{ id: ALL_CATEGORY_ID, name: "Tümü" }, ...categories],
@@ -216,24 +211,20 @@ export function DeviceSelector({
     );
   }, [categories, activeCategory, searchQuery]);
 
-  const handleConfirmAdd = () => {
-    if (!pendingAddItem) return;
-
+  const handleAddDeviceDirect = (device: Device) => {
     const selectedDevice: SelectedDevice = {
       id: generateDeviceId(),
-      deviceId: pendingAddItem.device.id,
-      name: pendingAddItem.device.name,
-      quantity: Math.max(1, pendingQuantity),
-      watt: pendingAddItem.device.defaultWatt,
-      powerFactor: pendingAddItem.device.powerFactor,
-      inrushMultiplier: pendingAddItem.device.inrushMultiplier,
-      phase: pendingAddItem.device.phase,
+      deviceId: device.id,
+      name: device.name,
+      quantity: 1,
+      watt: device.defaultWatt,
+      powerFactor: device.powerFactor,
+      inrushMultiplier: device.inrushMultiplier,
+      phase: device.phase,
       isCustom: false,
     };
 
     onAddDevice(selectedDevice);
-    setPendingAddItem(null);
-    setPendingQuantity(1);
   };
 
   const handleAddCustomDevice = (device: SelectedDevice) => {
@@ -345,10 +336,7 @@ export function DeviceSelector({
                     </div>
                   </div>
                   <button
-                    onClick={() => {
-                      setPendingAddItem(item);
-                      setPendingQuantity(1);
-                    }}
+                    onClick={() => handleAddDeviceDirect(item.device)}
                     className="h-8 px-3 bg-blue-600 text-white text-xs font-medium rounded-md hover:bg-blue-700 transition-colors"
                   >
                     Ekle
@@ -370,54 +358,6 @@ export function DeviceSelector({
           </div>
         )}
       </div>
-
-      {pendingAddItem && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40">
-          <div className="bg-white rounded-xl shadow-xl border border-gray-200 w-full max-w-sm">
-            <div className="px-4 py-3 border-b border-gray-100 flex items-center justify-between">
-              <h3 className="text-sm font-semibold text-gray-900">Adet Seçin</h3>
-              <button
-                onClick={() => setPendingAddItem(null)}
-                className="p-1 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-            <div className="p-4 space-y-3">
-              <p className="text-sm text-gray-700">{pendingAddItem.device.name}</p>
-              <div>
-                <label className="block text-xs font-medium text-gray-600 mb-1">
-                  Adet
-                </label>
-                <input
-                  type="number"
-                  min="1"
-                  value={pendingQuantity}
-                  onChange={(e) => {
-                    const value = Number.parseInt(e.target.value, 10);
-                    setPendingQuantity(Number.isNaN(value) ? 1 : Math.max(1, value));
-                  }}
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                />
-              </div>
-              <div className="flex gap-2">
-                <button
-                  onClick={() => setPendingAddItem(null)}
-                  className="flex-1 py-2 text-sm font-medium border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
-                >
-                  Vazgeç
-                </button>
-                <button
-                  onClick={handleConfirmAdd}
-                  className="flex-1 py-2 text-sm font-medium bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                >
-                  Ekle
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
 
       {showCustomModal && (
         <CustomDeviceModal

@@ -79,6 +79,7 @@ export interface OriginOption {
 export type UsageType = "standby" | "prime" | "continuous";
 export type GeneratorGroup = "any" | "G1" | "G2" | "G3";
 export type StepLoadPercent = "any" | "0-25" | "0-50" | "0-75" | "0-100";
+export type CabinPreference = "without-cabin" | "with-cabin";
 
 // Calculation Types
 export interface CalculationResult {

@@ -10,6 +10,7 @@ import {
   Radio,
   Music,
   Globe,
+  Box,
   Check,
   Zap,
   Clock,
@@ -20,6 +21,7 @@ import type {
   UsageType,
   GeneratorGroup,
   StepLoadPercent,
+  CabinPreference,
 } from "../types";
 import { InfoTooltip } from "./InfoTooltip";
 
@@ -29,6 +31,7 @@ interface QuickSettingsProps {
   selectedEnvironmentOptions: string[];
   selectedMotorOrigin: "europe" | "china" | "any";
   selectedAlternatorOrigin: "europe" | "china" | "any";
+  cabinPreference: CabinPreference;
   usageType: UsageType;
   generatorGroup: GeneratorGroup;
   stepLoadPercent: StepLoadPercent;
@@ -36,6 +39,7 @@ interface QuickSettingsProps {
   onEnvironmentOptionToggle: (optionId: string) => void;
   onMotorOriginChange: (origin: "europe" | "china" | "any") => void;
   onAlternatorOriginChange: (origin: "europe" | "china" | "any") => void;
+  onCabinPreferenceChange: (preference: CabinPreference) => void;
   onUsageTypeChange: (type: UsageType) => void;
   onGeneratorGroupChange: (group: GeneratorGroup) => void;
   onStepLoadPercentChange: (percent: StepLoadPercent) => void;
@@ -158,6 +162,7 @@ export function QuickSettings({
   selectedEnvironmentOptions,
   selectedMotorOrigin,
   selectedAlternatorOrigin,
+  cabinPreference,
   usageType,
   generatorGroup,
   stepLoadPercent,
@@ -165,6 +170,7 @@ export function QuickSettings({
   onEnvironmentOptionToggle,
   onMotorOriginChange,
   onAlternatorOriginChange,
+  onCabinPreferenceChange,
   onUsageTypeChange,
   onGeneratorGroupChange,
   onStepLoadPercentChange,
@@ -507,6 +513,64 @@ export function QuickSettings({
               })}
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Cabin Preference */}
+      <div>
+        <div className="flex items-center gap-1.5 mb-2">
+          <Box className="w-3.5 h-3.5 text-gray-500" />
+          <label className="text-xs font-medium text-gray-600">
+            Kabin Tercihi
+          </label>
+          <InfoTooltip
+            title="Kabin Tercihi"
+            content="Kabinli veya kabinsiz jeneratör tercihidir. Varsayılan seçim kabinsizdir."
+            openMode="modal"
+            fullscreenModal
+          />
+        </div>
+        <div className="grid grid-cols-2 gap-2">
+          {[
+            {
+              id: "without-cabin" as const,
+              label: "Kabinsiz",
+              desc: "Varsayılan seçim",
+            },
+            {
+              id: "with-cabin" as const,
+              label: "Kabinli",
+              desc: "Ses ve hava koruması",
+            },
+          ].map((option) => {
+            const isSelected = cabinPreference === option.id;
+
+            return (
+              <button
+                key={option.id}
+                onClick={() => onCabinPreferenceChange(option.id)}
+                className={`
+                  p-2 rounded-lg border text-center transition-all
+                  ${
+                    isSelected
+                      ? "border-blue-500 bg-blue-50"
+                      : "border-gray-200 hover:border-gray-300 hover:bg-gray-50"
+                  }
+                `}
+              >
+                <span
+                  className={`block text-xs font-medium ${isSelected ? "text-blue-700" : "text-gray-700"}`}
+                >
+                  {option.label}
+                </span>
+                <span
+                  className={`block text-[10px] ${isSelected ? "text-blue-600" : "text-gray-500"}`}
+                >
+                  {option.desc}
+                </span>
+              </button>
+            );
+          })}
         </div>
       </div>
     </div>

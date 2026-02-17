@@ -15,18 +15,25 @@ import type {
   UsageType,
   GeneratorGroup,
   StepLoadPercent,
+  CabinPreference,
 } from "../types";
 import { getKvaRangeLabel, formatWatt } from "../utils/calculations";
 
 /** Türkçe karakterleri ASCII karşılıklarına çevirir (jsPDF varsayılan fontları desteklemez) */
 function tr(text: string): string {
   const map: Record<string, string> = {
-    'ş': 's', 'Ş': 'S',
-    'ç': 'c', 'Ç': 'C',
-    'ğ': 'g', 'Ğ': 'G',
-    'ı': 'i', 'İ': 'I',
-    'ö': 'o', 'Ö': 'O',
-    'ü': 'u', 'Ü': 'U',
+    ş: "s",
+    Ş: "S",
+    ç: "c",
+    Ç: "C",
+    ğ: "g",
+    Ğ: "G",
+    ı: "i",
+    İ: "I",
+    ö: "o",
+    Ö: "O",
+    ü: "u",
+    Ü: "U",
   };
   return text.replace(/[şŞçÇğĞıİöÖüÜ]/g, (c) => map[c] || c);
 }
@@ -37,6 +44,7 @@ interface ResultDisplayProps {
   selectedEnvironmentOptions: string[];
   motorOrigin: "europe" | "china" | "any";
   alternatorOrigin: "europe" | "china" | "any";
+  cabinPreference: CabinPreference;
   devices: SelectedDevice[];
   usageType: UsageType;
   generatorGroup: GeneratorGroup;
@@ -53,6 +61,11 @@ const originLabels: Record<string, string> = {
   europe: "Avrupa",
   china: "Çin",
   any: "Tümü",
+};
+
+const cabinLabels: Record<CabinPreference, string> = {
+  "without-cabin": "Kabinsiz",
+  "with-cabin": "Kabinli",
 };
 
 const stepLoadLabels: Record<StepLoadPercent, string> = {
@@ -97,6 +110,7 @@ export function ResultDisplay({
   selectedEnvironmentOptions,
   motorOrigin,
   alternatorOrigin,
+  cabinPreference,
   devices,
   usageType,
   generatorGroup,
@@ -131,7 +145,9 @@ export function ResultDisplay({
     doc.roundedRect(15, y, pageWidth - 30, 25, 3, 3, "F");
     doc.setFontSize(12);
     doc.setTextColor(22, 101, 52);
-    doc.text(tr("Önerilen Kapasite"), pageWidth / 2, y + 8, { align: "center" });
+    doc.text(tr("Önerilen Kapasite"), pageWidth / 2, y + 8, {
+      align: "center",
+    });
     doc.setFontSize(22);
     doc.text(`${result.recommendedKva} kVA`, pageWidth / 2, y + 19, {
       align: "center",
@@ -180,72 +196,84 @@ export function ResultDisplay({
       y += 9;
     });
 
-    y += 5;
+    y += 7;
 
-    // Summary stats
-    doc.setFillColor(249, 250, 251);
-    doc.roundedRect(15, y, pageWidth - 30, 40, 3, 3, "F");
-    doc.setFontSize(11);
-    doc.setTextColor(0, 0, 0);
-    doc.text(tr("Hesaplama Detayları"), 20, y + 8);
+    if (y > 220) {
+      doc.addPage();
+      y = 20;
+    }
 
-    doc.setFontSize(9);
-    doc.setTextColor(75, 85, 99);
-    const details = [
-      [
-        tr(`Toplam Güç: ${formatWatt(result.totalWatt)}`),
-        `Toplam kVA: ${result.totalKva.toFixed(1)}`,
-      ],
-      [
-        tr(`Talep Faktörü: %${(result.demandFactor * 100).toFixed(0)}`),
-        tr(`Güvenlik Marjı: x${result.safetyMargin.toFixed(2)}`),
-      ],
-      [
-        tr(`Kullanım Tipi: ${usageTypeLabels[usageType]}`),
-        tr(`Motor Menşei: ${originLabels[motorOrigin]}`),
-      ],
+    // Summary stats table
+    const detailsRows: Array<[string, string]> = [
+      [tr("Toplam Güç"), formatWatt(result.totalWatt)],
+      [tr("Toplam kVA"), result.totalKva.toFixed(1)],
+      [tr("Talep Faktörü"), `%${(result.demandFactor * 100).toFixed(0)}`],
+      [tr("Güvenlik Marjı"), `x${result.safetyMargin.toFixed(2)}`],
+      [tr("Kullanım Tipi"), tr(usageTypeLabels[usageType])],
+      [tr("Motor Menşei"), tr(originLabels[motorOrigin])],
+      [tr("Alternatör Menşei"), tr(originLabels[alternatorOrigin])],
+      [tr("Kabin Tercihi"), tr(cabinLabels[cabinPreference])],
     ];
 
-    let detailY = y + 15;
-    details.forEach(([left, right]) => {
-      doc.text(left, 20, detailY);
-      doc.text(right, 110, detailY);
-      detailY += 6;
-    });
-
-    doc.text(tr(`Alternatör Menşei: ${originLabels[alternatorOrigin]}`), 20, detailY);
-    detailY += 6;
-
     if (generatorGroup !== "any") {
-      doc.text(tr(`Jeneratör Grubu: ${generatorGroup}`), 20, detailY);
-      doc.text(
-        tr(`İlk Adım Yükü: ${stepLoadLabels[stepLoadPercent]}`),
-        110,
-        detailY,
-      );
-      detailY += 6;
+      detailsRows.push([tr("Jeneratör Grubu"), generatorGroup]);
+      detailsRows.push([tr("İlk Adım Yükü"), tr(stepLoadLabels[stepLoadPercent])]);
     }
 
     if (environments.length > 0) {
-      doc.text(
-        tr(`Kullanım Ortamı: ${environments.map((environment) => environment.name).join(", ")}`),
-        20,
-        detailY,
-      );
-      detailY += 6;
+      detailsRows.push([
+        tr("Kullanım Ortamı"),
+        tr(environments.map((environment) => environment.name).join(", ")),
+      ]);
     }
 
     if (selectedEnvironmentOptions.length > 0) {
-      doc.text(
-        tr(
-          `Ortam Opsiyonları: ${selectedEnvironmentOptions.map((optionId) => getOptionLabel(optionId)).join(", ")}`,
-        ),
-        20,
-        detailY,
-      );
+      detailsRows.push([
+        tr("Ortam Opsiyonları"),
+        tr(selectedEnvironmentOptions.map((optionId) => getOptionLabel(optionId)).join(", ")),
+      ]);
     }
 
-    y += 48;
+    doc.setFontSize(12);
+    doc.setTextColor(0, 0, 0);
+    doc.text(tr("Hesaplama Detayları"), 15, y);
+    y += 4;
+
+    const tableX = 15;
+    const tableWidth = pageWidth - 30;
+    const leftColWidth = 52;
+    const rightColWidth = tableWidth - leftColWidth;
+    const headerHeight = 7;
+    const lineHeight = 4;
+
+    doc.setFillColor(243, 244, 246);
+    doc.rect(tableX, y, tableWidth, headerHeight, "F");
+    doc.setDrawColor(229, 231, 235);
+    doc.rect(tableX, y, tableWidth, headerHeight);
+    doc.line(tableX + leftColWidth, y, tableX + leftColWidth, y + headerHeight);
+    doc.setFontSize(9);
+    doc.setTextColor(75, 85, 99);
+    doc.text(tr("Parametre"), tableX + 3, y + 4.8);
+    doc.text(tr("Değer"), tableX + leftColWidth + 3, y + 4.8);
+    y += headerHeight;
+
+    doc.setFontSize(9);
+    doc.setTextColor(0, 0, 0);
+
+    detailsRows.forEach(([label, value]) => {
+      const labelLines = doc.splitTextToSize(label, leftColWidth - 6) as string[];
+      const valueLines = doc.splitTextToSize(value, rightColWidth - 6) as string[];
+      const rowLineCount = Math.max(labelLines.length, valueLines.length);
+      const rowHeight = Math.max(7, rowLineCount * lineHeight + 2);
+
+      doc.rect(tableX, y, tableWidth, rowHeight);
+      doc.line(tableX + leftColWidth, y, tableX + leftColWidth, y + rowHeight);
+      doc.text(labelLines, tableX + 3, y + 4.8);
+      doc.text(valueLines, tableX + leftColWidth + 3, y + 4.8);
+      y += rowHeight;
+    });
+
+    y += 8;
 
     // Warnings
     if (result.hasThreePhase || result.largestMotorKva > 5) {
@@ -263,7 +291,9 @@ export function ResultDisplay({
       if (result.largestMotorKva > 5) {
         doc.setTextColor(180, 83, 9);
         doc.text(
-          tr(`! Büyük motor: ${result.largestMotorKva.toFixed(1)} kVA başlangıç yükü`),
+          tr(
+            `! Büyük motor: ${result.largestMotorKva.toFixed(1)} kVA başlangıç yükü`,
+          ),
           20,
           y,
         );
@@ -276,7 +306,7 @@ export function ResultDisplay({
     doc.setFontSize(8);
     doc.setTextColor(156, 163, 175);
     doc.text(
-      tr("Bu rapor GenPower Lab Jeneratör Seçim Asistanı tarafından oluşturulmuştur."),
+      tr("Bu rapor GenPL Seçim Asistanı tarafından oluşturulmuştur."),
       pageWidth / 2,
       y,
       { align: "center" },
@@ -291,6 +321,7 @@ export function ResultDisplay({
     selectedEnvironmentOptions,
     motorOrigin,
     alternatorOrigin,
+    cabinPreference,
     usageType,
     generatorGroup,
     stepLoadPercent,

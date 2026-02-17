@@ -7,6 +7,7 @@ import type {
   UsageType,
   GeneratorGroup,
   StepLoadPercent,
+  CabinPreference,
 } from "./types";
 import { calculateKva } from "./utils/calculations";
 
@@ -36,6 +37,8 @@ export function GeneratorSelectionApp() {
   const [selectedAlternatorOrigin, setSelectedAlternatorOrigin] = useState<
     "europe" | "china" | "any"
   >("any");
+  const [cabinPreference, setCabinPreference] =
+    useState<CabinPreference>("without-cabin");
   const [usageType, setUsageType] = useState<UsageType>("standby");
   const [generatorGroup, setGeneratorGroup] = useState<GeneratorGroup>("any");
   const [stepLoadPercent, setStepLoadPercent] =
@@ -160,6 +163,7 @@ export function GeneratorSelectionApp() {
     selectedEnvironmentOptions.length > 0,
     selectedMotorOrigin !== "any",
     selectedAlternatorOrigin !== "any",
+    cabinPreference !== "without-cabin",
   ].filter(Boolean).length;
 
   return (
@@ -233,6 +237,7 @@ export function GeneratorSelectionApp() {
                 selectedEnvironmentOptions={selectedEnvironmentOptions}
                 selectedMotorOrigin={selectedMotorOrigin}
                 selectedAlternatorOrigin={selectedAlternatorOrigin}
+                cabinPreference={cabinPreference}
                 usageType={usageType}
                 generatorGroup={generatorGroup}
                 stepLoadPercent={stepLoadPercent}
@@ -240,6 +245,7 @@ export function GeneratorSelectionApp() {
                 onEnvironmentOptionToggle={handleEnvironmentOptionToggle}
                 onMotorOriginChange={setSelectedMotorOrigin}
                 onAlternatorOriginChange={setSelectedAlternatorOrigin}
+                onCabinPreferenceChange={setCabinPreference}
                 onUsageTypeChange={setUsageType}
                 onGeneratorGroupChange={setGeneratorGroup}
                 onStepLoadPercentChange={setStepLoadPercent}
@@ -255,6 +261,7 @@ export function GeneratorSelectionApp() {
               selectedEnvironmentOptions={selectedEnvironmentOptions}
               motorOrigin={selectedMotorOrigin}
               alternatorOrigin={selectedAlternatorOrigin}
+              cabinPreference={cabinPreference}
               devices={selectedDevices}
               usageType={usageType}
               generatorGroup={generatorGroup}
