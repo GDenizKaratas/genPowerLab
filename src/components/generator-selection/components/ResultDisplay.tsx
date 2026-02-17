@@ -33,8 +33,10 @@ function tr(text: string): string {
 
 interface ResultDisplayProps {
   result: CalculationResult;
-  environment: UsageEnvironment | null;
-  origin: "europe" | "china" | "any";
+  environments: UsageEnvironment[];
+  selectedEnvironmentOptions: string[];
+  motorOrigin: "europe" | "china" | "any";
+  alternatorOrigin: "europe" | "china" | "any";
   devices: SelectedDevice[];
   usageType: UsageType;
   generatorGroup: GeneratorGroup;
@@ -56,15 +58,45 @@ const originLabels: Record<string, string> = {
 const stepLoadLabels: Record<StepLoadPercent, string> = {
   any: "Belirtilmedi",
   "0-25": "%0-25",
-  "25-50": "%25-50",
-  "50-75": "%50-75",
-  "75-100": "%75-100",
+  "0-50": "%0-50",
+  "0-75": "%0-75",
+  "0-100": "%0-100",
 };
+
+const environmentOptionLabels: Record<string, string> = {
+  "low-noise": "Ses yalıtımı",
+  compact: "Kompakt yapı",
+  "auto-start": "Otomatik başlatma",
+  "remote-monitoring": "Uzaktan izleme",
+  redundant: "Redundant sistem",
+  "ups-compatible": "UPS uyumu",
+  "heavy-duty": "Ağır hizmet",
+  "dust-proof": "Toz koruması",
+  mobile: "Mobil kullanım",
+  "explosion-proof": "Patlama koruması",
+  "weather-proof": "Hava koşulu koruması",
+  "easy-maintenance": "Kolay bakım",
+  "corrosion-resistant": "Korozyon direnci",
+  "marine-grade": "Deniz tipi ekipman",
+  "quick-connect": "Hızlı bağlantı",
+};
+
+function getOptionLabel(optionId: string): string {
+  return (
+    environmentOptionLabels[optionId] ??
+    optionId
+      .split("-")
+      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+      .join(" ")
+  );
+}
 
 export function ResultDisplay({
   result,
-  environment,
-  origin,
+  environments,
+  selectedEnvironmentOptions,
+  motorOrigin,
+  alternatorOrigin,
   devices,
   usageType,
   generatorGroup,
@@ -170,7 +202,7 @@ export function ResultDisplay({
       ],
       [
         tr(`Kullanım Tipi: ${usageTypeLabels[usageType]}`),
-        tr(`Menşei: ${originLabels[origin]}`),
+        tr(`Motor Menşei: ${originLabels[motorOrigin]}`),
       ],
     ];
 
@@ -180,6 +212,9 @@ export function ResultDisplay({
       doc.text(right, 110, detailY);
       detailY += 6;
     });
+
+    doc.text(tr(`Alternatör Menşei: ${originLabels[alternatorOrigin]}`), 20, detailY);
+    detailY += 6;
 
     if (generatorGroup !== "any") {
       doc.text(tr(`Jeneratör Grubu: ${generatorGroup}`), 20, detailY);
@@ -191,8 +226,23 @@ export function ResultDisplay({
       detailY += 6;
     }
 
-    if (environment) {
-      doc.text(tr(`Kullanım Ortamı: ${environment.name}`), 20, detailY);
+    if (environments.length > 0) {
+      doc.text(
+        tr(`Kullanım Ortamı: ${environments.map((environment) => environment.name).join(", ")}`),
+        20,
+        detailY,
+      );
+      detailY += 6;
+    }
+
+    if (selectedEnvironmentOptions.length > 0) {
+      doc.text(
+        tr(
+          `Ortam Opsiyonları: ${selectedEnvironmentOptions.map((optionId) => getOptionLabel(optionId)).join(", ")}`,
+        ),
+        20,
+        detailY,
+      );
     }
 
     y += 48;
@@ -237,8 +287,10 @@ export function ResultDisplay({
   }, [
     result,
     devices,
-    environment,
-    origin,
+    environments,
+    selectedEnvironmentOptions,
+    motorOrigin,
+    alternatorOrigin,
     usageType,
     generatorGroup,
     stepLoadPercent,
@@ -277,9 +329,9 @@ export function ResultDisplay({
             </p>
           </div>
           <div className="p-2 bg-white/80 rounded-lg">
-            <p className="text-[10px] text-gray-500 uppercase">Mensei</p>
+            <p className="text-[10px] text-gray-500 uppercase">Motor/Alt.</p>
             <p className="text-sm font-bold text-gray-900">
-              {originLabels[origin]}
+              {originLabels[motorOrigin]}/{originLabels[alternatorOrigin]}
             </p>
           </div>
         </div>

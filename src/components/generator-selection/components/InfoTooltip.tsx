@@ -1,13 +1,20 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect, useCallback, type MouseEvent } from 'react';
 import { createPortal } from 'react-dom';
 import { HelpCircle, X } from '../icons';
 
 interface InfoTooltipProps {
   title: string;
   content: string;
+  openMode?: 'tooltip' | 'modal';
+  fullscreenModal?: boolean;
 }
 
-export function InfoTooltip({ title, content }: InfoTooltipProps) {
+export function InfoTooltip({
+  title,
+  content,
+  openMode = 'tooltip',
+  fullscreenModal = false,
+}: InfoTooltipProps) {
   const [mode, setMode] = useState<'closed' | 'tooltip' | 'modal'>('closed');
   const buttonRef = useRef<HTMLButtonElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
@@ -75,8 +82,10 @@ export function InfoTooltip({ title, content }: InfoTooltipProps) {
     };
   }, [mode]);
 
-  const handleToggle = () => {
-    setMode(mode === 'closed' ? 'tooltip' : 'closed');
+  const handleToggle = (e: MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    const initialMode = openMode === 'modal' ? 'modal' : 'tooltip';
+    setMode(mode === 'closed' ? initialMode : 'closed');
   };
 
   const tooltipElement = mode === 'tooltip' && createPortal(
@@ -111,7 +120,13 @@ export function InfoTooltip({ title, content }: InfoTooltipProps) {
       className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/40"
       onClick={(e) => { if (e.target === e.currentTarget) setMode('closed'); }}
     >
-      <div className="bg-white rounded-xl shadow-2xl max-w-md w-full p-6 animate-in fade-in">
+      <div
+        className={
+          fullscreenModal
+            ? "bg-white rounded-none sm:rounded-2xl shadow-2xl w-full h-full sm:h-auto sm:max-w-3xl p-6 sm:p-8 overflow-y-auto animate-in fade-in"
+            : "bg-white rounded-xl shadow-2xl max-w-md w-full p-6 animate-in fade-in"
+        }
+      >
         <div className="flex items-start justify-between gap-3 mb-4">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">

@@ -1,5 +1,11 @@
-import type { SelectedDevice, CalculationResult, UsageEnvironment, UsageType, StepLoadPercent } from '../types';
-import calculationConfig from '../../../data/generator-selection/calculation-config.json';
+import type {
+  SelectedDevice,
+  CalculationResult,
+  UsageEnvironment,
+  UsageType,
+  StepLoadPercent,
+} from "../types";
+import calculationConfig from "../../../data/generator-selection/calculation-config.json";
 
 const { calculationParameters } = calculationConfig;
 
@@ -27,22 +33,22 @@ export function threePhaseKva(voltage: number, ampere: number): number {
 /**
  * Get safety margin based on environment type
  */
-export function getSafetyMargin(environmentId: string): number {
+export function getSafetyMarginForEnvironment(environmentId: string): number {
   const margins = calculationParameters.safetyMargins;
 
   switch (environmentId) {
-    case 'residential':
+    case "residential":
       return margins.home;
-    case 'retail':
-    case 'events':
+    case "retail":
+    case "events":
       return margins.commercial;
-    case 'factory':
-    case 'construction':
-    case 'agriculture':
-    case 'mining':
+    case "factory":
+    case "construction":
+    case "agriculture":
+    case "mining":
       return margins.industrial;
-    case 'hospital':
-    case 'telecom':
+    case "hospital":
+    case "telecom":
       return margins.critical;
     default:
       return margins.commercial;
@@ -52,11 +58,27 @@ export function getSafetyMargin(environmentId: string): number {
 /**
  * Get demand factor based on environment
  */
-export function getDemandFactor(environment: UsageEnvironment | null): number {
-  if (!environment) {
+export function getDemandFactor(environments: UsageEnvironment[]): number {
+  if (environments.length === 0) {
     return calculationParameters.simultaneityFactors.commercial;
   }
-  return environment.demandFactor;
+
+  return Math.max(...environments.map((environment) => environment.demandFactor));
+}
+
+/**
+ * Get safety margin based on selected environments
+ */
+export function getSafetyMargin(environments: UsageEnvironment[]): number {
+  if (environments.length === 0) {
+    return calculationParameters.safetyMargins.commercial;
+  }
+
+  return Math.max(
+    ...environments.map((environment) =>
+      getSafetyMarginForEnvironment(environment.id),
+    ),
+  );
 }
 
 /**
@@ -64,12 +86,12 @@ export function getDemandFactor(environment: UsageEnvironment | null): number {
  */
 export function getUsageTypeMultiplier(usageType: UsageType): number {
   switch (usageType) {
-    case 'standby':
+    case "standby":
       return 1.0;
-    case 'prime':
+    case "prime":
       return 1.1;
-    case 'continuous':
-      return 1.25;
+    case "continuous":
+      return 1 / 0.7;
   }
 }
 
@@ -78,15 +100,15 @@ export function getUsageTypeMultiplier(usageType: UsageType): number {
  */
 export function getStepLoadMultiplier(stepLoadPercent: StepLoadPercent): number {
   switch (stepLoadPercent) {
-    case 'any':
+    case "any":
       return 1.0;
-    case '0-25':
+    case "0-25":
       return 1.0;
-    case '25-50':
+    case "0-50":
       return 1.1;
-    case '50-75':
+    case "0-75":
       return 1.2;
-    case '75-100':
+    case "0-100":
       return 1.35;
   }
 }
@@ -96,9 +118,9 @@ export function getStepLoadMultiplier(stepLoadPercent: StepLoadPercent): number 
  */
 export function calculateKva(
   devices: SelectedDevice[],
-  environment: UsageEnvironment | null,
-  usageType: UsageType = 'standby',
-  stepLoadPercent: StepLoadPercent = 'any'
+  environments: UsageEnvironment[],
+  usageType: UsageType = "standby",
+  stepLoadPercent: StepLoadPercent = "any",
 ): CalculationResult {
   if (devices.length === 0) {
     return {
@@ -109,7 +131,7 @@ export function calculateKva(
       safetyMargin: 1.2,
       demandFactor: 0.75,
       hasThreePhase: false,
-      largestMotorKva: 0
+      largestMotorKva: 0,
     };
   }
 
@@ -145,26 +167,29 @@ export function calculateKva(
     : totalKva;
 
   // Get factors
-  const demandFactor = getDemandFactor(environment);
-  const safetyMargin = getSafetyMargin(environment?.id || 'commercial');
+  const demandFactor = getDemandFactor(environments);
+  const safetyMargin = getSafetyMargin(environments);
   const usageMultiplier = getUsageTypeMultiplier(usageType);
   const stepLoadMultiplier = getStepLoadMultiplier(stepLoadPercent);
+  const adjustedTotalWatt = totalWatt * usageMultiplier;
+  const adjustedTotalKva = totalKva * usageMultiplier;
 
   // Calculate recommended kVA
   // Use the higher of: (total * demand * safety * usage) or (starting kVA * stepLoad)
   const calculatedKva = totalKva * demandFactor * safetyMargin * usageMultiplier;
-  const startingWithStepLoad = startingKva * 1.1 * stepLoadMultiplier;
+  const startingWithStepLoad =
+    startingKva * 1.1 * stepLoadMultiplier * usageMultiplier;
   const recommendedKva = Math.max(calculatedKva, startingWithStepLoad);
 
   return {
-    totalWatt,
-    totalKva: Math.round(totalKva * 10) / 10,
+    totalWatt: Math.round(adjustedTotalWatt),
+    totalKva: Math.round(adjustedTotalKva * 10) / 10,
     startingKva: Math.round(startingKva * 10) / 10,
     recommendedKva: Math.ceil(recommendedKva),
     safetyMargin,
     demandFactor,
     hasThreePhase,
-    largestMotorKva: Math.round(largestMotorKva * 10) / 10
+    largestMotorKva: Math.round(largestMotorKva * 10) / 10,
   };
 }
 
@@ -172,8 +197,10 @@ export function calculateKva(
  * Get kVA range label
  */
 export function getKvaRangeLabel(kva: number): string {
-  const range = calculationConfig.kvaRanges.find(r => kva >= r.min && kva < r.max);
-  return range ? `${range.label} (${range.typical})` : 'Özel';
+  const range = calculationConfig.kvaRanges.find(
+    (r) => kva >= r.min && kva < r.max,
+  );
+  return range ? `${range.label} (${range.typical})` : "Özel";
 }
 
 /**

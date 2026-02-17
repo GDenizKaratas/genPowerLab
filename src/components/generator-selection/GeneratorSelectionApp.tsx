@@ -24,11 +24,22 @@ import { QuickSettings } from "./components/QuickSettings";
 export function GeneratorSelectionApp() {
   // State
   const [selectedDevices, setSelectedDevices] = useState<SelectedDevice[]>([]);
-  const [selectedEnvironment, setSelectedEnvironment] = useState<string | null>(null);
-  const [selectedOrigin, setSelectedOrigin] = useState<"europe" | "china" | "any">("any");
+  const [selectedEnvironmentIds, setSelectedEnvironmentIds] = useState<
+    string[]
+  >([]);
+  const [selectedEnvironmentOptions, setSelectedEnvironmentOptions] = useState<
+    string[]
+  >([]);
+  const [selectedMotorOrigin, setSelectedMotorOrigin] = useState<
+    "europe" | "china" | "any"
+  >("any");
+  const [selectedAlternatorOrigin, setSelectedAlternatorOrigin] = useState<
+    "europe" | "china" | "any"
+  >("any");
   const [usageType, setUsageType] = useState<UsageType>("standby");
   const [generatorGroup, setGeneratorGroup] = useState<GeneratorGroup>("any");
-  const [stepLoadPercent, setStepLoadPercent] = useState<StepLoadPercent>("any");
+  const [stepLoadPercent, setStepLoadPercent] =
+    useState<StepLoadPercent>("any");
   const [showHowItWorks, setShowHowItWorks] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
 
@@ -52,20 +63,48 @@ export function GeneratorSelectionApp() {
     }
   }, [generatorGroup]);
 
-  // Get environment object
-  const environment = useMemo(() => {
-    if (!selectedEnvironment) return null;
-    return (
-      (environmentsData.usageEnvironments.find(
-        (e) => e.id === selectedEnvironment,
-      ) as UsageEnvironment | undefined) ?? null
+  const allEnvironments = useMemo(
+    () => environmentsData.usageEnvironments as UsageEnvironment[],
+    [],
+  );
+
+  // Get selected environment objects
+  const selectedEnvironments = useMemo(
+    () =>
+      allEnvironments.filter((environment) =>
+        selectedEnvironmentIds.includes(environment.id),
+      ),
+    [allEnvironments, selectedEnvironmentIds],
+  );
+
+  const availableEnvironmentOptions = useMemo(
+    () =>
+      Array.from(
+        new Set(
+          selectedEnvironments.flatMap(
+            (environment) => environment.recommendedFeatures,
+          ),
+        ),
+      ),
+    [selectedEnvironments],
+  );
+
+  // Clear option selections that are no longer relevant after environment changes
+  useEffect(() => {
+    setSelectedEnvironmentOptions((previous) =>
+      previous.filter((option) => availableEnvironmentOptions.includes(option)),
     );
-  }, [selectedEnvironment]);
+  }, [availableEnvironmentOptions]);
 
   // Calculate kVA
   const calculationResult: CalculationResult = useMemo(() => {
-    return calculateKva(selectedDevices, environment, usageType, stepLoadPercent);
-  }, [selectedDevices, environment, usageType, stepLoadPercent]);
+    return calculateKva(
+      selectedDevices,
+      selectedEnvironments,
+      usageType,
+      stepLoadPercent,
+    );
+  }, [selectedDevices, selectedEnvironments, usageType, stepLoadPercent]);
 
   // Device handlers
   const handleAddDevice = useCallback((device: SelectedDevice) => {
@@ -94,15 +133,33 @@ export function GeneratorSelectionApp() {
     );
   }, []);
 
+  const handleEnvironmentChange = useCallback((id: string) => {
+    setSelectedEnvironmentIds((previous) =>
+      previous.includes(id)
+        ? previous.filter((environmentId) => environmentId !== id)
+        : [...previous, id],
+    );
+  }, []);
+
+  const handleEnvironmentOptionToggle = useCallback((optionId: string) => {
+    setSelectedEnvironmentOptions((previous) =>
+      previous.includes(optionId)
+        ? previous.filter((selectedOption) => selectedOption !== optionId)
+        : [...previous, optionId],
+    );
+  }, []);
+
   // Check if can show result
   const canShowResult = selectedDevices.length > 0;
 
   // Count active options for badge
   const activeOptionCount = [
-    usageType !== 'standby',
-    generatorGroup !== 'any',
-    selectedEnvironment,
-    selectedOrigin !== 'any',
+    usageType !== "standby",
+    generatorGroup !== "any",
+    selectedEnvironmentIds.length > 0,
+    selectedEnvironmentOptions.length > 0,
+    selectedMotorOrigin !== "any",
+    selectedAlternatorOrigin !== "any",
   ].filter(Boolean).length;
 
   return (
@@ -128,6 +185,7 @@ export function GeneratorSelectionApp() {
           <DeviceSelector
             categories={devicesData.categories}
             onAddDevice={handleAddDevice}
+            hasSelectedDevices={selectedDevices.length > 0}
           />
         </div>
 
@@ -150,9 +208,11 @@ export function GeneratorSelectionApp() {
               <div className="flex items-center gap-2">
                 <Settings2 className="w-4 h-4 text-gray-500" />
                 <span className="text-sm font-medium text-gray-700">
-                  Opsiyon Paketi
+                  Opsiyonlar
                 </span>
-                <span className="text-[10px] text-gray-400">(detay)</span>
+                <span className="text-[10px] text-gray-400">
+                  (Detaylandırma)
+                </span>
                 {activeOptionCount > 0 && (
                   <span className="text-[10px] text-white bg-blue-500 px-1.5 py-0.5 rounded-full font-medium">
                     {activeOptionCount}
@@ -168,16 +228,18 @@ export function GeneratorSelectionApp() {
 
             {showSettings && (
               <QuickSettings
-                environments={
-                  environmentsData.usageEnvironments as UsageEnvironment[]
-                }
-                selectedEnvironment={selectedEnvironment}
-                selectedOrigin={selectedOrigin}
+                environments={allEnvironments}
+                selectedEnvironmentIds={selectedEnvironmentIds}
+                selectedEnvironmentOptions={selectedEnvironmentOptions}
+                selectedMotorOrigin={selectedMotorOrigin}
+                selectedAlternatorOrigin={selectedAlternatorOrigin}
                 usageType={usageType}
                 generatorGroup={generatorGroup}
                 stepLoadPercent={stepLoadPercent}
-                onEnvironmentChange={setSelectedEnvironment}
-                onOriginChange={setSelectedOrigin}
+                onEnvironmentChange={handleEnvironmentChange}
+                onEnvironmentOptionToggle={handleEnvironmentOptionToggle}
+                onMotorOriginChange={setSelectedMotorOrigin}
+                onAlternatorOriginChange={setSelectedAlternatorOrigin}
                 onUsageTypeChange={setUsageType}
                 onGeneratorGroupChange={setGeneratorGroup}
                 onStepLoadPercentChange={setStepLoadPercent}
@@ -189,8 +251,10 @@ export function GeneratorSelectionApp() {
           {canShowResult && (
             <ResultDisplay
               result={calculationResult}
-              environment={environment}
-              origin={selectedOrigin}
+              environments={selectedEnvironments}
+              selectedEnvironmentOptions={selectedEnvironmentOptions}
+              motorOrigin={selectedMotorOrigin}
+              alternatorOrigin={selectedAlternatorOrigin}
               devices={selectedDevices}
               usageType={usageType}
               generatorGroup={generatorGroup}

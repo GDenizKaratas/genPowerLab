@@ -5,7 +5,7 @@ export interface Device {
   defaultWatt: number;
   powerFactor: number;
   inrushMultiplier: number;
-  phase: 'single' | 'three';
+  phase: "single" | "three";
   description: string;
 }
 
@@ -25,7 +25,7 @@ export interface SelectedDevice {
   watt: number;
   powerFactor: number;
   inrushMultiplier: number;
-  phase: 'single' | 'three';
+  phase: "single" | "three";
   isCustom: boolean;
   // Custom device additional fields
   customVoltage?: number;
@@ -68,7 +68,7 @@ export interface ProtectionLevel {
 
 // Origin Types
 export interface OriginOption {
-  id: 'europe' | 'china' | 'any';
+  id: "europe" | "china" | "any";
   name: string;
   description: string;
   advantages: string[];
@@ -76,9 +76,9 @@ export interface OriginOption {
 }
 
 // Usage & Step Loading Types
-export type UsageType = 'standby' | 'prime' | 'continuous';
-export type GeneratorGroup = 'any' | 'G1' | 'G2' | 'G3';
-export type StepLoadPercent = 'any' | '0-25' | '25-50' | '50-75' | '75-100';
+export type UsageType = "standby" | "prime" | "continuous";
+export type GeneratorGroup = "any" | "G1" | "G2" | "G3";
+export type StepLoadPercent = "any" | "0-25" | "0-50" | "0-75" | "0-100";
 
 // Calculation Types
 export interface CalculationResult {
@@ -100,15 +100,15 @@ export interface Generator {
   motor: {
     brand: string;
     model: string;
-    origin: 'europe' | 'china';
+    origin: "europe" | "china";
   };
   alternator: {
     brand: string;
     model: string;
   };
-  origin: 'europe' | 'china';
+  origin: "europe" | "china";
   features: string[];
-  phase: 'single' | 'three';
+  phase: "single" | "three";
 }
 
 // App State
@@ -122,26 +122,29 @@ export interface SelectionState {
   selectedPriority: string | null;
 
   // Step 3: Preferences
-  selectedOrigin: 'europe' | 'china' | 'any';
+  selectedOrigin: "europe" | "china" | "any";
 
   // Calculated
   calculationResult: CalculationResult | null;
 
   // UI State
-  activeTab: 'devices' | 'usage' | 'preferences';
+  activeTab: "devices" | "usage" | "preferences";
   showCustomDeviceModal: boolean;
 }
 
 // Actions
 export type SelectionAction =
-  | { type: 'ADD_DEVICE'; payload: SelectedDevice }
-  | { type: 'REMOVE_DEVICE'; payload: string }
-  | { type: 'UPDATE_DEVICE_QUANTITY'; payload: { id: string; quantity: number } }
-  | { type: 'SET_ENVIRONMENT'; payload: string }
-  | { type: 'SET_DURATION'; payload: string }
-  | { type: 'SET_PRIORITY'; payload: string }
-  | { type: 'SET_ORIGIN'; payload: 'europe' | 'china' | 'any' }
-  | { type: 'SET_ACTIVE_TAB'; payload: 'devices' | 'usage' | 'preferences' }
-  | { type: 'TOGGLE_CUSTOM_DEVICE_MODAL' }
-  | { type: 'UPDATE_CALCULATION'; payload: CalculationResult }
-  | { type: 'RESET' };
+  | { type: "ADD_DEVICE"; payload: SelectedDevice }
+  | { type: "REMOVE_DEVICE"; payload: string }
+  | {
+      type: "UPDATE_DEVICE_QUANTITY";
+      payload: { id: string; quantity: number };
+    }
+  | { type: "SET_ENVIRONMENT"; payload: string }
+  | { type: "SET_DURATION"; payload: string }
+  | { type: "SET_PRIORITY"; payload: string }
+  | { type: "SET_ORIGIN"; payload: "europe" | "china" | "any" }
+  | { type: "SET_ACTIVE_TAB"; payload: "devices" | "usage" | "preferences" }
+  | { type: "TOGGLE_CUSTOM_DEVICE_MODAL" }
+  | { type: "UPDATE_CALCULATION"; payload: CalculationResult }
+  | { type: "RESET" };

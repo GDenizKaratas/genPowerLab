@@ -1,12 +1,10 @@
-import { useState } from 'react';
+import { useMemo, useState } from "react";
 import {
   Home,
   Store,
   Factory,
   HardHat,
   Wheat,
-  Plus,
-  Minus,
   Search,
   Lightbulb,
   Tv,
@@ -28,105 +26,214 @@ import {
   Box,
   Coffee,
   Milk,
-  PlusCircle
-} from '../icons';
-import type { Device, DeviceCategory, SelectedDevice } from '../types';
-import { generateDeviceId, formatWatt } from '../utils/calculations';
-import { CustomDeviceModal } from './CustomDeviceModal';
+  PlusCircle,
+  X,
+} from "../icons";
+import type { Device, DeviceCategory, SelectedDevice } from "../types";
+import { generateDeviceId, formatWatt } from "../utils/calculations";
+import { CustomDeviceModal } from "./CustomDeviceModal";
 
 interface DeviceSelectorProps {
   categories: DeviceCategory[];
   onAddDevice: (device: SelectedDevice) => void;
+  hasSelectedDevices: boolean;
 }
 
-// Category icons and colors
-const categoryConfig: Record<string, { icon: React.ComponentType<{ className?: string }>, color: string, bg: string }> = {
-  home: { icon: Home, color: 'text-blue-600', bg: 'bg-blue-50 hover:bg-blue-100' },
-  commercial: { icon: Store, color: 'text-purple-600', bg: 'bg-purple-50 hover:bg-purple-100' },
-  industrial: { icon: Factory, color: 'text-orange-600', bg: 'bg-orange-50 hover:bg-orange-100' },
-  construction: { icon: HardHat, color: 'text-yellow-600', bg: 'bg-yellow-50 hover:bg-yellow-100' },
-  agriculture: { icon: Wheat, color: 'text-green-600', bg: 'bg-green-50 hover:bg-green-100' },
+interface DeviceListItem {
+  device: Device;
+  categoryId: string;
+  categoryName: string;
+}
+
+const ALL_CATEGORY_ID = "all";
+
+const categoryConfig: Record<
+  string,
+  {
+    icon: React.ComponentType<{ className?: string }>;
+    color: string;
+    bg: string;
+    badgeBg: string;
+    badgeText: string;
+  }
+> = {
+  all: {
+    icon: Zap,
+    color: "text-slate-700",
+    bg: "bg-slate-50 hover:bg-slate-100",
+    badgeBg: "bg-slate-100",
+    badgeText: "text-slate-700",
+  },
+  home: {
+    icon: Home,
+    color: "text-blue-600",
+    bg: "bg-blue-50 hover:bg-blue-100",
+    badgeBg: "bg-blue-100",
+    badgeText: "text-blue-700",
+  },
+  commercial: {
+    icon: Store,
+    color: "text-purple-600",
+    bg: "bg-purple-50 hover:bg-purple-100",
+    badgeBg: "bg-purple-100",
+    badgeText: "text-purple-700",
+  },
+  industrial: {
+    icon: Factory,
+    color: "text-orange-600",
+    bg: "bg-orange-50 hover:bg-orange-100",
+    badgeBg: "bg-orange-100",
+    badgeText: "text-orange-700",
+  },
+  construction: {
+    icon: HardHat,
+    color: "text-yellow-600",
+    bg: "bg-yellow-50 hover:bg-yellow-100",
+    badgeBg: "bg-yellow-100",
+    badgeText: "text-yellow-700",
+  },
+  agriculture: {
+    icon: Wheat,
+    color: "text-green-600",
+    bg: "bg-green-50 hover:bg-green-100",
+    badgeBg: "bg-green-100",
+    badgeText: "text-green-700",
+  },
 };
 
-// Device-specific icons
 const deviceIconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-  // Home
-  'refrigerator': Refrigerator,
-  'freezer': Snowflake,
-  'ac-9000': Wind, 'ac-12000': Wind, 'ac-18000': Wind, 'ac-24000': Wind,
-  'tv-led-32': Tv, 'tv-led-55': Tv,
-  'washing-machine': WashingMachine,
-  'dishwasher': Utensils,
-  'microwave': Microwave,
-  'electric-oven': Flame,
-  'water-heater': Droplets,
-  'vacuum-cleaner': Wind,
-  'iron': Flame,
-  'hair-dryer': Wind,
-  'computer-desktop': Monitor,
-  'laptop': Laptop,
-  'led-lighting': Lightbulb,
-  'water-pump-05hp': Droplets, 'water-pump-1hp': Droplets,
-  // Commercial
-  'commercial-refrigerator': Refrigerator,
-  'display-cooler': Refrigerator,
-  'ice-machine': Snowflake,
-  'coffee-machine': Coffee,
-  'pos-system': Monitor,
-  'commercial-ac': Wind,
-  'elevator-small': Box, 'elevator-medium': Box,
-  // Industrial
-  'motor-1hp': Cog, 'motor-2hp': Cog, 'motor-3hp': Cog, 'motor-5hp': Cog,
-  'motor-7.5hp': Cog, 'motor-10hp': Cog, 'motor-15hp': Cog, 'motor-20hp': Cog,
-  'motor-30hp': Cog, 'motor-50hp': Cog,
-  'compressor-3hp': Fan, 'compressor-5hp': Fan, 'compressor-10hp': Fan,
-  'welder-arc': Zap, 'welder-mig': Zap,
-  'cnc-lathe': Wrench, 'cnc-milling': Wrench,
-  'hydraulic-press': Hammer,
-  'crane-5ton': Box, 'crane-10ton': Box,
-  'conveyor-belt': Cog,
-  'industrial-fan': Fan,
-  'chiller': Snowflake,
-  // Construction
-  'concrete-mixer': Cog, 'concrete-vibrator': Cog,
-  'angle-grinder': Wrench, 'circular-saw': Wrench,
-  'hammer-drill': Hammer,
-  'site-lighting': Lightbulb,
-  'tower-crane': Box, 'construction-elevator': Box,
-  // Agriculture
-  'irrigation-pump-3hp': Droplets, 'irrigation-pump-5hp': Droplets, 'irrigation-pump-10hp': Droplets,
-  'milking-machine': Milk, 'milk-cooler': Milk,
-  'feed-mixer': Cog,
-  'grain-dryer': Wind,
-  'greenhouse-heating': Flame,
+  refrigerator: Refrigerator,
+  freezer: Snowflake,
+  "ac-9000": Wind,
+  "ac-12000": Wind,
+  "ac-18000": Wind,
+  "ac-24000": Wind,
+  "tv-led-32": Tv,
+  "tv-led-55": Tv,
+  "washing-machine": WashingMachine,
+  dishwasher: Utensils,
+  microwave: Microwave,
+  "electric-oven": Flame,
+  "water-heater": Droplets,
+  "vacuum-cleaner": Wind,
+  iron: Flame,
+  "hair-dryer": Wind,
+  "computer-desktop": Monitor,
+  laptop: Laptop,
+  "led-lighting": Lightbulb,
+  "water-pump-05hp": Droplets,
+  "water-pump-1hp": Droplets,
+  "commercial-refrigerator": Refrigerator,
+  "display-cooler": Refrigerator,
+  "ice-machine": Snowflake,
+  "coffee-machine": Coffee,
+  "pos-system": Monitor,
+  "commercial-ac": Wind,
+  "elevator-small": Box,
+  "elevator-medium": Box,
+  "motor-1hp": Cog,
+  "motor-2hp": Cog,
+  "motor-3hp": Cog,
+  "motor-5hp": Cog,
+  "motor-7.5hp": Cog,
+  "motor-10hp": Cog,
+  "motor-15hp": Cog,
+  "motor-20hp": Cog,
+  "motor-30hp": Cog,
+  "motor-50hp": Cog,
+  "compressor-3hp": Fan,
+  "compressor-5hp": Fan,
+  "compressor-10hp": Fan,
+  "welder-arc": Zap,
+  "welder-mig": Zap,
+  "cnc-lathe": Wrench,
+  "cnc-milling": Wrench,
+  "hydraulic-press": Hammer,
+  "crane-5ton": Box,
+  "crane-10ton": Box,
+  "conveyor-belt": Cog,
+  "industrial-fan": Fan,
+  chiller: Snowflake,
+  "concrete-mixer": Cog,
+  "concrete-vibrator": Cog,
+  "angle-grinder": Wrench,
+  "circular-saw": Wrench,
+  "hammer-drill": Hammer,
+  "site-lighting": Lightbulb,
+  "tower-crane": Box,
+  "construction-elevator": Box,
+  "irrigation-pump-3hp": Droplets,
+  "irrigation-pump-5hp": Droplets,
+  "irrigation-pump-10hp": Droplets,
+  "milking-machine": Milk,
+  "milk-cooler": Milk,
+  "feed-mixer": Cog,
+  "grain-dryer": Wind,
+  "greenhouse-heating": Flame,
 };
 
-export function DeviceSelector({ categories, onAddDevice }: DeviceSelectorProps) {
-  const [activeCategory, setActiveCategory] = useState<string>(categories[0]?.id || 'home');
-  const [searchQuery, setSearchQuery] = useState('');
+export function DeviceSelector({
+  categories,
+  onAddDevice,
+  hasSelectedDevices,
+}: DeviceSelectorProps) {
+  const [activeCategory, setActiveCategory] = useState<string>(ALL_CATEGORY_ID);
+  const [searchQuery, setSearchQuery] = useState("");
   const [showCustomModal, setShowCustomModal] = useState(false);
+  const [pendingAddItem, setPendingAddItem] = useState<DeviceListItem | null>(
+    null,
+  );
+  const [pendingQuantity, setPendingQuantity] = useState(1);
 
-  // Get active category data
-  const activeCategoryData = categories.find(c => c.id === activeCategory);
+  const categoryTabs = useMemo(
+    () => [{ id: ALL_CATEGORY_ID, name: "Tümü" }, ...categories],
+    [categories],
+  );
 
-  // Filter devices by search
-  const filteredDevices = activeCategoryData?.devices.filter((device) =>
-    device.name.toLowerCase().includes(searchQuery.toLowerCase())
-  ) || [];
+  const devicesForList = useMemo(() => {
+    const normalizedQuery = searchQuery.trim().toLowerCase();
+    const flatDevices: DeviceListItem[] = categories.flatMap((category) =>
+      category.devices.map((device) => ({
+        device,
+        categoryId: category.id,
+        categoryName: category.name,
+      })),
+    );
 
-  const handleAddDevice = (device: Device, quantity: number = 1) => {
+    const categoryFiltered =
+      activeCategory === ALL_CATEGORY_ID
+        ? flatDevices
+        : flatDevices.filter((item) => item.categoryId === activeCategory);
+
+    const searchFiltered = normalizedQuery
+      ? categoryFiltered.filter((item) =>
+          item.device.name.toLowerCase().includes(normalizedQuery),
+        )
+      : categoryFiltered;
+
+    return searchFiltered.sort((a, b) =>
+      a.device.name.localeCompare(b.device.name, "tr"),
+    );
+  }, [categories, activeCategory, searchQuery]);
+
+  const handleConfirmAdd = () => {
+    if (!pendingAddItem) return;
+
     const selectedDevice: SelectedDevice = {
       id: generateDeviceId(),
-      deviceId: device.id,
-      name: device.name,
-      quantity,
-      watt: device.defaultWatt,
-      powerFactor: device.powerFactor,
-      inrushMultiplier: device.inrushMultiplier,
-      phase: device.phase,
+      deviceId: pendingAddItem.device.id,
+      name: pendingAddItem.device.name,
+      quantity: Math.max(1, pendingQuantity),
+      watt: pendingAddItem.device.defaultWatt,
+      powerFactor: pendingAddItem.device.powerFactor,
+      inrushMultiplier: pendingAddItem.device.inrushMultiplier,
+      phase: pendingAddItem.device.phase,
       isCustom: false,
     };
+
     onAddDevice(selectedDevice);
+    setPendingAddItem(null);
+    setPendingQuantity(1);
   };
 
   const handleAddCustomDevice = (device: SelectedDevice) => {
@@ -135,11 +242,19 @@ export function DeviceSelector({ categories, onAddDevice }: DeviceSelectorProps)
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-      {/* Category Tabs - Horizontal scroll on mobile */}
+    <div
+      className={`
+        bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col
+        ${
+          hasSelectedDevices
+            ? "min-h-[560px] lg:min-h-[760px]"
+            : "min-h-[520px] lg:min-h-0 lg:h-[680px] lg:max-h-[72vh]"
+        }
+      `}
+    >
       <div className="border-b border-gray-200 bg-gray-50">
         <div className="flex overflow-x-auto scrollbar-hide">
-          {categories.map((category) => {
+          {categoryTabs.map((category) => {
             const config = categoryConfig[category.id] || categoryConfig.home;
             const CategoryIcon = config.icon;
             const isActive = activeCategory === category.id;
@@ -149,11 +264,11 @@ export function DeviceSelector({ categories, onAddDevice }: DeviceSelectorProps)
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
                 className={`
-                  flex items-center gap-2 px-4 py-3 text-sm font-medium whitespace-nowrap
-                  border-b-2 transition-all flex-shrink-0
-                  ${isActive
-                    ? `${config.color} border-current bg-white`
-                    : 'text-gray-500 border-transparent hover:text-gray-700 hover:bg-gray-100'
+                  flex items-center gap-2 px-4 py-3 text-sm font-medium whitespace-nowrap border-b-2 transition-all flex-shrink-0
+                  ${
+                    isActive
+                      ? `${config.color} border-current bg-white`
+                      : "text-gray-500 border-transparent hover:text-gray-700 hover:bg-gray-100"
                   }
                 `}
               >
@@ -165,134 +280,151 @@ export function DeviceSelector({ categories, onAddDevice }: DeviceSelectorProps)
         </div>
       </div>
 
-      {/* Search + Manual Add */}
       <div className="p-3 border-b border-gray-100 flex gap-2">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
           <input
             type="text"
-            placeholder="Cihaz ara..."
+            placeholder={
+              activeCategory === ALL_CATEGORY_ID
+                ? "Tüm cihazlarda ara..."
+                : "Cihaz ara..."
+            }
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 border border-gray-200 rounded-lg text-sm
-                       focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full pl-9 pr-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           />
         </div>
         <button
           onClick={() => setShowCustomModal(true)}
-          className="flex items-center gap-1.5 px-3 py-2 bg-blue-600 text-white text-sm font-medium
-                     rounded-lg hover:bg-blue-700 transition-colors whitespace-nowrap"
+          className="flex items-center gap-1.5 px-3 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors whitespace-nowrap"
         >
           <PlusCircle className="w-4 h-4" />
           <span className="hidden sm:inline">Manuel Ekle</span>
         </button>
       </div>
 
-      {/* Device Grid - Aksa Style */}
-      <div className="p-3 max-h-[400px] overflow-y-auto">
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
-          {filteredDevices.map((device) => (
-            <DeviceCard
-              key={device.id}
-              device={device}
-              onAdd={handleAddDevice}
-              categoryColor={categoryConfig[activeCategory]?.color || 'text-blue-600'}
-            />
-          ))}
-        </div>
+      <div className="flex-1 min-h-0 overflow-y-auto">
+        {devicesForList.length > 0 ? (
+          <div className="divide-y divide-gray-100">
+            {devicesForList.map((item) => {
+              const DeviceIcon = deviceIconMap[item.device.id] || Zap;
+              const categoryStyle =
+                categoryConfig[item.categoryId] || categoryConfig.home;
 
-        {filteredDevices.length === 0 && (
-          <div className="text-center py-8 text-gray-500">
-            <p className="text-sm">Cihaz bulunamadı</p>
+              return (
+                <div
+                  key={item.device.id}
+                  className="px-3 py-2.5 flex items-center gap-3 hover:bg-gray-50 transition-colors"
+                >
+                  <div
+                    className={`w-10 h-10 rounded-lg border border-white shadow-sm flex items-center justify-center ${categoryStyle.bg}`}
+                  >
+                    <DeviceIcon className={`w-5 h-5 ${categoryStyle.color}`} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-1.5">
+                      <p className="text-sm font-medium text-gray-900 truncate">
+                        {item.device.name}
+                      </p>
+                      {item.device.phase === "three" && (
+                        <span className="px-1 py-0.5 rounded bg-purple-100 text-purple-700 text-[9px] font-medium">
+                          3F
+                        </span>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-1.5 mt-0.5">
+                      <p className="text-xs text-gray-500">
+                        {formatWatt(item.device.defaultWatt)}
+                      </p>
+                      <span
+                        className={`px-1.5 py-0.5 rounded text-[9px] font-medium ${categoryStyle.badgeBg} ${categoryStyle.badgeText}`}
+                      >
+                        {item.categoryName}
+                      </span>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => {
+                      setPendingAddItem(item);
+                      setPendingQuantity(1);
+                    }}
+                    className="h-8 px-3 bg-blue-600 text-white text-xs font-medium rounded-md hover:bg-blue-700 transition-colors"
+                  >
+                    Ekle
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <div className="h-full flex items-center justify-center text-center px-6 py-10">
+            <div>
+              <p className="text-sm font-medium text-gray-700 mb-1">
+                Cihaz bulunamadı
+              </p>
+              <p className="text-xs text-gray-500">
+                Arama kelimesini değiştirin veya başka kategori seçin.
+              </p>
+            </div>
           </div>
         )}
       </div>
 
-      {/* Custom Device Modal */}
+      {pendingAddItem && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40">
+          <div className="bg-white rounded-xl shadow-xl border border-gray-200 w-full max-w-sm">
+            <div className="px-4 py-3 border-b border-gray-100 flex items-center justify-between">
+              <h3 className="text-sm font-semibold text-gray-900">Adet Seçin</h3>
+              <button
+                onClick={() => setPendingAddItem(null)}
+                className="p-1 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+            <div className="p-4 space-y-3">
+              <p className="text-sm text-gray-700">{pendingAddItem.device.name}</p>
+              <div>
+                <label className="block text-xs font-medium text-gray-600 mb-1">
+                  Adet
+                </label>
+                <input
+                  type="number"
+                  min="1"
+                  value={pendingQuantity}
+                  onChange={(e) => {
+                    const value = Number.parseInt(e.target.value, 10);
+                    setPendingQuantity(Number.isNaN(value) ? 1 : Math.max(1, value));
+                  }}
+                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                />
+              </div>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => setPendingAddItem(null)}
+                  className="flex-1 py-2 text-sm font-medium border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                >
+                  Vazgeç
+                </button>
+                <button
+                  onClick={handleConfirmAdd}
+                  className="flex-1 py-2 text-sm font-medium bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  Ekle
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {showCustomModal && (
         <CustomDeviceModal
           onClose={() => setShowCustomModal(false)}
           onAdd={handleAddCustomDevice}
         />
       )}
-    </div>
-  );
-}
-
-// Device Card - Aksa Style with icon, quantity controls always visible
-interface DeviceCardProps {
-  device: Device;
-  onAdd: (device: Device, quantity: number) => void;
-  categoryColor: string;
-}
-
-function DeviceCard({ device, onAdd, categoryColor }: DeviceCardProps) {
-  const [quantity, setQuantity] = useState(1);
-  const DeviceIcon = deviceIconMap[device.id] || Zap;
-
-  const handleAdd = () => {
-    onAdd(device, quantity);
-    setQuantity(1);
-  };
-
-  return (
-    <div className="bg-gray-50 rounded-lg p-3 hover:bg-gray-100 transition-colors border border-gray-100 hover:border-gray-200">
-      {/* Icon and Name */}
-      <div className="flex flex-col items-center text-center mb-2">
-        <div className={`w-12 h-12 rounded-full bg-white border border-gray-200 flex items-center justify-center mb-2 ${categoryColor}`}>
-          <DeviceIcon className="w-6 h-6" />
-        </div>
-        <h4 className="text-xs font-medium text-gray-900 leading-tight line-clamp-2 min-h-[2rem]">
-          {device.name}
-        </h4>
-        <p className="text-[10px] text-gray-500 mt-0.5 flex items-center gap-1">
-          {formatWatt(device.defaultWatt)}
-          {device.phase === 'three' && (
-            <span className="px-1 bg-purple-100 text-purple-700 rounded text-[8px]">3F</span>
-          )}
-        </p>
-      </div>
-
-      {/* Quantity + Add */}
-      <div className="flex items-center justify-between gap-1">
-        <div className="flex items-center border border-gray-300 rounded-lg bg-white">
-          <button
-            onClick={() => setQuantity(Math.max(1, quantity - 1))}
-            className="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-l-lg"
-          >
-            <Minus className="w-3 h-3" />
-          </button>
-          <input
-            type="number"
-            min="1"
-            value={quantity}
-            onChange={(e) => {
-              const val = parseInt(e.target.value, 10);
-              if (!isNaN(val) && val >= 1) setQuantity(val);
-            }}
-            onBlur={(e) => {
-              if (!e.target.value || parseInt(e.target.value, 10) < 1) setQuantity(1);
-            }}
-            className="w-10 h-8 text-center text-xs font-semibold border-x border-gray-200 focus:outline-none focus:ring-1 focus:ring-blue-400
-                       [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-          />
-          <button
-            onClick={() => setQuantity(quantity + 1)}
-            className="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-r-lg"
-          >
-            <Plus className="w-3 h-3" />
-          </button>
-        </div>
-
-        <button
-          onClick={handleAdd}
-          className="flex-1 h-7 bg-blue-600 text-white text-xs font-medium rounded
-                     hover:bg-blue-700 transition-colors flex items-center justify-center gap-1"
-        >
-          <Plus className="w-3 h-3" />
-          Ekle
-        </button>
-      </div>
     </div>
   );
 }
