@@ -1,31 +1,13 @@
 {
   "usageEnvironments": [
     {
-      "id": "home",
-      "name": "Ev / Villa",
+      "id": "residential",
+      "name": "Konut",
       "icon": "Home",
-      "description": "Konut tipi kullanım, düşük yoğunluklu çalışma",
-      "demandFactor": 0.6,
-      "protectionLevel": "basic",
-      "recommendedFeatures": ["low-noise", "compact"]
-    },
-    {
-      "id": "apartment",
-      "name": "Apartman / Site",
-      "icon": "Building",
-      "description": "Çoklu konut, orta yoğunluklu sürekli kullanım",
+      "description": "Ev, apartman, ofis gibi yaşam ve çalışma alanları",
       "demandFactor": 0.65,
       "protectionLevel": "standard",
-      "recommendedFeatures": ["low-noise", "auto-start"]
-    },
-    {
-      "id": "office",
-      "name": "Ofis / İş Yeri",
-      "icon": "Briefcase",
-      "description": "Ticari kullanım, iş saatlerinde yoğun",
-      "demandFactor": 0.7,
-      "protectionLevel": "standard",
-      "recommendedFeatures": ["low-noise", "auto-start", "ups-compatible"]
+      "recommendedFeatures": ["low-noise", "compact", "auto-start"]
     },
     {
       "id": "retail",

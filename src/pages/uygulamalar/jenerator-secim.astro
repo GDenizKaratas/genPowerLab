@@ -9,20 +9,17 @@ import { Calculator } from 'lucide-astro';
   description="İhtiyacınıza uygun jeneratör kombinasyonunu hesaplayın. Cihazlarınızı ekleyin, kullanım senaryonuzu belirleyin ve size özel motor-alternatör önerisi alın."
 >
   <!-- Compact Hero Section -->
-  <section class="bg-gradient-to-r from-blue-600 to-blue-700 text-white py-6">
+  <section class="bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3">
     <div class="container mx-auto px-4">
-      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <div>
-          <div class="flex items-center gap-2 mb-1">
-            <Calculator class="w-5 h-5" />
-            <span class="text-blue-200 text-sm">Ücretsiz Hesaplama Aracı</span>
-          </div>
-          <h1 class="text-2xl md:text-3xl font-bold">
+      <div class="flex items-center justify-between gap-3">
+        <div class="flex items-center gap-2">
+          <Calculator class="w-6 h-6 text-blue-200" />
+          <div class="text-md sm:text-base text-white/90" style="font-size:22px; font-weight: 600;">
             Jeneratör Seçim Asistanı
-          </h1>
+          </div>
         </div>
-        <p class="text-blue-100 text-sm md:text-base max-w-md">
-          Cihazlarınızı ekleyin, ihtiyacınıza uygun jeneratör kapasitesini anında hesaplayın.
+        <p class="text-white-200 text-xs md:text-sm hidden sm:block">
+          Cihazlarınızı ekleyin, uygun jeneratör kapasitesini hesaplayın.
         </p>
       </div>
     </div>

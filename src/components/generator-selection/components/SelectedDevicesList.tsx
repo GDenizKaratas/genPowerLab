@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Trash2, Zap, Package } from '../icons';
 import type { SelectedDevice } from '../types';
 import { formatWatt } from '../utils/calculations';
@@ -75,23 +76,39 @@ export function SelectedDevicesList({
               </p>
             </div>
 
-            {/* Quantity Controls - Compact */}
-            <div className="flex items-center gap-0.5 border border-gray-200 rounded bg-white">
+            {/* Quantity Controls */}
+            <div className="flex items-center gap-0.5 border border-gray-200 rounded-lg bg-white shadow-sm">
               <button
                 onClick={() => onUpdateQuantity(device.id, Math.max(1, device.quantity - 1))}
-                className="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-gray-700
-                           hover:bg-gray-100 rounded-l text-sm"
+                className="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700
+                           hover:bg-gray-100 rounded-l-lg text-base font-medium"
                 aria-label="Azalt"
               >
-                -
+                −
               </button>
-              <span className="w-6 h-6 flex items-center justify-center text-xs font-semibold">
-                {device.quantity}
-              </span>
+              <input
+                type="number"
+                min="1"
+                value={device.quantity}
+                onChange={(e) => {
+                  const val = parseInt(e.target.value, 10);
+                  if (!isNaN(val) && val >= 1) {
+                    onUpdateQuantity(device.id, val);
+                  }
+                }}
+                onBlur={(e) => {
+                  if (!e.target.value || parseInt(e.target.value, 10) < 1) {
+                    onUpdateQuantity(device.id, 1);
+                  }
+                }}
+                className="w-10 h-8 text-center text-sm font-semibold border-x border-gray-200
+                           focus:outline-none focus:ring-1 focus:ring-blue-400 bg-white
+                           [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+              />
               <button
-                onClick={() => onUpdateQuantity(device.id, Math.min(10, device.quantity + 1))}
-                className="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-gray-700
-                           hover:bg-gray-100 rounded-r text-sm"
+                onClick={() => onUpdateQuantity(device.id, device.quantity + 1)}
+                className="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700
+                           hover:bg-gray-100 rounded-r-lg text-base font-medium"
                 aria-label="Artır"
               >
                 +

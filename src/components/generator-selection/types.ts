@@ -75,6 +75,11 @@ export interface OriginOption {
   considerations: string[];
 }
 
+// Usage & Step Loading Types
+export type UsageType = 'standby' | 'prime' | 'continuous';
+export type GeneratorGroup = 'any' | 'G1' | 'G2' | 'G3';
+export type StepLoadPercent = 'any' | '0-25' | '25-50' | '50-75' | '75-100';
+
 // Calculation Types
 export interface CalculationResult {
   totalWatt: number;

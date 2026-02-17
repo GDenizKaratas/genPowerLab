@@ -292,10 +292,24 @@ export function CustomDeviceModal({ onClose, onAdd }: CustomDeviceModalProps) {
               >
                 -
               </button>
-              <span className="text-lg font-semibold min-w-[3rem] text-center">{quantity}</span>
+              <input
+                type="number"
+                min="1"
+                value={quantity}
+                onChange={(e) => {
+                  const val = parseInt(e.target.value, 10);
+                  if (!isNaN(val) && val >= 1) setQuantity(val);
+                }}
+                onBlur={(e) => {
+                  if (!e.target.value || parseInt(e.target.value, 10) < 1) setQuantity(1);
+                }}
+                className="text-lg font-semibold min-w-[3rem] text-center border border-gray-200 rounded-lg h-10
+                           focus:outline-none focus:ring-1 focus:ring-blue-400
+                           [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+              />
               <button
                 type="button"
-                onClick={() => setQuantity(Math.min(10, quantity + 1))}
+                onClick={() => setQuantity(quantity + 1)}
                 className="w-10 h-10 flex items-center justify-center border border-gray-200
                            rounded-lg text-gray-600 hover:bg-gray-100 transition-colors"
               >

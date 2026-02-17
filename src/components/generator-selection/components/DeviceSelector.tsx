@@ -255,19 +255,30 @@ function DeviceCard({ device, onAdd, categoryColor }: DeviceCardProps) {
 
       {/* Quantity + Add */}
       <div className="flex items-center justify-between gap-1">
-        <div className="flex items-center border border-gray-300 rounded bg-white">
+        <div className="flex items-center border border-gray-300 rounded-lg bg-white">
           <button
             onClick={() => setQuantity(Math.max(1, quantity - 1))}
-            className="w-7 h-7 flex items-center justify-center text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-l"
+            className="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-l-lg"
           >
             <Minus className="w-3 h-3" />
           </button>
-          <span className="w-7 h-7 flex items-center justify-center text-xs font-semibold border-x border-gray-200">
-            {quantity}
-          </span>
+          <input
+            type="number"
+            min="1"
+            value={quantity}
+            onChange={(e) => {
+              const val = parseInt(e.target.value, 10);
+              if (!isNaN(val) && val >= 1) setQuantity(val);
+            }}
+            onBlur={(e) => {
+              if (!e.target.value || parseInt(e.target.value, 10) < 1) setQuantity(1);
+            }}
+            className="w-10 h-8 text-center text-xs font-semibold border-x border-gray-200 focus:outline-none focus:ring-1 focus:ring-blue-400
+                       [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+          />
           <button
-            onClick={() => setQuantity(Math.min(10, quantity + 1))}
-            className="w-7 h-7 flex items-center justify-center text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-r"
+            onClick={() => setQuantity(quantity + 1)}
+            className="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-r-lg"
           >
             <Plus className="w-3 h-3" />
           </button>

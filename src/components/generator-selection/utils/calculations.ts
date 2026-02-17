@@ -1,4 +1,4 @@
-import type { SelectedDevice, CalculationResult, UsageEnvironment } from '../types';
+import type { SelectedDevice, CalculationResult, UsageEnvironment, UsageType, StepLoadPercent } from '../types';
 import calculationConfig from '../../../data/generator-selection/calculation-config.json';
 
 const { calculationParameters } = calculationConfig;
@@ -31,10 +31,8 @@ export function getSafetyMargin(environmentId: string): number {
   const margins = calculationParameters.safetyMargins;
 
   switch (environmentId) {
-    case 'home':
-    case 'apartment':
+    case 'residential':
       return margins.home;
-    case 'office':
     case 'retail':
     case 'events':
       return margins.commercial;
@@ -62,11 +60,45 @@ export function getDemandFactor(environment: UsageEnvironment | null): number {
 }
 
 /**
+ * Get usage type multiplier
+ */
+export function getUsageTypeMultiplier(usageType: UsageType): number {
+  switch (usageType) {
+    case 'standby':
+      return 1.0;
+    case 'prime':
+      return 1.1;
+    case 'continuous':
+      return 1.25;
+  }
+}
+
+/**
+ * Get step load multiplier based on first step load percentage
+ */
+export function getStepLoadMultiplier(stepLoadPercent: StepLoadPercent): number {
+  switch (stepLoadPercent) {
+    case 'any':
+      return 1.0;
+    case '0-25':
+      return 1.0;
+    case '25-50':
+      return 1.1;
+    case '50-75':
+      return 1.2;
+    case '75-100':
+      return 1.35;
+  }
+}
+
+/**
  * Calculate total and recommended kVA from selected devices
  */
 export function calculateKva(
   devices: SelectedDevice[],
-  environment: UsageEnvironment | null
+  environment: UsageEnvironment | null,
+  usageType: UsageType = 'standby',
+  stepLoadPercent: StepLoadPercent = 'any'
 ): CalculationResult {
   if (devices.length === 0) {
     return {
@@ -115,11 +147,14 @@ export function calculateKva(
   // Get factors
   const demandFactor = getDemandFactor(environment);
   const safetyMargin = getSafetyMargin(environment?.id || 'commercial');
+  const usageMultiplier = getUsageTypeMultiplier(usageType);
+  const stepLoadMultiplier = getStepLoadMultiplier(stepLoadPercent);
 
   // Calculate recommended kVA
-  // Use the higher of: (total * demand * safety) or (starting kVA)
-  const calculatedKva = totalKva * demandFactor * safetyMargin;
-  const recommendedKva = Math.max(calculatedKva, startingKva * 1.1); // 10% margin on starting
+  // Use the higher of: (total * demand * safety * usage) or (starting kVA * stepLoad)
+  const calculatedKva = totalKva * demandFactor * safetyMargin * usageMultiplier;
+  const startingWithStepLoad = startingKva * 1.1 * stepLoadMultiplier;
+  const recommendedKva = Math.max(calculatedKva, startingWithStepLoad);
 
   return {
     totalWatt,

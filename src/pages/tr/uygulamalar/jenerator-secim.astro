@@ -1,45 +1,26 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { GeneratorSelectionApp } from '../../../components/generator-selection/GeneratorSelectionApp';
-import { Zap, Calculator, Phone, CheckCircle } from 'lucide-astro';
+import { Calculator, Phone } from 'lucide-astro';
 ---
 
 <BaseLayout
   title="Jeneratör Seçim Asistanı | GenPower Lab"
   description="İhtiyacınıza uygun jeneratör kombinasyonunu hesaplayın. Cihazlarınızı ekleyin, kullanım senaryonuzu belirleyin ve size özel motor-alternatör önerisi alın."
 >
-  <!-- Hero Section -->
-  <section class="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white py-12 lg:py-16">
+  <!-- Compact Hero Section -->
+  <section class="bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3">
     <div class="container mx-auto px-4">
-      <div class="max-w-4xl mx-auto text-center">
-        <div class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-sm font-medium mb-6">
-          <Calculator class="w-4 h-4" />
-          <span>Ücretsiz Hesaplama Aracı</span>
+      <div class="flex items-center justify-between gap-3">
+        <div class="flex items-center gap-2">
+          <Calculator class="w-4 h-4 text-blue-200" />
+          <h1 class="text-sm sm:text-base font-medium text-white/90">
+            Jeneratör Seçim Asistanı
+          </h1>
         </div>
-
-        <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-          Jeneratör Seçim Asistanı
-        </h1>
-
-        <p class="text-lg md:text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-          Cihazlarınızı ekleyin, kullanım senaryonuzu belirleyin.
-          Size en uygun jeneratör kombinasyonunu hesaplayalım.
+        <p class="text-blue-200 text-xs md:text-sm hidden sm:block">
+          Cihazlarınızı ekleyin, uygun jeneratör kapasitesini hesaplayın.
         </p>
-
-        <div class="flex flex-wrap items-center justify-center gap-4 text-sm">
-          <div class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-lg">
-            <CheckCircle class="w-4 h-4 text-green-300" />
-            <span>Anlık Hesaplama</span>
-          </div>
-          <div class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-lg">
-            <CheckCircle class="w-4 h-4 text-green-300" />
-            <span>Detaylı Analiz</span>
-          </div>
-          <div class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-lg">
-            <CheckCircle class="w-4 h-4 text-green-300" />
-            <span>Profesyonel Öneri</span>
-          </div>
-        </div>
       </div>
     </div>
   </section>
@@ -55,9 +36,9 @@ import { Zap, Calculator, Phone, CheckCircle } from 'lucide-astro';
   <section class="py-12 lg:py-16 bg-white">
     <div class="container mx-auto px-4">
       <div class="max-w-4xl mx-auto">
-        <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">
+        <p class="text-2xl font-bold text-white mb-6 text-center">
           Nasıl Çalışır?
-        </h2>
+        </p>
 
         <div class="grid md:grid-cols-3 gap-6">
           <div class="text-center p-6">
