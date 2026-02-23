@@ -1,159 +1,2897 @@
 {
   "terms": [
     {
-      "term": "Alternatör",
-      "definition": "Mekanik enerjiyi elektrik enerjisine dönüştüren, jeneratörün ana elektrik üretim bileşeni. Dönen manyetik alan prensibiyle çalışır.",
-      "category": "Temel Bileşenler"
+      "term": "AC Harmonik Filtresi (Pasif/LC)",
+      "definition": "Kesme frekansının altındaki bileşenleri geçirip daha yüksek frekanstaki harmonikleri zayıflatan alçak geçiren filtredir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Akış Ayar Damperi (Balancing Damper)",
+      "definition": "Hava debisini dengelemek için kullanılan ayarlanabilir klape elemanıdır.",
+      "category": "Soğutma & Akustik",
+      "image": ""
+    },
+    {
+      "term": "Akü Şarj Cihazı (Redresör)",
+      "definition": "Aküleri şarj etmek ve DC güç sağlamak için AC gerilimi doğrultarak doğru akıma çeviren cihazdır.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Akü Devre Kesici (Battery Disconnect Switch)",
+      "definition": "Bakım veya acil durumlarda akü devresini hızlı ve güvenli şekilde ayırmaya yarayan anahtardır.",
+      "category": "Güvenlik",
+      "image": ""
+    },
+    {
+      "term": "Alan Zayıflatma (Field Weakening)",
+      "definition": "Aşırı uyartımı sınırlamak veya gerilimi düşürmek amacıyla manyetik alanın azaltılması işlemidir.",
+      "category": "Alternatör",
+      "image": ""
+    },
+    {
+      "term": "Ambiyans Sıcaklık Sınıfı (Ambient Rating)",
+      "definition": "Bir cihazın güvenli şekilde çalışabileceği ortam sıcaklığı aralığını ifade eder.",
+      "category": "Operasyon",
+      "image": ""
+    },
+    {
+      "term": "Anons Paneli (Annunciator Panel)",
+      "definition": "Alarm ve olay durumlarını yerel veya uzak noktada görsel/işitsel olarak bildiren paneldir.",
+      "category": "Kontrol Sistemleri",
+      "image": ""
+    },
+    {
+      "term": "Ark Dayanımlı Şalt (Arc-Resistant Switchgear)",
+      "definition": "Olası ark patlamasını operatörden uzağa yönlendirerek personel güvenliğini artıran şalt sistemi tasarımıdır.",
+      "category": "Güvenlik",
+      "image": ""
+    },
+    {
+      "term": "Ark Flaşı Sınırı (Arc Flash Boundary)",
+      "definition": "Ark flaşı tehlikesi bulunan ve kişisel koruyucu ekipman gerektiren yaklaşım mesafesini tanımlar.",
+      "category": "Güvenlik",
+      "image": ""
+    },
+    {
+      "term": "Auto-Synchronizer (Otomatik Senkronlayıcı)",
+      "definition": "Gerilim, frekans ve faz açısını eşleştirerek jeneratörlerin otomatik senkronize edilmesini ve kesicinin güvenli kapanmasını sağlar.",
+      "category": "Kontrol Sistemleri",
+      "image": ""
+    },
+    {
+      "term": "Artık Manyetizma (Residual Magnetism)",
+      "definition": "Manyetik alan kaldırıldıktan sonra manyetik malzemede kalan mıknatıslanma etkisidir; gerilim oluşumunu başlatmada önemlidir.",
+      "category": "Alternatör",
+      "image": ""
+    },
+    {
+      "term": "Absorber Pan (Damlama Tavası)",
+      "definition": "Yakıt veya yağ kaçaklarını toplamak ve çevreye yayılmasını önlemek için kullanılan sızdırmaz tavadır.",
+      "category": "Yakıt Sistemi",
+      "image": ""
+    },
+    {
+      "term": "Acceptance Test Prosedürü (ATP)",
+      "definition": "Fabrika veya sahada yapılan kabul testlerinin adımlarını tanımlayan standart test dokümanıdır.",
+      "category": "Test & Bakım",
+      "image": ""
+    },
+    {
+      "term": "Genleşme Tankı (Expansion Tank)",
+      "definition": "Uzak radyatörlü soğutma sistemlerinde sıvı hacmindeki genleşmeyi dengeleyen tanktır.",
+      "category": "Soğutma",
+      "image": ""
+    },
+    {
+      "term": "Acil Aydınlatma (Emergency Lighting)",
+      "definition": "Elektrik kesintisi veya acil durumlarda kaçış yollarını aydınlatan ve jeneratörle entegre çalışan sistemdir.",
+      "category": "Güvenlik",
+      "image": ""
+    },
+    {
+      "term": "Alev Tutucu (Flame Arrestor)",
+      "definition": "Havalandırma veya yakıt hatlarında alev geri tepmesini önleyen güvenlik elemanıdır.",
+      "category": "Yakıt Sistemi",
+      "image": ""
+    },
+    {
+      "term": "Alternatör Kısa Devre Oranı (SCR)",
+      "definition": "Alternatörün kararlılık ve kısa devre davranışını gösteren önemli bir tasarım parametresidir.",
+      "category": "Alternatör",
+      "image": ""
+    },
+    {
+      "term": "Çek Valf (Anti-Siphon Valve)",
+      "definition": "Yakıtın yerçekimi etkisiyle geri akmasını önleyen tek yönlü valftir.",
+      "category": "Yakıt Sistemi",
+      "image": ""
+    },
+    {
+      "term": "ACB (Air Circuit Breaker)",
+      "definition": "Yüksek akımlı devrelerde kullanılan, ayarlanabilir koruma ve selektivite sağlayan hava devre kesicidir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "AC Alternatör",
+      "definition": "Motordan aldığı mekanik gücü alternatif akım elektrik enerjisine dönüştüren jeneratör bileşenidir.",
+      "category": "Alternatör",
+      "image": ""
+    },
+    {
+      "term": "AdBlue (DEF/Üre Çözeltisi)",
+      "definition": "SCR egzoz sistemlerinde NOx emisyonlarını azaltmak için kullanılan üre bazlı sıvıdır.",
+      "category": "Egzoz & Emisyon",
+      "image": ""
+    },
+    {
+      "term": "AFR (Air–Fuel Ratio)",
+      "definition": "Yanma verimi ve emisyonları etkileyen hava-yakıt karışım oranıdır.",
+      "category": "Motor",
+      "image": ""
+    },
+    {
+      "term": "Aftercooler (Charge Air Cooler)",
+      "definition": "Turbo sonrası emiş havasını soğutarak yoğunluğunu artıran ve motor verimini yükselten ısı değiştiricidir.",
+      "category": "Soğutma",
+      "image": ""
+    },
+    {
+      "term": "Acil Durdurma (Emergency Stop / E-Stop)",
+      "definition": "Acil durumlarda jeneratör setini anında durduran güvenlik devresi veya düğmesidir.",
+      "category": "Güvenlik",
+      "image": ""
+    },
+    {
+      "term": "Açık Geçiş ATS (Open Transition ATS)",
+      "definition": "Şebeke ve jeneratör arasında kısa süreli kesinti oluşturarak transfer yapan otomatik transfer sistemidir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Akü Soğuk Marş Akımı (CCA)",
+      "definition": "Akünün düşük sıcaklıklarda motoru çalıştırabilme kapasitesini gösteren değerdir.",
+      "category": "Motor",
+      "image": ""
+    },
+    {
+      "term": "Akustik Zayıflatıcı (Attenuator)",
+      "definition": "Hava akışına izin verirken ses iletimini azaltan kanal tipi ses yalıtım elemanıdır.",
+      "category": "Akustik",
+      "image": ""
+    },
+    {
+      "term": "Altimetre / İrtifa Düşümü (Altitude Derating)",
+      "definition": "Yükseklik arttıkça hava yoğunluğunun azalmasına bağlı olarak jeneratör gücünde meydana gelen düşüştür.",
+      "category": "Operasyon",
+      "image": ""
+    },
+    {
+      "term": "AMF (Auto Mains Failure)",
+      "definition": "Şebeke kesintisini algılayarak jeneratörün otomatik çalışmasını sağlayan kontrol mantığıdır.",
+      "category": "Kontrol Sistemleri",
+      "image": ""
+    },
+    {
+      "term": "AREP (Auxiliary Winding Excitation)",
+      "definition": "Alternatörde yardımcı sargı kullanarak uyartım sağlayan ve dinamik yüklerde gerilim kararlılığını artıran sistemdir.",
+      "category": "Alternatör",
+      "image": ""
     },
     {
       "term": "ATS (Automatic Transfer Switch)",
-      "definition": "Şebeke elektriği kesildiğinde otomatik olarak jeneratöre, şebeke geldiğinde tekrar şebekeye geçişi sağlayan otomatik transfer anahtarı.",
-      "category": "Kontrol Sistemleri",
-      "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop"
+      "definition": "Yükü şebeke ile jeneratör arasında otomatik olarak aktaran transfer şalter sistemidir.",
+      "category": "Elektrik",
+      "image": ""
     },
     {
       "term": "AVR (Automatic Voltage Regulator)",
-      "definition": "Jeneratörün çıkış voltajını sabit tutan otomatik voltaj regülatörü. Yük değişimlerinde voltaj stabilitesini sağlar.",
+      "definition": "Alternatör çıkış gerilimini sabit tutarak yük değişimlerinde voltaj kararlılığını sağlayan regülatördür.",
+      "category": "Alternatör",
+      "image": ""
+    },
+
+    {
+      "term": "Bant Isıtıcı (Band Heater)",
+      "definition": "Yakıt tankı veya hatlarında donmayı önlemek için kullanılan sargı tipi elektrikli ısıtıcıdır.",
+      "category": "Yakıt Sistemi",
+      "image": ""
+    },
+    {
+      "term": "Bara Bölücü İzolatör (Stand-off Insulator)",
+      "definition": "Baraları taşıyan ve elektriksel yalıtım sağlayan yüksek dielektrik dayanımlı izolatör elemanıdır.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Bara Mimic Diyagramı (Mimic Bus Diagram)",
+      "definition": "Pano üzerinde bara yapısını ve enerji akışını görsel olarak gösteren şematik gösterimdir.",
       "category": "Kontrol Sistemleri",
-      "image": "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop"
+      "image": ""
     },
     {
-      "term": "Dizel Motor",
-      "definition": "Sıkıştırma ateşlemeli içten yanmalı motor. Jeneratörlerde en yaygın kullanılan güç kaynağı türüdür.",
-      "category": "Motor",
-      "image": "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=400&h=300&fit=crop"
+      "term": "Baud Oranı (Baud Rate)",
+      "definition": "Seri haberleşmede veri iletim hızını belirleyen parametredir.",
+      "category": "Haberleşme",
+      "image": ""
     },
     {
-      "term": "Faz",
-      "definition": "Alternatif akımda elektriksel devrelerin sayısı. Tek fazlı (220V) veya üç fazlı (380V) sistemler yaygındır.",
+      "term": "BBM / MBB Kontak (Break-Before-Make / Make-Before-Break)",
+      "definition": "Anahtarlama kontaklarının açma-kapama sırasını tanımlar; transfer ve ölçüm devrelerinde kritik öneme sahiptir.",
       "category": "Elektrik",
-      "image": "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=400&h=300&fit=crop"
+      "image": ""
     },
     {
-      "term": "Frekans (Hz)",
-      "definition": "Alternatif akımın saniyedeki döngü sayısı. Türkiye'de 50 Hz standarttır.",
-      "category": "Elektrik",
-      "image": "https://images.unsplash.com/photo-1509390144018-eeaf65052242?w=400&h=300&fit=crop"
+      "term": "Bileşik Regülasyon (Compound Regulation)",
+      "definition": "Yük artışında oluşan gerilim düşümünü azaltmak için alternatör uyarma sisteminin yük akımına göre desteklenmesi yöntemidir.",
+      "category": "Alternatör",
+      "image": ""
     },
     {
-      "term": "Güç Faktörü (Power Factor)",
-      "definition": "Gerçek güç ile görünür güç arasındaki oran. Genellikle 0.8 olarak kabul edilir ve sistem verimliliğini gösterir.",
-      "category": "Elektrik",
-      "image": "https://images.unsplash.com/photo-1567789884554-0b844b597180?w=400&h=300&fit=crop"
-    },
-    {
-      "term": "Isıtıcı (Block Heater)",
-      "definition": "Soğuk havalarda motorun hızlı çalıştırılabilmesi için motor bloğunu önceden ısıtan elektrikli ısıtıcı.",
-      "category": "Yardımcı Sistemler",
-      "image": "https://images.unsplash.com/photo-1504222490345-c075b6008014?w=400&h=300&fit=crop"
-    },
-    {
-      "term": "Kabin (Canopy)",
-      "definition": "Jeneratörü dış etkilerden koruyan, ses izolasyonu sağlayan metal veya kompozit muhafaza.",
-      "category": "Mekanik",
-      "image": "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=400&h=300&fit=crop"
-    },
-    {
-      "term": "Kontaktör",
-      "definition": "Yüksek akımlı elektrik devrelerini açıp kapatan elektromanyetik anahtar.",
-      "category": "Elektrik",
-      "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop"
-    },
-    {
-      "term": "kVA (Kilovolt Amper)",
-      "definition": "Jeneratörün görünür güç kapasitesini ifade eden birim. Gerçek güç (kW) = kVA x Güç Faktörü",
-      "category": "Elektrik",
-      "image": "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=400&h=300&fit=crop"
-    },
-    {
-      "term": "kW (Kilowatt)",
-      "definition": "Jeneratörün gerçek güç çıkışını ifade eden birim. Elektrikli cihazların tüketimi bu birimle ölçülür.",
-      "category": "Elektrik",
-      "image": "https://images.unsplash.com/photo-1567789884554-0b844b597180?w=400&h=300&fit=crop"
-    },
-    {
-      "term": "Motor Kontrol Ünitesi (ECU)",
-      "definition": "Dizel motorun çalışmasını elektronik olarak kontrol eden ve optimize eden bilgisayar sistemi.",
-      "category": "Kontrol Sistemleri",
-      "image": "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop"
-    },
-    {
-      "term": "Paralel Çalışma",
-      "definition": "Birden fazla jeneratörün senkronize edilerek tek bir güç kaynağı gibi çalıştırılması.",
+      "term": "Bileşik Yük (Balanced Load)",
+      "definition": "Yükün fazlara eşit dağıtılmasıdır; jeneratör ısınmasını azaltır ve güç kalitesini iyileştirir.",
       "category": "Operasyon",
-      "image": "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=400&h=300&fit=crop"
+      "image": ""
     },
     {
-      "term": "Prime Power",
-      "definition": "Jeneratörün sürekli olarak (7/24) çalışabileceği güç kapasitesi. Genellikle standby kapasitesinin %70-80'i kadardır.",
-      "category": "Kapasite",
-      "image": "https://images.unsplash.com/photo-1620714223084-8fcacc6dfd8d?w=400&h=300&fit=crop"
+      "term": "Bölmeli Şalt Hücresi",
+      "definition": "IEC 61439 standardına göre panolarda baralar ve ekipmanların fiziksel olarak ayrılma seviyesini tanımlar.",
+      "category": "Elektrik",
+      "image": ""
     },
     {
-      "term": "Radyatör",
-      "definition": "Motor soğutma sıvısının ısısını atmosfere aktaran, motorun aşırı ısınmasını önleyen soğutma ünitesi.",
+      "term": "Yumuşak Geçiş (Bumpless Transfer)",
+      "definition": "Kontrol modları arasında geçiş yapılırken gerilim, frekans veya yükte ani sıçrama olmadan transfer yapılmasıdır.",
+      "category": "Operasyon",
+      "image": ""
+    },
+    {
+      "term": "Baffle (Akış Yönlendirici)",
+      "definition": "Akışın yönünü düzenlemek ve türbülansı kontrol etmek için kullanılan sac bariyerdir.",
+      "category": "Soğutma & Egzoz",
+      "image": ""
+    },
+    {
+      "term": "Barge Connection (Cam-Lok Paneli)",
+      "definition": "Geçici güç bağlantıları için hızlı ve güvenli bağlantı sağlayan panel sistemidir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Base Isolation Pad (Şase İzolasyon Pedi)",
+      "definition": "Şase ile beton zemin arasında titreşim ve yük iletimini azaltan izolasyon elemanıdır.",
+      "category": "Mekanik",
+      "image": ""
+    },
+    {
+      "term": "Bıçaklı Ayırıcı (Knife Switch)",
+      "definition": "Yük altında kesme yapmadan devreyi güvenli şekilde ayırmak için kullanılan ayırıcı anahtardır.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "BLE Gateway (Bluetooth Low Energy Ağ Geçidi)",
+      "definition": "Yakın alan sensörlerinden gelen verileri SCADA veya bulut sistemlerine ileten haberleşme cihazıdır.",
+      "category": "Haberleşme",
+      "image": ""
+    },
+    {
+      "term": "Blow-By Yağ Ayırıcı (Oil Separator)",
+      "definition": "Karter havalandırma sisteminde yağ aerosollerini ayırarak motora geri dönmesini sağlayan ekipmandır.",
+      "category": "Motor",
+      "image": ""
+    },
+    {
+      "term": "Geri Besleme (Backfeed)",
+      "definition": "Enerjinin şebekeye veya başka bir kaynağa ters yönde akması durumudur ve ciddi güvenlik riski oluşturur.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Back Pressure (Egzoz Karşı Basıncı)",
+      "definition": "Egzoz hattındaki direnç nedeniyle oluşan basınçtır; yüksek değerler motor performansını düşürür.",
+      "category": "Egzoz & Emisyon",
+      "image": ""
+    },
+    {
+      "term": "Baseframe (Şase)",
+      "definition": "Motor ve alternatörün monte edildiği ana taşıyıcı karkas yapıdır.",
+      "category": "Mekanik",
+      "image": ""
+    },
+    {
+      "term": "Bypass-İzole ATS",
+      "definition": "Transfer şalteri bakımdayken yükü kesmeden bypass hattı üzerinden besleme sağlayan ATS tipidir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Black Start (Siyah Başlatma)",
+      "definition": "Şebeke enerjisi olmadan kendi kendine devreye girip sistemi besleyebilen jeneratör veya tesis özelliğidir.",
+      "category": "Operasyon",
+      "image": ""
+    },
+    {
+      "term": "Block Heater (Blok Isıtıcı)",
+      "definition": "Motor bloğu veya soğutma suyunu ısıtarak soğuk koşullarda hızlı çalıştırma ve yük alma sağlayan ısıtıcıdır.",
       "category": "Soğutma",
-      "image": "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=400&h=300&fit=crop"
+      "image": ""
+    },
+    {
+      "term": "BMS (Battery Management System)",
+      "definition": "Akü gruplarını izleyen, koruyan ve performansını optimize eden elektronik yönetim sistemidir.",
+      "category": "Kontrol Sistemleri",
+      "image": ""
+    },
+    {
+      "term": "Bunded Tank (Çift Cidarlı Yakıt Deposu)",
+      "definition": "Yakıt sızıntılarına karşı ikinci bir koruyucu cidar içeren güvenlikli depo tasarımıdır.",
+      "category": "Yakıt Sistemi",
+      "image": ""
+    },
+    {
+      "term": "Busbar (Baralar)",
+      "definition": "Yüksek akımları taşımak ve dağıtmak için kullanılan bakır veya alüminyum iletken baralardır.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Cable Lug (Kablo Pabucu)",
+      "definition": "Kablonun bara veya klemense güvenli ve düşük dirençli şekilde bağlanmasını sağlayan sıkmalı bağlantı elemanıdır.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Castell Tip Kilitleme (Castell Key Interlock)",
+      "definition": "Ekipmanların yanlış sırayla çalıştırılmasını önlemek için anahtarlı mekanik kilitleme sistemi.",
+      "category": "Güvenlik",
+      "image": ""
+    },
+    {
+      "term": "CFPP (Cold Filter Plugging Point)",
+      "definition": "Dizel yakıtın düşük sıcaklıklarda filtreyi tıkamaya başladığı kritik sıcaklık değeridir.",
+      "category": "Yakıt Sistemi",
+      "image": ""
+    },
+    {
+      "term": "Cihaz Koruma Sınıfı (Protection Class I/II)",
+      "definition": "Elektrikli ekipmanın topraklama gereksinimi ve yalıtım seviyesine göre güvenlik sınıfını ifade eder.",
+      "category": "Güvenlik",
+      "image": ""
+    },
+    {
+      "term": "Coriolis Debimetre",
+      "definition": "Akışkanın kütlesel debisini yüksek doğrulukla ölçen sensör tipidir.",
+      "category": "Yakıt Sistemi",
+      "image": ""
+    },
+    {
+      "term": "Çapraz Alan Reaktansı (Xq)",
+      "definition": "Senkron makinelerde manyetik akının çapraz eksen davranışını tanımlayan reaktans parametresidir.",
+      "category": "Alternatör",
+      "image": ""
+    },
+    {
+      "term": "Çatlak Algılama (PT/MT)",
+      "definition": "Kaynak ve metal yüzeylerdeki çatlakları tespit etmek için kullanılan tahribatsız muayene yöntemleridir.",
+      "category": "Test & Bakım",
+      "image": ""
+    },
+    {
+      "term": "Çekmeli Kesici (Withdrawable Breaker)",
+      "definition": "Servis, test ve çalışma konumları arasında çekilerek hareket ettirilebilen devre kesici tipidir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Çoklu Ayar Grubu (Setting Group)",
+      "definition": "Koruma rölelerinde farklı çalışma koşulları için önceden tanımlanmış parametre setleridir.",
+      "category": "Kontrol Sistemleri",
+      "image": ""
+    },
+    {
+      "term": "Cable Gland (Kablo Rakoru)",
+      "definition": "Kablonun panoya sızdırmaz ve mekanik olarak güvenli şekilde girişini sağlayan bağlantı elemanıdır.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Cable Ladder / Tray (Kablo Merdiveni)",
+      "definition": "Kabloların düzenli ve güvenli şekilde taşınmasını sağlayan kablo taşıma sistemidir.",
+      "category": "Montaj & Kurulum",
+      "image": ""
+    },
+    {
+      "term": "Calorific Value (Isıl Değer)",
+      "definition": "Yakıtın yanma sonucu açığa çıkardığı enerji miktarını ifade eder.",
+      "category": "Yakıt Sistemi",
+      "image": ""
+    },
+    {
+      "term": "Cam Switch (Kademeli Şalter)",
+      "definition": "Test ve manuel kumanda işlemleri için çok konumlu anahtarlama sağlayan şalterdir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Kapasitif Banka (Kompanzasyon Ünitesi)",
+      "definition": "Reaktif gücü dengeleyerek güç faktörünü iyileştiren kondansatör grubu sistemidir.",
+      "category": "Güç Kalitesi",
+      "image": ""
+    },
+    {
+      "term": "CEE Priz (IEC 60309)",
+      "definition": "Endüstriyel kullanım için standartlaştırılmış, renk kodlu akım ve gerilim değerlerine sahip fiş-priz sistemidir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Cloud Connector",
+      "definition": "Hücresel veya Wi-Fi bağlantısı ile uzaktan izleme, alarm ve veri aktarımı sağlayan haberleşme modülüdür.",
+      "category": "Haberleşme",
+      "image": ""
+    },
+    {
+      "term": "CAN J1939",
+      "definition": "Motor ECU ile kontrol sistemleri arasında veri iletişimi sağlayan endüstriyel haberleşme protokolüdür.",
+      "category": "Kontrol Sistemleri",
+      "image": ""
+    },
+    {
+      "term": "Canopy (Kabin)",
+      "definition": "Jeneratörü dış etkenlerden koruyan ve gürültü seviyesini azaltan muhafaza yapısıdır.",
+      "category": "Mekanik",
+      "image": ""
+    },
+    {
+      "term": "CE İşareti",
+      "definition": "Bir ürünün Avrupa Birliği güvenlik, sağlık ve çevre gerekliliklerine uygun olduğunu gösterir.",
+      "category": "Standartlar",
+      "image": ""
+    },
+    {
+      "term": "Closed Transition ATS (Kapalı Geçiş)",
+      "definition": "Şebeke ve jeneratör arasında milisaniyelik çakışmalı transfer yaparak kesintisiz geçiş sağlayan ATS tipidir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Cold Start (Soğuk Marş)",
+      "definition": "Düşük ortam sıcaklıklarında motorun ilk çalıştırılması sürecidir.",
+      "category": "Motor",
+      "image": ""
+    },
+    {
+      "term": "Commissioning (Devreye Alma)",
+      "definition": "Kurulum sonrası sistemin test edilmesi, ayarlanması ve işletmeye alınması sürecidir.",
+      "category": "Montaj & Kurulum",
+      "image": ""
+    },
+    {
+      "term": "Contactor (Kontaktör)",
+      "definition": "Elektrik devrelerini uzaktan kumanda ile açıp kapatmaya yarayan elektromanyetik anahtarlama elemanıdır.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Continuous (COP) Rating",
+      "definition": "Motor veya jeneratörün 7/24 sürekli tam yükte çalışabileceğini gösteren güç sınıfıdır.",
+      "category": "Kapasite",
+      "image": ""
+    },
+    {
+      "term": "Coolant (Antifriz/Glikol)",
+      "definition": "Motor soğutma sisteminde donma ve korozyonu önleyen özel katkılı soğutma sıvısıdır.",
+      "category": "Soğutma",
+      "image": ""
+    },
+    {
+      "term": "CT (Akım Trafosu)",
+      "definition": "Ölçüm ve koruma sistemlerinde kullanılmak üzere yüksek akımı ölçülebilir seviyeye düşüren trafodur.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Critical Silencer",
+      "definition": "Yüksek seviyede ses zayıflatma sağlayarak gürültü kontrolü için kullanılan susturucu tipidir.",
+      "category": "Akustik",
+      "image": ""
+    },
+    {
+      "term": "Dalgacık Bastırma (Ripple Suppression / Snubber)",
+      "definition": "Röle bobini veya şarj cihazı kaynaklı gerilim dalgalanmalarını bastırarak devreyi koruyan devre elemanıdır.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Damplı Salınım (Damped Oscillation)",
+      "definition": "Geçici bir olay sonrası gerilim veya frekansın zamanla azalan salınım hareketidir.",
+      "category": "Güç Kalitesi",
+      "image": ""
+    },
+    {
+      "term": "Dead-Bus Close (Ölü Bara Kapanışı)",
+      "definition": "Gerilimsiz bir baraya uygun koşullar sağlandığında kesicinin güvenli şekilde kapatılması fonksiyonudur.",
+      "category": "Kontrol Sistemleri",
+      "image": ""
+    },
+    {
+      "term": "Dead-Front Tasarım",
+      "definition": "Canlı elektriksel parçaların ön yüzeyden erişilemeyecek şekilde izole edildiği güvenli tasarım yaklaşımıdır.",
+      "category": "Güvenlik",
+      "image": ""
+    },
+    {
+      "term": "Defuel Pompası",
+      "definition": "Yakıt tanklarının güvenli ve kontrollü şekilde boşaltılmasını sağlayan pompadır.",
+      "category": "Yakıt Sistemi",
+      "image": ""
+    },
+    {
+      "term": "Dielektrik Dayanım Testi (HiPot)",
+      "definition": "Elektriksel izolasyonun yüksek gerilim altında dayanımını doğrulamak için yapılan testtir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Diferansiyel Basınç Ölçer (DP Gauge)",
+      "definition": "Filtre veya hava kanallarındaki tıkanıklığı iki nokta arasındaki basınç farkını ölçerek belirleyen cihazdır.",
+      "category": "Soğutma & Akustik",
+      "image": ""
+    },
+    {
+      "term": "Dinamik Geri Kazanım (Dynamic Recovery)",
+      "definition": "Yük değişimi sonrası gerilimin nominal değerine geri dönme davranışını ifade eder.",
+      "category": "Alternatör",
+      "image": ""
+    },
+    {
+      "term": "Dozaj Pompası (UREA Dosing Pump)",
+      "definition": "SCR sistemlerinde emisyon kontrolü için üre çözeltisinin hassas dozajlanmasını sağlayan pompadır.",
+      "category": "Egzoz & Emisyon",
+      "image": ""
+    },
+    {
+      "term": "Damping Resistor (Sönümleme Direnci)",
+      "definition": "Geçici gerilim yükselmeleri ve salınımları bastırmak için kullanılan direnç elemanıdır.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "De-aerator (Hava Ayırıcı)",
+      "definition": "Soğutma sistemindeki çözünmüş hava ve gazları ayırarak kavitasyon riskini azaltan ekipmandır.",
+      "category": "Soğutma",
+      "image": ""
+    },
+    {
+      "term": "Deep-Well Emme Hattı",
+      "definition": "Ana yakıt deposundan günlük depoya yakıt çekmek için kullanılan dip emişli emme hattı sistemidir.",
+      "category": "Yakıt Sistemi",
+      "image": ""
+    },
+    {
+      "term": "Demand Factor (Talep Faktörü)",
+      "definition": "Maksimum talebin toplam kurulu güce oranını ifade eden ve sistem boyutlandırmada kullanılan parametredir.",
+      "category": "Operasyon",
+      "image": ""
+    },
+    {
+      "term": "Detuned Reactor",
+      "definition": "Kapasitör banklarında harmonik rezonansı önlemek için seri bağlanan reaktördür.",
+      "category": "Güç Kalitesi",
+      "image": ""
+    },
+    {
+      "term": "Differential Pressure Switch",
+      "definition": "Basınç farkına göre anahtarlama yaparak filtre veya hava kanalı tıkanıklığını izleyen sensördür.",
+      "category": "Soğutma & Akustik",
+      "image": ""
+    },
+    {
+      "term": "Door Interlock Switch",
+      "definition": "Pano kapağı açıldığında enerjiyi kesen veya uyarı veren güvenlik anahtarıdır.",
+      "category": "Güvenlik",
+      "image": ""
+    },
+    {
+      "term": "Day Tank (Günlük Depo)",
+      "definition": "Ana depodan beslenen ve jeneratöre yakın konumlandırılan yakıt besleme tankıdır.",
+      "category": "Yakıt Sistemi",
+      "image": ""
+    },
+    {
+      "term": "DEF (Diesel Exhaust Fluid)",
+      "definition": "SCR sistemlerinde NOx emisyonlarını azaltmak için kullanılan üre bazlı sıvıdır.",
+      "category": "Egzoz & Emisyon",
+      "image": ""
+    },
+    {
+      "term": "Derating (Güç Düşümü)",
+      "definition": "Yüksek sıcaklık, irtifa veya çevresel koşullar nedeniyle ekipmanın nominal gücünün düşürülmesidir.",
+      "category": "Operasyon",
+      "image": ""
+    },
+    {
+      "term": "dB(A)",
+      "definition": "İnsan kulağının algısına göre ağırlıklandırılmış ses seviyesi ölçü birimidir.",
+      "category": "Akustik",
+      "image": ""
+    },
+    {
+      "term": "Diesel Bug",
+      "definition": "Yakıt depolarında oluşan mikrobiyal büyüme sonucu filtre tıkanması ve yakıt sistemi arızalarına yol açan biyolojik oluşumdur.",
+      "category": "Yakıt Sistemi",
+      "image": ""
+    },
+    {
+      "term": "Differential Protection",
+      "definition": "Kaçak veya toprak arıza akımlarını algılayarak sistemi koruyan elektriksel koruma yöntemidir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Diode Trio",
+      "definition": "Alternatör uyartım devresinde doğrultma işlemi yapan diyot grubudur.",
+      "category": "Alternatör",
+      "image": ""
+    },
+    {
+      "term": "DOC (Diesel Oxidation Catalyst)",
+      "definition": "Egzoz gazındaki CO ve hidrokarbonları azaltan oksidasyon katalizörüdür.",
+      "category": "Egzoz & Emisyon",
+      "image": ""
+    },
+    {
+      "term": "DOL Start (Direkt Kalkış)",
+      "definition": "Motorun doğrudan şebekeye bağlanarak çalıştırılması yöntemidir; yüksek kalkış akımı oluşturur.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "DPF (Diesel Particulate Filter)",
+      "definition": "Egzoz gazındaki partikülleri tutan ve belirli aralıklarla rejenerasyon gerektiren filtredir.",
+      "category": "Egzoz & Emisyon",
+      "image": ""
+    },
+    {
+      "term": "Droop (Frekans Düşümü)",
+      "definition": "Yük artışı ile frekansın kontrollü şekilde düşmesi prensibi; paralel çalışan jeneratörlerde yük paylaşımı sağlar.",
+      "category": "Kontrol Sistemleri",
+      "image": ""
+    },
+    {
+      "term": "Droop CT",
+      "definition": "Reaktif güç paylaşımı için AVR sistemine geri besleme sağlayan akım trafosudur.",
+      "category": "Kontrol Sistemleri",
+      "image": ""
+    },
+    {
+      "term": "Duty Cycle (Çalışma Profili)",
+      "definition": "Ekipmanın yük ve çalışma sürelerinin kombinasyonunu ifade eder ve güç sınıfı seçiminde belirleyicidir.",
+      "category": "Operasyon",
+      "image": ""
+    },
+    {
+      "term": "Eddy Current Kayıpları",
+      "definition": "Alternatör çekirdeği ve sargılarında oluşan girdap akımlarının neden olduğu ısı kaynaklı enerji kayıplarıdır.",
+      "category": "Alternatör",
+      "image": ""
+    },
+    {
+      "term": "Egzoz Gazı Yoğuşması",
+      "definition": "Düşük yük veya soğuk çalışma koşullarında egzoz hattında su buharının yoğuşması durumudur.",
+      "category": "Egzoz & Emisyon",
+      "image": ""
+    },
+    {
+      "term": "Elektrik Odası Basınçlandırma",
+      "definition": "Toz ve kirli havanın girişini önlemek için elektrik odasında pozitif basınç oluşturma yöntemidir.",
+      "category": "Montaj & Kurulum",
+      "image": ""
+    },
+    {
+      "term": "Elektronik Röle 86 (Lockout Relay)",
+      "definition": "Koruma sistemleri tetiklendiğinde ekipmanı kilitleyerek yeniden çalıştırılmasını engelleyen güvenlik rölesidir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "EMI Conta (RFI/EMI Gasket)",
+      "definition": "Pano ve kapaklarda elektromanyetik sızıntıyı azaltarak EMC koruması sağlayan iletken conta türüdür.",
+      "category": "Standartlar & EMC",
+      "image": ""
+    },
+    {
+      "term": "Enerji Kalitesi Analizörü",
+      "definition": "Gerilim dalgalanmaları, harmonikler ve güç kalitesi olaylarını ölçen analiz cihazıdır.",
+      "category": "Güç Kalitesi",
+      "image": ""
+    },
+    {
+      "term": "Enjeksiyon Zamanlaması",
+      "definition": "Yakıtın silindire püskürtülme zamanını belirleyen ve yanma verimi ile emisyonları etkileyen parametredir.",
+      "category": "Motor",
+      "image": ""
+    },
+    {
+      "term": "Eş Potansiyel Atlaması (Bonding Jumper)",
+      "definition": "Metal parçalar arasında eş potansiyel sağlamak için yapılan güvenlik bağlantısıdır.",
+      "category": "Güvenlik",
+      "image": ""
+    },
+    {
+      "term": "Earthing Bar (Topraklama Barası)",
+      "definition": "Tüm koruma topraklama iletkenlerinin bağlandığı ortak topraklama noktasıdır.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "EGT Sensörü (Exhaust Gas Temperature)",
+      "definition": "Egzoz gazı sıcaklığını ölçerek motor yükü ve rejenerasyon süreçlerinin izlenmesini sağlar.",
+      "category": "Egzoz & Emisyon",
+      "image": ""
+    },
+    {
+      "term": "Emergency Stop Loop İzleme",
+      "definition": "Acil durdurma devresinin sürekliliğini izleyerek güvenli çalışmayı sağlayan izleme fonksiyonudur.",
+      "category": "Güvenlik",
+      "image": ""
+    },
+    {
+      "term": "Energy Meter (kWh/kVArh Sayacı)",
+      "definition": "Enerji tüketimini ve reaktif güç değerlerini ölçen elektrik sayacıdır.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Expansion Joint (Kompansatör)",
+      "definition": "Egzoz hattında termal genleşme ve titreşimleri absorbe eden esnek bağlantı elemanıdır.",
+      "category": "Egzoz & Emisyon",
+      "image": ""
+    },
+    {
+      "term": "External Static Pressure",
+      "definition": "Hava kanallı sistemlerde fan performansını belirlemek için ölçülen dış statik basınç değeridir.",
+      "category": "Soğutma & Akustik",
+      "image": ""
+    },
+    {
+      "term": "Earthing (Topraklama)",
+      "definition": "İnsan güvenliği ve sistem kararlılığı için elektriksel ekipmanların toprağa bağlanması işlemidir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "ECU (Motor Kontrol Ünitesi)",
+      "definition": "Motorun enjeksiyon, zamanlama, koruma ve haberleşme fonksiyonlarını yöneten elektronik kontrol birimidir.",
+      "category": "Motor",
+      "image": ""
+    },
+    {
+      "term": "Efficiency (Verim)",
+      "definition": "Mekanik enerjinin elektrik enerjisine dönüşüm verimini ifade eder.",
+      "category": "Alternatör",
+      "image": ""
+    },
+    {
+      "term": "EMC (Elektromanyetik Uyumluluk)",
+      "definition": "Bir cihazın elektromanyetik girişim oluşturmadan ve etkilenmeden çalışabilme yeteneğidir.",
+      "category": "Standartlar & EMC",
+      "image": ""
+    },
+    {
+      "term": "Emisyon Aşaması (Stage IIIA–V)",
+      "definition": "Avrupa Birliği emisyon standartlarını ve motorların izin verilen emisyon seviyelerini tanımlar.",
+      "category": "Standartlar",
+      "image": ""
+    },
+    {
+      "term": "Enclosure Koruma Sınıfı (IP/NEMA)",
+      "definition": "Kabin ve ekipmanların toz ve suya karşı koruma seviyesini belirten standart sınıflandırmadır.",
+      "category": "Güvenlik",
+      "image": ""
+    },
+    {
+      "term": "Excitation (Uyartım)",
+      "definition": "Alternatör alan sargısına enerji verilerek manyetik alan oluşturulması işlemidir.",
+      "category": "Alternatör",
+      "image": ""
+    },
+    {
+      "term": "Exhaust Insulation (Egzoz İzolasyonu)",
+      "definition": "Egzoz hattı yüzey sıcaklığını düşürmek ve ısı kaybını azaltmak için yapılan izolasyon uygulamasıdır.",
+      "category": "Egzoz & Emisyon",
+      "image": ""
+    },
+    {
+      "term": "Fan Kanunları (Fan Affinity Laws)",
+      "definition": "Fan hızına bağlı olarak debi, basınç ve güç arasındaki ilişkiyi tanımlar (Q∝N, Δp∝N², P∝N³).",
+      "category": "Soğutma",
+      "image": ""
+    },
+    {
+      "term": "Fault Ride-Through (FRT)",
+      "definition": "Kısa süreli gerilim düşümlerinde sistemin senkronizasyondan çıkmadan çalışmaya devam edebilme kabiliyetidir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Ferrorezonans",
+      "definition": "Manyetik devrelerin doyuma girmesi sonucu oluşan anormal gerilim salınımlarıdır.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Filtre Beta Oranı",
+      "definition": "Bir filtrenin belirli boyuttaki partikülleri tutma verimliliğini gösteren performans ölçütüdür.",
+      "category": "Test & Bakım",
+      "image": ""
+    },
+    {
+      "term": "Firestop Harcı (Penetration Firestop)",
+      "definition": "Kablo ve boru geçişlerinde yangının yayılmasını önlemek için kullanılan yangın durdurucu malzemedir.",
+      "category": "Güvenlik",
+      "image": ""
+    },
+    {
+      "term": "Flash Point (Parlama Noktası)",
+      "definition": "Yakıtın yanıcı buhar oluşturarak tutuşabilir hale geldiği minimum sıcaklıktır.",
+      "category": "Yakıt Sistemi",
+      "image": ""
+    },
+    {
+      "term": "Flooded vs VRLA Akü",
+      "definition": "Sulu kurşun-asit aküler ile valf regüleli (VRLA) akü tiplerinin yapı ve bakım farklarını ifade eder.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Fail-Safe Damper",
+      "definition": "Enerji kesildiğinde yay geri dönüşü sayesinde güvenli konumda kalan hava klapesidir.",
+      "category": "Akustik & Havalandırma",
+      "image": ""
+    },
+    {
+      "term": "Fault Recorder",
+      "definition": "Arıza anında dalga şekli ve sistem verilerini kaydeden izleme cihazıdır.",
+      "category": "Kontrol Sistemleri",
+      "image": ""
+    },
+    {
+      "term": "Ferrite Core Filter",
+      "definition": "Elektromanyetik girişim ve radyo frekans gürültüsünü bastırmak için kullanılan ferrit nüveli filtre elemanıdır.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Fire Damper (Yangın Klapesi)",
+      "definition": "Yangın durumunda hava kanallarını otomatik kapatarak alev ve duman yayılımını engelleyen klapedir.",
+      "category": "Güvenlik",
+      "image": ""
+    },
+    {
+      "term": "Float Switch (Seviye Şamandırası)",
+      "definition": "Depo sıvı seviyesini algılayarak alarm veya pompa kontrolü sağlayan anahtarlama elemanıdır.",
+      "category": "Yakıt Sistemi",
+      "image": ""
+    },
+    {
+      "term": "Foot Valve (Ayak Valfi)",
+      "definition": "Emme hattında sıvının geri kaçmasını önleyen çekvalf tipidir.",
+      "category": "Yakıt Sistemi",
+      "image": ""
+    },
+    {
+      "term": "Fan (Radyatör Fanı)",
+      "definition": "Radyatör üzerinden hava akışı sağlayarak motor soğutma sisteminin ısı transferini gerçekleştiren fan sistemidir.",
+      "category": "Soğutma",
+      "image": ""
+    },
+    {
+      "term": "Fault Level (Kısa Devre Seviyesi)",
+      "definition": "Bir şebeke veya baranın taşıyabileceği maksimum arıza akımı kapasitesini ifade eder.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Flicker",
+      "definition": "Ani yük değişimleri nedeniyle oluşan ışık titremesi etkisidir ve güç kalitesi göstergesidir.",
+      "category": "Güç Kalitesi",
+      "image": ""
+    },
+    {
+      "term": "Fuel Polishing",
+      "definition": "Depolanan yakıtın filtrelenerek su, partikül ve mikroorganizmalardan arındırılması işlemidir.",
+      "category": "Yakıt Sistemi",
+      "image": ""
+    },
+    {
+      "term": "Fuel Return / Supply Hatları",
+      "definition": "Dizel yakıt sistemlerinde yakıtın motora gidiş ve geri dönüş hatlarını ifade eder.",
+      "category": "Yakıt Sistemi",
+      "image": ""
+    },
+    {
+      "term": "Full Load (Tam Yük)",
+      "definition": "Jeneratörün nominal gücünün %100 kapasite ile çalıştığı durumdur.",
+      "category": "Operasyon",
+      "image": ""
+    },
+    {
+      "term": "Fuse (Sigorta)",
+      "definition": "Aşırı akım durumunda eriyerek devreyi açan ve ekipmanı koruyan elektriksel güvenlik elemanıdır.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Galvanik İzolasyon",
+      "definition": "Elektriksel iletken bağlantı olmadan enerji veya sinyal aktarımı sağlayarak devreler arasında güvenli izolasyon oluşturur.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Gaz Algılama Bariyeri",
+      "definition": "Patlayıcı ortamlarda kullanılan Ex i devrelerde sensör beslemesini sınırlayarak güvenli çalışmayı sağlayan bariyer cihazıdır.",
+      "category": "Güvenlik",
+      "image": ""
+    },
+    {
+      "term": "Gland Plaka",
+      "definition": "Pano tabanında kablo rakorlarının monte edildiği değiştirilebilir giriş plakasını ifade eder.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Governor Bant Genişliği",
+      "definition": "Yük değişimlerinde motor hızının ne kadar hassas ve hızlı kontrol edildiğini belirleyen parametredir.",
+      "category": "Kontrol Sistemleri",
+      "image": ""
+    },
+    {
+      "term": "Grid Forming Modu",
+      "definition": "Jeneratörün gerilim ve frekansı referans alarak şebeke oluşturduğu çalışma modudur.",
+      "category": "Kontrol Sistemleri",
+      "image": ""
+    },
+    {
+      "term": "Gasket (Conta)",
+      "definition": "Flanş ve bağlantı yüzeylerinde sızdırmazlık sağlayarak sıvı veya gaz kaçaklarını önleyen elemandır.",
+      "category": "Mekanik",
+      "image": ""
+    },
+    {
+      "term": "Genset Quick Connect Panel",
+      "definition": "Geçici güç bağlantıları için hızlı ve güvenli kablo bağlantısı sağlayan panel sistemidir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Grid Code Uyum",
+      "definition": "Şebeke ile paralel çalışan sistemlerin yerel şebeke yönetmeliklerine ve teknik gerekliliklere uygunluğunu ifade eder.",
+      "category": "Standartlar",
+      "image": ""
+    },
+    {
+      "term": "Ground Ring (Topraklama Halkası)",
+      "definition": "Bina çevresine döşenen halka ile düşük dirençli ve etkin topraklama sağlayan sistemdir.",
+      "category": "Güvenlik",
+      "image": ""
+    },
+    {
+      "term": "Gürültü Bariyeri",
+      "definition": "Ses yayılımını azaltmak için gürültü kaynağı ile alıcı arasında konumlandırılan panel veya duvar yapısıdır.",
+      "category": "Akustik",
+      "image": ""
+    },
+    {
+      "term": "Generator Set (Genset)",
+      "definition": "Motor, alternatör, şase ve kontrol sistemlerinden oluşan komple elektrik üretim ünitesidir.",
+      "category": "Operasyon",
+      "image": ""
+    },
+    {
+      "term": "Governor (Devir Regülatörü)",
+      "definition": "Motor devrini ve frekansı sabit tutarak yük değişimlerinde kararlı çalışmayı sağlayan kontrol sistemidir.",
+      "category": "Kontrol Sistemleri",
+      "image": ""
+    },
+    {
+      "term": "Grounding Electrode (Topraklayıcı)",
+      "definition": "Topraklama direncini düşürmek için kullanılan kazık, şerit veya halka iletken elemanıdır.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Glycol (Glikol)",
+      "definition": "Antifriz özelliği sağlayarak donmayı önleyen ve korozyonu azaltan soğutma sıvısı bileşenidir.",
+      "category": "Soğutma",
+      "image": ""
+    },
+    {
+      "term": "HAZOP Çalışması",
+      "definition": "Proses ve tesislerde olası tehlike ve işletme sorunlarını sistematik olarak analiz eden risk değerlendirme yöntemidir.",
+      "category": "Güvenlik",
+      "image": ""
+    },
+    {
+      "term": "Head Kaybı (Head Loss)",
+      "definition": "Boru hatları ve ekipmanlardan kaynaklanan toplam basınç kaybını ifade eder.",
+      "category": "Soğutma",
+      "image": ""
+    },
+    {
+      "term": "High Ambient Kit",
+      "definition": "Yüksek ortam sıcaklıklarında performansı korumak için ek soğutma veya izolasyon içeren donanım paketidir.",
+      "category": "Soğutma",
+      "image": ""
+    },
+    {
+      "term": "Hot Pipe Cladding",
+      "definition": "Yüksek sıcaklıktaki boru yüzeylerini kaplayarak temas yanıklarını ve ısı kaybını önleyen koruyucu kaplamadır.",
+      "category": "Egzoz & Emisyon",
+      "image": ""
+    },
+    {
+      "term": "Frequency Drift (Hertz Sürünmesi)",
+      "definition": "Frekansın nominal değerden zaman içinde yavaşça sapması durumudur.",
+      "category": "Güç Kalitesi",
+      "image": ""
+    },
+    {
+      "term": "H-Class Vernik",
+      "definition": "Alternatör sargılarında kullanılan ve yüksek sıcaklık dayanımı sağlayan yalıtım verniğidir.",
+      "category": "Alternatör",
+      "image": ""
+    },
+    {
+      "term": "Üstten Bakım Platformu (Crew Access)",
+      "definition": "Tavan erişimli kabinlerde güvenli bakım yapılabilmesi için tasarlanmış servis platformudur.",
+      "category": "Montaj & Kurulum",
+      "image": ""
+    },
+    {
+      "term": "Hazardous Area (ATEX Bölgesi)",
+      "definition": "Patlayıcı gaz veya toz bulunma riskine göre sınıflandırılan ve özel ekipman gerektiren tehlikeli alanlardır.",
+      "category": "Güvenlik",
+      "image": ""
+    },
+    {
+      "term": "Heat Tracing",
+      "definition": "Donma riski bulunan boru ve hatlarda elektrikli ısıtma kablosu ile sıcaklık koruma yöntemidir.",
+      "category": "Soğutma",
+      "image": ""
+    },
+    {
+      "term": "Hydrostatic Test",
+      "definition": "Tank ve boru hatlarının sızdırmazlık ve dayanımını doğrulamak için basınçlı su ile yapılan testtir.",
+      "category": "Test & Bakım",
+      "image": ""
+    },
+    {
+      "term": "Harmonics (Armonikler)",
+      "definition": "Doğrusal olmayan yüklerin oluşturduğu frekans katlarıdır ve güç kalitesini etkiler.",
+      "category": "Güç Kalitesi",
+      "image": ""
+    },
+    {
+      "term": "Heat Exchanger (Isı Eşanjörü)",
+      "definition": "İki akışkan arasında ısı transferi sağlayan soğutma ekipmanıdır.",
+      "category": "Soğutma",
+      "image": ""
+    },
+    {
+      "term": "HMI (Operatör Paneli)",
+      "definition": "Operatörün sistemi izlemesini, kontrol etmesini ve ayar yapmasını sağlayan kullanıcı arayüzüdür.",
+      "category": "Kontrol Sistemleri",
+      "image": ""
+    },
+    {
+      "term": "Hot Standby (Sıcak Bekleme)",
+      "definition": "Jeneratörün ön ısıtmalı ve çalışmaya hazır durumda beklemesi sayesinde hızlı yük alma durumudur.",
+      "category": "Operasyon",
+      "image": ""
+    },
+    {
+      "term": "HRG (Yüksek Direnç Topraklama)",
+      "definition": "Nötr noktasının yüksek direnç üzerinden toprağa bağlanarak ilk arızada sistemin çalışmaya devam etmesini sağlayan topraklama yöntemidir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "ICING Koşulları",
+      "definition": "Düşük sıcaklıklarda oluşan don ve buzlanmanın hava akış yollarını etkileyerek soğutma performansını düşürmesi durumudur.",
+      "category": "Soğutma",
+      "image": ""
+    },
+    {
+      "term": "IEC Tip-Testli Pano (TTA)",
+      "definition": "IEC 61439 standardına göre tip testlerinden geçmiş ve performansı doğrulanmış pano sistemidir.",
+      "category": "Standartlar",
+      "image": ""
+    },
+    {
+      "term": "IR İzleme Penceresi",
+      "definition": "Enerji kesmeden termal kamera ile ekipman sıcaklıklarının izlenmesini sağlayan özel pano penceresidir.",
+      "category": "Test & Bakım",
+      "image": ""
+    },
+    {
+      "term": "Isı Geri Kazanım Eşanjörü",
+      "definition": "Motor ceket suyu veya egzoz ısısını geri kazanarak proses veya ısıtma amaçlı kullanan ısı değiştiricisidir.",
+      "category": "Soğutma",
+      "image": ""
+    },
+    {
+      "term": "Isolating PT/VT",
+      "definition": "Ölçü devrelerini ana şebekeden elektriksel olarak izole eden ölçü transformatörüdür.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Isıtmadan Çalıştırma Engeli",
+      "definition": "Motor veya blok sıcaklığı düşük olduğunda çalıştırmayı engelleyerek mekanik hasarı önleyen kontrol fonksiyonudur.",
+      "category": "Kontrol Sistemleri",
+      "image": ""
+    },
+    {
+      "term": "Icw / Ipk Dayanımı",
+      "definition": "Kesici ve baraların kısa süreli ve tepe akım dayanım kapasitesini ifade eder.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "IGBT İnverter",
+      "definition": "Güç elektroniği anahtarlama elemanları kullanan inverter yapısı; VFD ve UPS sistemlerinde yaygın olarak kullanılır.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "IK Derecesi",
+      "definition": "Elektrik panoları ve muhafazaların mekanik darbelere karşı dayanım seviyesini belirten sınıflandırmadır.",
+      "category": "Güvenlik",
+      "image": ""
+    },
+    {
+      "term": "IMD (Insulation Monitoring Device)",
+      "definition": "İzole güç sistemlerinde izolasyon seviyesini izleyerek kaçak akım oluşumunu tespit eden cihazdır.",
+      "category": "Güvenlik",
+      "image": ""
+    },
+    {
+      "term": "Inertia Constant (H)",
+      "definition": "Alternatörün kinetik enerji depolama kapasitesini göstererek frekans geçici değişimlerine karşı tampon etkisi sağlar.",
+      "category": "Alternatör",
+      "image": ""
+    },
+    {
+      "term": "IEC 60034 / ISO 8528",
+      "definition": "Elektrik makineleri ve jeneratör performans kriterlerini tanımlayan uluslararası standartlardır.",
+      "category": "Standartlar",
+      "image": ""
+    },
+    {
+      "term": "IGBT Güç Anahtarlayıcı",
+      "definition": "UPS ve VFD uygulamalarında kullanılan yüksek hızlı yarı iletken anahtarlama elemanıdır.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Ingress Protection (IP)",
+      "definition": "Muhafazaların toz ve suya karşı koruma seviyesini belirten IPXX kodlama sistemidir.",
+      "category": "Güvenlik",
+      "image": ""
+    },
+    {
+      "term": "Inrush Current (Kalkış Akımı)",
+      "definition": "Motor veya trafonun ilk enerjilendirilmesi sırasında oluşan kısa süreli yüksek akımdır.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Insulation Class (Yalıtım Sınıfı)",
+      "definition": "Elektrik makinelerinde kullanılan yalıtım malzemesinin izin verilen sıcaklık dayanım sınıfını ifade eder.",
+      "category": "Alternatör",
+      "image": ""
+    },
+    {
+      "term": "Isochronous Kontrol",
+      "definition": "Yük değişimlerinden bağımsız olarak frekansı sabit tutan hız kontrol yöntemidir.",
+      "category": "Kontrol Sistemleri",
+      "image": ""
+    },
+    {
+      "term": "Isolation Transformer (İzole Trafo)",
+      "definition": "Elektriksel izolasyon sağlayarak nötr referansı düzenleyen ve harmonik etkileri azaltabilen trafodur.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Jeneratör Boşta Gerilim Ayarı",
+      "definition": "Yük bağlı değilken alternatör çıkış geriliminin referans değere ayarlanması işlemidir.",
+      "category": "Alternatör",
+      "image": ""
+    },
+    {
+      "term": "Jumper Link (Köprüleme)",
+      "definition": "Test veya ayar amacıyla devrede geçici köprüleme yapmaya yarayan bağlantı elemanıdır.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Jacket Water Sensor (JWS)",
+      "definition": "Motor ceket suyu sıcaklığını ve akış durumunu izleyen sensördür.",
+      "category": "Soğutma",
+      "image": ""
+    },
+    {
+      "term": "Jack Point (Kaldırma Noktası)",
+      "definition": "Jeneratör şasesi veya kabininde güvenli kaldırma için tasarlanmış vinç bağlantı noktasıdır.",
+      "category": "Montaj & Kurulum",
+      "image": ""
+    },
+    {
+      "term": "Jacking Bolt",
+      "definition": "Hizalama ve gerdirme işlemlerinde hassas ayar yapmak için kullanılan ayar cıvatasıdır.",
+      "category": "Mekanik",
+      "image": ""
+    },
+    {
+      "term": "Junction Temperature",
+      "definition": "Yarı iletken güç elektroniği bileşenlerinde güvenli çalışma sınırını belirleyen iç bağlantı sıcaklığıdır.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "J1939",
+      "definition": "Motor ECU ile kontrol sistemleri arasında veri iletişimi sağlayan CAN tabanlı haberleşme standardıdır.",
+      "category": "Kontrol Sistemleri",
+      "image": ""
+    },
+    {
+      "term": "Jacket Water (Ceket Suyu)",
+      "definition": "Motor soğutma sisteminde ısıyı uzaklaştıran ana soğutma sıvısıdır.",
+      "category": "Soğutma",
+      "image": ""
+    },
+    {
+      "term": "Junction Box (Klemens Kutusu)",
+      "definition": "Elektrik kablolarının güvenli şekilde bağlandığı ve dağıtıldığı bağlantı kutusudur.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Kelvin Bağlantı",
+      "definition": "Ölçümlerde kablo direncinin etkisini ortadan kaldırmak için kullanılan dört telli hassas ölçüm yöntemidir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Kısa Süre Dayanım",
+      "definition": "Bir kesicinin belirli süre boyunca dayanabileceği kısa devre akımı kapasitesini ifade eder.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "CT Knee Point Voltajı",
+      "definition": "Akım trafosunun doğrusal çalışma bölgesinin sona erdiği ve doyuma girmeye başladığı voltaj seviyesidir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Komparatör Röle",
+      "definition": "Gerilim ve faz koşullarını karşılaştırarak senkronizasyon izni veren koruma rölesidir.",
+      "category": "Kontrol Sistemleri",
+      "image": ""
+    },
+    {
+      "term": "Korozyon Testi (Tuz Püskürtme)",
+      "definition": "Kaplamaların korozyona karşı dayanımını değerlendirmek için yapılan standart test yöntemidir.",
+      "category": "Standartlar",
+      "image": ""
+    },
+    {
+      "term": "Kaldırma Mapası",
+      "definition": "Ağır ekipmanların güvenli kaldırılması için tasarlanmış ve yük kapasitesi belirtilmiş bağlantı elemanıdır.",
+      "category": "Mekanik",
+      "image": ""
+    },
+    {
+      "term": "Kalibrasyon Sertifikası",
+      "definition": "Ölçüm cihazlarının doğruluğunu ve izlenebilirliğini belgeleyen resmi sertifikadır.",
+      "category": "Standartlar",
+      "image": ""
+    },
+    {
+      "term": "Karter Havalandırma",
+      "definition": "Motor karter basıncını tahliye ederek yağ buharını yöneten havalandırma sistemidir.",
+      "category": "Motor",
+      "image": ""
+    },
+    {
+      "term": "Katodik Koruma",
+      "definition": "Yer altı tank ve borularda korozyonu azaltmak için kullanılan elektro-kimyasal koruma yöntemidir.",
+      "category": "Yakıt Sistemi",
+      "image": ""
+    },
+    {
+      "term": "Kavitasyon",
+      "definition": "Pompa içinde düşük basınç nedeniyle oluşan buhar kabarcıklarının patlaması sonucu meydana gelen aşınma etkisidir.",
+      "category": "Soğutma",
+      "image": ""
+    },
+    {
+      "term": "Kilitleme Kulakları (Padlock Hasp)",
+      "definition": "Şalter veya vanaların kilitlenerek güvenli bakım yapılmasını sağlayan LOTO güvenlik ekipmanıdır.",
+      "category": "Güvenlik",
+      "image": ""
+    },
+    {
+      "term": "Kaplin (Esnek Kaplin)",
+      "definition": "Motor ve alternatör arasında hizalamayı koruyan ve titreşimleri sönümleyen bağlantı elemanıdır.",
+      "category": "Mekanik",
+      "image": ""
+    },
+    {
+      "term": "Kapasite Etiketi (Nameplate)",
+      "definition": "Ekipmanın güç, gerilim, akım, frekans ve performans bilgilerini içeren teknik etiketidir.",
+      "category": "Standartlar",
+      "image": ""
+    },
+    {
+      "term": "K-Factor",
+      "definition": "Transformatörün harmonik yükleri taşıma kapasitesini gösteren performans katsayısıdır.",
+      "category": "Güç Kalitesi",
+      "image": ""
+    },
+    {
+      "term": "kVA / kW",
+      "definition": "Görünen güç (kVA) ile aktif güç (kW) arasındaki ilişkiyi ifade eder; kW = kVA × güç faktörü.",
+      "category": "Operasyon",
+      "image": ""
+    },
+    {
+      "term": "kVAr (Reaktif Güç)",
+      "definition": "Manyetik alan oluşturmak için gerekli olan ve aktif işe dönüşmeyen güç bileşenidir.",
+      "category": "Güç Kalitesi",
+      "image": ""
+    },
+    {
+      "term": "Kısa Devre Akımı (Ik)",
+      "definition": "Bir arıza durumunda alternatör veya şebekenin sağlayabileceği maksimum akım değeridir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Kilitleme (Interlock)",
+      "definition": "Ekipmanların aynı anda yanlış konumda çalışmasını önleyen mekanik veya elektriksel güvenlik sistemidir.",
+      "category": "Güvenlik",
+      "image": ""
+    },
+    {
+      "term": "Kojenerasyon (CHP)",
+      "definition": "Elektrik üretimi sırasında açığa çıkan ısının geri kazanılarak ısı enerjisi olarak kullanılması sistemidir.",
+      "category": "Operasyon",
+      "image": ""
+    },
+    {
+      "term": "Kontrolör (Jeneratör Kontrol Ünitesi)",
+      "definition": "Jeneratörün çalışma mantığını, korumalarını ve otomatik fonksiyonlarını yöneten elektronik kontrol cihazıdır.",
+      "category": "Kontrol Sistemleri",
+      "image": ""
+    },
+    {
+      "term": "Korozyon İnhibitörü",
+      "definition": "Soğutma sisteminde metal yüzeyleri koruyarak korozyonu önleyen kimyasal katkı maddesidir.",
+      "category": "Soğutma",
+      "image": ""
+    },
+    {
+      "term": "Latching Röle",
+      "definition": "Enerji kesildiğinde bile mevcut konumunu koruyan kilitlemeli röle tipidir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Leak Detection (HC Sensör)",
+      "definition": "Yakıt sızıntılarını algılayarak erken uyarı sağlayan hidrokarbon algılama sensör sistemidir.",
+      "category": "Yakıt Sistemi",
+      "image": ""
+    },
+    {
+      "term": "Leveling Pad",
+      "definition": "Şase altında kullanılan ve ekipmanın düzgün hizalanmasını sağlayan seviye ayar pedidir.",
+      "category": "Montaj & Kurulum",
+      "image": ""
+    },
+    {
+      "term": "Line Reactor",
+      "definition": "Sürücü ve UPS girişlerinde harmonikleri azaltmak ve ani akımları sınırlamak için kullanılan hat reaktörüdür.",
+      "category": "Güç Kalitesi",
+      "image": ""
+    },
+    {
+      "term": "Load Factor (Yük Faktörü)",
+      "definition": "Ortalama yükün maksimum yüke oranını ifade eder ve jeneratör boyutlandırmasında kullanılır.",
+      "category": "Operasyon",
+      "image": ""
+    },
+    {
+      "term": "Load Step (Yük Adımı)",
+      "definition": "Tek seferde sisteme eklenen yük yüzdesini ifade eder.",
+      "category": "Operasyon",
+      "image": ""
+    },
+    {
+      "term": "Lock-Out / Tag-Out (LOTO)",
+      "definition": "Bakım sırasında enerjiyi kesme ve ekipmanı kilitleyerek güvenli çalışma sağlayan prosedürdür.",
+      "category": "Güvenlik",
+      "image": ""
+    },
+    {
+      "term": "Lagging / Leading Güç Faktörü",
+      "definition": "Reaktif yük karakterine bağlı olarak akımın gerilime göre gecikmeli veya ileride olma durumudur.",
+      "category": "Güç Kalitesi",
+      "image": ""
+    },
+    {
+      "term": "Laminer Akış",
+      "definition": "Düşük türbülanslı, düzenli akış rejimi olup basınç kayıplarını minimize eder.",
+      "category": "Soğutma",
+      "image": ""
+    },
+    {
+      "term": "LEL / UEL",
+      "definition": "Yanıcı gazların patlayıcı karışım oluşturduğu alt ve üst konsantrasyon sınırlarını ifade eder.",
+      "category": "Güvenlik",
+      "image": ""
+    },
+    {
+      "term": "Level Transmitter",
+      "definition": "Depo sıvı seviyesini sürekli ölçerek analog sinyal çıkışı sağlayan sensördür.",
+      "category": "Yakıt Sistemi",
+      "image": ""
+    },
+    {
+      "term": "Lift & Shift Kızak",
+      "definition": "Jeneratör setinin bakım veya yer değiştirme işlemlerinde raylı hareketini sağlayan kızak sistemidir.",
+      "category": "Montaj & Kurulum",
+      "image": ""
+    },
+    {
+      "term": "LRA / LRC (Kilitli Rotor Akımı)",
+      "definition": "Motor ilk kalkış anında rotor dönmezken çekilen yüksek akım değeridir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Load Acceptance (Yük Kabulü)",
+      "definition": "Jeneratörün ani yük artışlarını kararlılığını bozmadan kabul edebilme yeteneğidir.",
+      "category": "Operasyon",
+      "image": ""
+    },
+    {
+      "term": "Load Bank",
+      "definition": "Jeneratör testleri ve bakım amaçlı yapay yük oluşturan test ekipmanıdır.",
+      "category": "Test & Bakım",
+      "image": ""
+    },
+    {
+      "term": "Louvre / Panjur",
+      "definition": "Hava giriş-çıkışını yönlendiren, yağmur koruması sağlayan ve akustik zayıflatma sağlayabilen panjur elemanıdır.",
+      "category": "Akustik",
+      "image": ""
+    },
+    {
+      "term": "LV / MV (AG / OG)",
+      "definition": "Alçak gerilim ve orta gerilim elektrik dağıtım sınıflandırmasını ifade eder.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "LwA (Ses Güç Düzeyi)",
+      "definition": "Bir ses kaynağının toplam akustik güç seviyesini ifade eden ölçü değeridir.",
+      "category": "Akustik",
+      "image": ""
+    },
+    {
+      "term": "Make-Before-Break Test Bloğu",
+      "definition": "Akım trafosu devrelerinde güvenli çıkarma ve test işlemleri için kullanılan kısa devreleme bloğudur.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Manway (Tank Menholü)",
+      "definition": "Yakıt tankı içine erişim ve bakım için kullanılan kapak açıklığıdır.",
+      "category": "Yakıt Sistemi",
+      "image": ""
+    },
+    {
+      "term": "Master Trip",
+      "definition": "Birden fazla koruma sisteminden gelen sinyallerle devreyi tamamen açan ana açma komutudur.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "MERV Filtre Sınıfı",
+      "definition": "Hava filtrelerinin partikül tutma verimliliğini belirleyen sınıflandırma sistemidir.",
+      "category": "Soğutma",
+      "image": ""
+    },
+    {
+      "term": "Microgrid Kontrolörü",
+      "definition": "Birden fazla enerji kaynağı ve yükü yöneten, ada ve şebeke paralel çalışma modlarını kontrol eden sistemdir.",
+      "category": "Kontrol Sistemleri",
+      "image": ""
+    },
+    {
+      "term": "Mimic Switch",
+      "definition": "SCADA veya pano üzerinde belirli fonksiyonları kontrol etmek için kullanılan atamalı anahtardır.",
+      "category": "Kontrol Sistemleri",
+      "image": ""
+    },
+    {
+      "term": "Minimum Kapama Süresi",
+      "definition": "Bir kesicinin kapama işlemini tamamlaması için gereken minimum mekanik süredir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Manifold",
+      "definition": "Akışkanların tek bir gövdede toplanıp dağıtılmasını sağlayan kolektör yapısıdır.",
+      "category": "Motor",
+      "image": ""
+    },
+    {
+      "term": "Manometre",
+      "definition": "Hat basıncını veya basınç ve sıcaklığı birlikte ölçen saha göstergesidir.",
+      "category": "Soğutma",
+      "image": ""
+    },
+    {
+      "term": "Marshaling Cabinet",
+      "definition": "Saha sinyallerinin toplandığı ve klemenslendiği ara bağlantı panosudur.",
+      "category": "Kontrol Sistemleri",
+      "image": ""
+    },
+    {
+      "term": "Master-Slave Yük Paylaşımı",
+      "definition": "Paralel çalışan jeneratörlerde bir setin referans olduğu ve diğerlerinin onu takip ettiği yük paylaşım yöntemidir.",
+      "category": "Kontrol Sistemleri",
+      "image": ""
+    },
+    {
+      "term": "Metal Örgülü Hortum",
+      "definition": "Titreşim ve termal genleşmeleri absorbe eden esnek bağlantı hortumudur.",
+      "category": "Yakıt Sistemi",
+      "image": ""
+    },
+    {
+      "term": "Motor Mekanizmalı Kesici",
+      "definition": "Uzaktan açma-kapama yapabilen ve otomasyon sistemlerine entegre edilebilen devre kesicidir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "MW / MWh Ölçer",
+      "definition": "Anlık güç ve toplam enerji tüketimini ölçen endüstriyel enerji ölçüm cihazıdır.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "MCCB",
+      "definition": "Ayarlanabilir termik ve manyetik koruma sağlayan kalıplı tip devre kesicidir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "MCB",
+      "definition": "Küçük devreleri aşırı akım ve kısa devreye karşı koruyan minyatür devre kesicidir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Megger (Yalıtım Testi)",
+      "definition": "Elektrik ekipmanlarının yalıtım direncini ölçerek nem veya izolasyon zayıflıklarını tespit eden test cihazıdır.",
+      "category": "Test & Bakım",
+      "image": ""
+    },
+    {
+      "term": "Modbus (RTU/TCP)",
+      "definition": "Endüstriyel cihazlar arasında veri iletişimi sağlayan yaygın haberleşme protokolüdür.",
+      "category": "Kontrol Sistemleri",
+      "image": ""
+    },
+    {
+      "term": "Motor Başlatma kVA",
+      "definition": "Jeneratörün bir motoru kalkış anında çalıştırabilmesi için gerekli görünür güç değeridir.",
+      "category": "Operasyon",
+      "image": ""
+    },
+    {
+      "term": "MTBF / MTTR",
+      "definition": "Arızalar arası ortalama süre ve ortalama onarım süresini ifade eden güvenilirlik göstergeleridir.",
+      "category": "Operasyon",
+      "image": ""
+    },
+    {
+      "term": "Muffler (Susturucu)",
+      "definition": "Egzoz hattında gürültü seviyesini düşürmek için kullanılan ses zayıflatıcı ekipmandır.",
+      "category": "Akustik",
+      "image": ""
+    },
+    {
+      "term": "NACE Kaplama Sınıfları",
+      "definition": "Korozyon ortamlarına göre koruyucu kaplama performansını belirleyen standart sınıflandırmadır.",
+      "category": "Standartlar",
+      "image": ""
+    },
+    {
+      "term": "Nameplate Toleransı",
+      "definition": "Ekipman etiketinde belirtilen elektriksel ve performans değerlerinin izin verilen sapma sınırlarıdır.",
+      "category": "Standartlar",
+      "image": ""
+    },
+    {
+      "term": "NEMA MG1 Referansı",
+      "definition": "Motor ve jeneratör uyumluluğu ile gerilim ve frekans toleranslarını tanımlayan standarttır.",
+      "category": "Standartlar",
+      "image": ""
+    },
+    {
+      "term": "Neutral Grounding Reactor",
+      "definition": "Toprak arıza akımını sınırlamak amacıyla nötr ile toprak arasına bağlanan reaktördür.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "NFPA 37",
+      "definition": "Sabit içten yanmalı motorların güvenli kurulumu ve işletimi için rehber standarttır.",
+      "category": "Standartlar",
+      "image": ""
+    },
+    {
+      "term": "Natural Ventilation",
+      "definition": "Fan kullanılmadan basınç farkı ve ısı akışı ile hava sirkülasyonu sağlayan havalandırma yöntemidir.",
+      "category": "Soğutma",
+      "image": ""
+    },
+    {
+      "term": "Noise Criterion (NC)",
+      "definition": "İç mekân akustik konfor seviyelerini değerlendirmek için kullanılan gürültü kriteri sınıflandırmasıdır.",
+      "category": "Akustik",
+      "image": ""
+    },
+    {
+      "term": "NB-IoT Telemetri",
+      "definition": "Düşük güç tüketimi ile geniş kapsama alanında veri iletimi sağlayan hücresel IoT haberleşme teknolojisidir.",
+      "category": "Haberleşme",
+      "image": ""
+    },
+    {
+      "term": "Neutral Displacement Voltage",
+      "definition": "Nötr noktasındaki dengesizlik sonucu oluşan gerilim kaymasını ifade eder.",
+      "category": "Güç Kalitesi",
+      "image": ""
+    },
+    {
+      "term": "Noise Reduction Coefficient (NRC)",
+      "definition": "Akustik malzemelerin ses yutma performansını gösteren ortalama katsayıdır.",
+      "category": "Akustik",
+      "image": ""
+    },
+    {
+      "term": "N+N Yedeklilik",
+      "definition": "İki bağımsız tam kapasite sistem kullanılarak kesintisiz güç sürekliliği sağlayan yedeklilik yapısıdır.",
+      "category": "Operasyon",
+      "image": ""
+    },
+    {
+      "term": "N+1 Yedeklilik",
+      "definition": "Gerekli kapasiteye ek bir yedek ünite eklenerek sistem sürekliliği sağlayan mimaridir.",
+      "category": "Operasyon",
+      "image": ""
+    },
+    {
+      "term": "Nameplate (Etiket)",
+      "definition": "Ekipmanın güç, gerilim, akım ve performans değerlerini içeren üretici bilgi etiketidir.",
+      "category": "Standartlar",
+      "image": ""
+    },
+    {
+      "term": "NER (Nötr Direnç Topraklama)",
+      "definition": "Toprak arıza akımını sınırlamak için nötr ile toprak arasına direnç bağlanan topraklama yöntemidir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Neutral Switching",
+      "definition": "Kesicilerde nötr hattının da açılıp kapanmasını sağlayan anahtarlama düzenidir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Noise Map (Gürültü Haritası)",
+      "definition": "Gürültü kaynaklarının dağılımını ve seviyelerini görsel olarak gösteren planlama haritasıdır.",
+      "category": "Akustik",
+      "image": ""
+    },
+    {
+      "term": "OCPD (Over-Current Protective Device)",
+      "definition": "Aşırı akım ve kısa devre koruması sağlayan sigorta ve kesici gibi cihazların genel adıdır.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Oil Pan Heater",
+      "definition": "Motor yağının viskozitesini düşürmek ve soğuk çalıştırmayı kolaylaştırmak için karter ısıtması sağlayan cihazdır.",
+      "category": "Motor",
+      "image": ""
+    },
+    {
+      "term": "Oil Scavenge Pump",
+      "definition": "Yağın karterden uzaklaştırılması veya boşaltılması için kullanılan tahliye pompasıdır.",
+      "category": "Motor",
+      "image": ""
+    },
+    {
+      "term": "On-Delay Zaman Rölesi",
+      "definition": "Devreye alma işlemini belirli bir süre geciktirmek için kullanılan zamanlama rölesidir.",
+      "category": "Kontrol Sistemleri",
+      "image": ""
+    },
+    {
+      "term": "Open-Delta PT Bağlantısı",
+      "definition": "Üç faz gerilimini izlemek için iki gerilim trafosu kullanılarak yapılan ölçüm bağlantı yöntemidir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Over-Excitation Koruması (24)",
+      "definition": "V/Hz oranı aşımına karşı alternatör uyartım sistemini koruyan elektriksel koruma fonksiyonudur.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "OB/OC Ayarları",
+      "definition": "Aşırı akım koruması için zaman-akım eğrisi ve tetikleme parametrelerinin ayarlanmasıdır.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Oil Mist Detector",
+      "definition": "Motor karterinde yağ sisi oluşumunu izleyerek patlama riskini tespit eden güvenlik sistemidir.",
+      "category": "Motor",
+      "image": ""
+    },
+    {
+      "term": "Oil Separator (Blow-by)",
+      "definition": "Karter gazı içindeki yağ partiküllerini ayırarak motor sistemine geri kazandıran ekipmandır.",
+      "category": "Motor",
+      "image": ""
+    },
+    {
+      "term": "Orifice Plate",
+      "definition": "Akış ölçümü ve hat dengelemesi için kullanılan kısıtlayıcı plaka elemanıdır.",
+      "category": "Montaj & Kurulum",
+      "image": ""
+    },
+    {
+      "term": "Overvoltage Category",
+      "definition": "Elektrik ekipmanlarının aşırı gerilim koşullarına dayanım seviyesini belirten sınıflandırmadır.",
+      "category": "Güvenlik",
+      "image": ""
+    },
+    {
+      "term": "Oil Analysis",
+      "definition": "Motor yağı içeriğini analiz ederek aşınma, kirlenme ve bakım zamanını belirlemeye yardımcı olan test yöntemidir.",
+      "category": "Test & Bakım",
+      "image": ""
+    },
+    {
+      "term": "Operating Temperature",
+      "definition": "Ekipmanın güvenli ve sürekli çalışabileceği ortam sıcaklığı aralığıdır.",
+      "category": "Operasyon",
+      "image": ""
+    },
+    {
+      "term": "Overspeed (Aşırı Devir)",
+      "definition": "Motorun güvenli sınırların üzerinde dönmesi durumunda devreye giren koruma gerektiren tehlikeli çalışma durumudur.",
+      "category": "Güvenlik",
+      "image": ""
+    },
+    {
+      "term": "Pad Eye (Kaldırma Gözü)",
+      "definition": "Ağır ekipmanların güvenli şekilde kaldırılması için vinç veya halat bağlantı noktasıdır.",
+      "category": "Montaj & Kurulum",
+      "image": ""
+    },
+    {
+      "term": "Parasitik Yük",
+      "definition": "Fan, pompa ve şarj sistemleri gibi jeneratörün kendi çalışması için tükettiği iç yüklerdir.",
+      "category": "Operasyon",
+      "image": ""
+    },
+    {
+      "term": "Partial Discharge (Kısmi Deşarj)",
+      "definition": "Yalıtım sistemleri içinde tam ark oluşmadan meydana gelen elektriksel boşalmalardır.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "PCC (Point of Common Coupling)",
+      "definition": "Tesis ile şebekenin elektriksel olarak bağlandığı ortak bağlantı noktasıdır.",
+      "category": "Güç Kalitesi",
+      "image": ""
+    },
+    {
+      "term": "Phase Rotation Rölesi",
+      "definition": "Faz sırası hatalarını algılayarak motor ve sistemlerin yanlış çalışmasını önleyen koruma rölesidir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "PI Testi (Polarization Index)",
+      "definition": "Yalıtım direncinin zaman içindeki değişimini ölçerek nem ve kirlenme durumunu değerlendiren testtir.",
+      "category": "Test & Bakım",
+      "image": ""
+    },
+    {
+      "term": "Pilot Duty Kontak",
+      "definition": "Kontrol devrelerinde güvenilir anahtarlama için tasarlanmış kontak sınıfıdır.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Plenum (Basınç Odası)",
+      "definition": "Havanın eşit dağılımını sağlamak için kullanılan ara hava hacmidir.",
+      "category": "Soğutma & Akustik",
+      "image": ""
+    },
+    {
+      "term": "PMS (Güç Yönetimi Sistemi)",
+      "definition": "Paralel jeneratörlerde yük paylaşımı, öncelik yönetimi ve yük atma işlemlerini yöneten sistemdir.",
+      "category": "Kontrol Sistemleri",
+      "image": ""
+    },
+    {
+      "term": "Pretlube Pump",
+      "definition": "Motor çalıştırılmadan önce yağ devresini basınçlandırarak kuru çalışmayı önleyen pompadır.",
+      "category": "Motor",
+      "image": ""
+    },
+    {
+      "term": "Pad Mounting",
+      "definition": "Ekipmanın beton kaide üzerine ankrajlanarak sabitlenmesi yöntemidir.",
+      "category": "Montaj & Kurulum",
+      "image": ""
+    },
+    {
+      "term": "Panel Heater",
+      "definition": "Pano içinde yoğuşmayı önlemek amacıyla kullanılan elektrikli ısıtıcıdır.",
+      "category": "Güvenlik",
+      "image": ""
+    },
+    {
+      "term": "PE / Equipotential Bonding",
+      "definition": "Metal parçalar arasında eş potansiyel sağlayarak dokunma gerilimini azaltan koruma bağlantısıdır.",
+      "category": "Güvenlik",
+      "image": ""
+    },
+    {
+      "term": "Piping Spool",
+      "definition": "Atölyede hazırlanmış ve montaja hazır boru alt montaj parçalarıdır.",
+      "category": "Montaj & Kurulum",
+      "image": ""
+    },
+    {
+      "term": "PLC",
+      "definition": "Endüstriyel otomasyon sistemlerinde hızlı giriş-çıkış ve güvenilir kontrol sağlayan programlanabilir kontrol cihazıdır.",
+      "category": "Kontrol Sistemleri",
+      "image": ""
+    },
+    {
+      "term": "Pressure Relief Valve (PRV)",
+      "definition": "Hat veya tank basıncı tehlikeli seviyeye ulaştığında basıncı tahliye eden emniyet valfidir.",
+      "category": "Yakıt Sistemi",
+      "image": ""
+    },
+    {
+      "term": "Pressure-Vacuum Vent",
+      "definition": "Yakıt tanklarında basınç ve vakum dengesini sağlayarak buhar emisyonunu kontrol eden nefesliktir.",
+      "category": "Yakıt Sistemi",
+      "image": ""
+    },
+    {
+      "term": "Prime Mover",
+      "definition": "Elektrik üretmek için alternatörü döndüren ana mekanik güç kaynağıdır.",
+      "category": "Motor",
+      "image": ""
+    },
+    {
+      "term": "PUE / DCiE",
+      "definition": "Veri merkezlerinde enerji verimliliğini ölçmek için kullanılan performans göstergeleridir.",
+      "category": "Operasyon",
+      "image": ""
+    },
+    {
+      "term": "Paralleling (Paralel Çalışma)",
+      "definition": "Birden fazla jeneratörün senkronize edilerek ortak yük paylaşımıyla birlikte çalıştırılmasıdır.",
+      "category": "Kontrol Sistemleri",
+      "image": ""
+    },
+    {
+      "term": "PF (Güç Faktörü)",
+      "definition": "Aktif güç ile görünen güç arasındaki oran olup enerji verimliliğini gösterir.",
+      "category": "Operasyon",
+      "image": ""
+    },
+    {
+      "term": "Phase Sequence (Faz Sırası)",
+      "definition": "Üç fazlı sistemlerde fazların doğru sıralamasını ifade eder ve motor yönü için kritiktir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Pitch (Sargı Adımı)",
+      "definition": "Alternatör sargı geometrisini belirleyen ve harmonik davranışı etkileyen tasarım parametresidir.",
+      "category": "Alternatör",
+      "image": ""
+    },
+    {
+      "term": "PMG (Permanent Magnet Generator)",
+      "definition": "Bağımsız uyartım beslemesi sağlayarak geçici yük değişimlerinde gerilim kararlılığı sunan sistemdir.",
+      "category": "Alternatör",
+      "image": ""
+    },
+    {
+      "term": "Prime Power (PRP)",
+      "definition": "Değişken yük altında sınırsız süre çalışabilen jeneratör güç sınıfıdır.",
+      "category": "Operasyon",
+      "image": ""
+    },
+    {
+      "term": "Protective Relays",
+      "definition": "Aşırı akım, gerilim, frekans ve faz hatalarına karşı sistemi koruyan koruma röleleridir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Pst (Kısa Süre Flicker)",
+      "definition": "10 dakikalık süre içinde ölçülen ışık titremesi seviyesini ifade eden güç kalitesi göstergesidir.",
+      "category": "Güç Kalitesi",
+      "image": ""
+    },
+    {
+      "term": "Quadrature Booster",
+      "definition": "Güç akışını kontrol etmek amacıyla faz açısını ayarlayan faz kaydırıcı trafodur.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Quick Exhaust Valve",
+      "definition": "Pnömatik sistemlerde silindir hareket hızını artırmak için havayı hızlı tahliye eden valftir.",
+      "category": "Mekanik",
+      "image": ""
+    },
+    {
+      "term": "ISO 8528 G Sınıfları (G1/G2/G3)",
+      "definition": "Jeneratörlerin gerilim ve frekans regülasyon performansına göre sınıflandırmasını ifade eder.",
+      "category": "Standartlar",
+      "image": ""
+    },
+    {
+      "term": "Quick Disconnect Coupling",
+      "definition": "Bakım ve bağlantı işlemlerini hızlandıran sızdırmaz hızlı sök-tak kaplin sistemidir.",
+      "category": "Yakıt Sistemi",
+      "image": ""
+    },
+    {
+      "term": "Quick Test Terminal",
+      "definition": "Pano üzerinde güvenli ölçüm yapılmasını sağlayan test noktalarıdır.",
+      "category": "Kontrol Sistemleri",
+      "image": ""
+    },
+    {
+      "term": "Quick Start Profile",
+      "definition": "Kritik yükler için jeneratörün hızlı başlatma ve yük alma zaman eğrisini tanımlar.",
+      "category": "Operasyon",
+      "image": ""
+    },
+    {
+      "term": "Q (Reaktif Güç Bileşeni)",
+      "definition": "Manyetik alan oluşturmak için gerekli olan ve kVAr ile ifade edilen güç bileşenidir.",
+      "category": "Güç Kalitesi",
+      "image": ""
+    },
+    {
+      "term": "Radiated Emissions",
+      "definition": "Elektronik ekipmanların yaydığı elektromanyetik dalgaların CISPR standartlarına göre ölçülen seviyesidir.",
+      "category": "EMC",
+      "image": ""
+    },
+    {
+      "term": "Ramp-Down Süresi",
+      "definition": "Yükün sistemden kontrollü ve kademeli olarak azaltılması için geçen süredir.",
+      "category": "Operasyon",
+      "image": ""
+    },
+    {
+      "term": "Rated Voltage Window",
+      "definition": "Ekipmanın güvenli çalışabileceği nominal gerilim etrafındaki izinli tolerans aralığıdır.",
+      "category": "Operasyon",
+      "image": ""
+    },
+    {
+      "term": "N+2 Yedeklilik",
+      "definition": "Gerekli kapasiteye ek olarak iki yedek ünitenin bulunduğu yüksek güvenilirlik mimarisidir.",
+      "category": "Operasyon",
+      "image": ""
+    },
+    {
+      "term": "Relay Coordination",
+      "definition": "Koruma cihazlarının seçicilik sağlayacak şekilde zaman ve akım ayarlarının düzenlenmesidir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Remote EPO Kutusu",
+      "definition": "Acil durumlarda sistemi uzaktan durdurmaya yarayan acil kapatma butonlarının bulunduğu saha kutusudur.",
+      "category": "Güvenlik",
+      "image": ""
+    },
+    {
+      "term": "dv/dt Sınırı",
+      "definition": "Gerilimin zamanla değişim hızını ifade eder ve yalıtım ile yarı iletken koruması açısından kritik bir parametredir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Rackable Breaker",
+      "definition": "Bakım ve test kolaylığı için servis ve yük konumları arasında çekilerek hareket ettirilebilen devre kesicidir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Rain Hood",
+      "definition": "Hava giriş ve çıkış açıklıklarından yağmur girişini önlemek için kullanılan koruyucu başlıktır.",
+      "category": "Akustik",
+      "image": ""
+    },
+    {
+      "term": "Ramp-Up Time",
+      "definition": "Jeneratörün çalıştırıldıktan sonra belirli bir yük seviyesine ulaşması için gereken süredir.",
+      "category": "Operasyon",
+      "image": ""
+    },
+    {
+      "term": "Remote Annunciator Panel",
+      "definition": "Alarm ve olay bildirimlerinin uzaktan izlenmesini sağlayan gösterge panelidir.",
+      "category": "Kontrol Sistemleri",
+      "image": ""
+    },
+    {
+      "term": "Resilient Mount (Yaylı İzolatör)",
+      "definition": "Titreşimlerin yapıya iletimini azaltmak için kullanılan yaylı titreşim izolatörüdür.",
+      "category": "Mekanik",
+      "image": ""
+    },
+    {
+      "term": "Reverse Power Relay",
+      "definition": "Paralel çalışmada jeneratörün motoring moduna geçmesini önlemek için ters güç akışını algılayan röledir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "RoCoF Rölesi",
+      "definition": "Frekans değişim hızını izleyerek şebeke kararsızlıklarına karşı koruma sağlayan röledir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Radiator (Radyatör)",
+      "definition": "Motor soğutma sıvısındaki ısıyı hava ile atmosfere aktaran soğutma ekipmanıdır.",
+      "category": "Soğutma",
+      "image": ""
+    },
+    {
+      "term": "Rated Speed (Nominal Devir)",
+      "definition": "Jeneratörün nominal frekansta çalışması için gereken motor devridir (ör. 1500 rpm = 50 Hz).",
+      "category": "Motor",
+      "image": ""
+    },
+    {
+      "term": "RCD / RCCB",
+      "definition": "Kaçak akımı algılayarak elektrik çarpması riskine karşı devreyi kesen koruma şalteridir.",
+      "category": "Güvenlik",
+      "image": ""
+    },
+    {
+      "term": "Reactive Sharing",
+      "definition": "Paralel çalışan jeneratörler arasında reaktif gücün dengeli paylaşılmasını sağlayan kontrol yöntemidir.",
+      "category": "Kontrol Sistemleri",
+      "image": ""
+    },
+    {
+      "term": "Remote Radiator",
+      "definition": "Isı atımını kabin dışına taşıyarak soğutma verimini artıran uzak radyatör sistemidir.",
+      "category": "Soğutma",
+      "image": ""
+    },
+    {
+      "term": "RFI / EMI Filtreleme",
+      "definition": "Elektronik parazitleri bastırarak elektromanyetik uyumluluğu sağlayan filtreleme yöntemidir.",
+      "category": "EMC",
+      "image": ""
+    },
+    {
+      "term": "Riser (Egzoz Dikey Çıkış)",
+      "definition": "Egzoz hattında yoğuşma yönetimi ve drenaj sağlamak için kullanılan dikey çıkış boru düzenidir.",
+      "category": "Egzoz & Emisyon",
+      "image": ""
+    },
+    {
+      "term": "SCADA Historian",
+      "definition": "Uzun dönemli izleme ve trend analizi için proses verilerini saklayan veri tabanı sunucusudur.",
+      "category": "Haberleşme",
+      "image": ""
+    },
+    {
+      "term": "Seal Pot",
+      "definition": "Basınç farkı ölçümlerinde sıvı bariyer oluşturarak doğru ölçüm sağlayan ara kaptır.",
+      "category": "Montaj & Kurulum",
+      "image": ""
+    },
+    {
+      "term": "Sealed Battery (VRLA)",
+      "definition": "Gaz çıkışı sınırlı ve bakım gereksinimi düşük kapalı tip kurşun asit aküdür.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Short-Time Rating",
+      "definition": "Ekipmanın belirli süre boyunca aşırı yük taşıyabilme kapasitesini ifade eder.",
+      "category": "Operasyon",
+      "image": ""
+    },
+    {
+      "term": "Sifon Kırıcı",
+      "definition": "Yakıt veya sıvı hatlarında istenmeyen gravite akışını önleyen hava girişli emniyet elemanıdır.",
+      "category": "Yakıt Sistemi",
+      "image": ""
+    },
+    {
+      "term": "Skid Lifting Test",
+      "definition": "Şasenin kaldırma sırasında deformasyon ve yapısal dayanımını doğrulayan testtir.",
+      "category": "Montaj & Kurulum",
+      "image": ""
+    },
+    {
+      "term": "Soft Load / Unload",
+      "definition": "Paralel çalışan jeneratörlerde yükün kademeli ve sarsıntısız aktarılmasını sağlayan kontrol yöntemidir.",
+      "category": "Kontrol Sistemleri",
+      "image": ""
+    },
+    {
+      "term": "Sound Intensity",
+      "definition": "Ses enerjisinin yönlü olarak ölçülmesini sağlayan akustik parametredir.",
+      "category": "Akustik",
+      "image": ""
+    },
+    {
+      "term": "Specific Gravity (Elektrolit)",
+      "definition": "Akü elektrolit yoğunluğunu ölçerek şarj durumu ve akü sağlığı hakkında bilgi veren değerdir.",
+      "category": "Test & Bakım",
+      "image": ""
+    },
+    {
+      "term": "Snubber RC",
+      "definition": "Kontak arkını ve gerilim yükselme hızını sınırlamak için kullanılan direnç-kondansatör sönümleme devresidir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Strainer (Y Tipi Süzgeç)",
+      "definition": "Hat içindeki kaba partikülleri tutarak sistem ekipmanlarını koruyan filtre elemanıdır.",
+      "category": "Yakıt Sistemi",
+      "image": ""
+    },
+    {
+      "term": "Static Exciter",
+      "definition": "Döner doğrultucu yerine güç elektroniği kullanarak alternatör uyartımı sağlayan sistemdir.",
+      "category": "Alternatör",
+      "image": ""
+    },
+    {
+      "term": "Seismic Anchorage",
+      "definition": "Ekipmanın deprem yüklerine karşı güvenli sabitlenmesini sağlayan ankraj tasarımıdır.",
+      "category": "Güvenlik",
+      "image": ""
+    },
+    {
+      "term": "Service Factor (SF)",
+      "definition": "Ekipmanın kısa süreli aşırı yükleri tolere edebilme kapasitesini ifade eden katsayıdır.",
+      "category": "Operasyon",
+      "image": ""
+    },
+    {
+      "term": "Silica Gel Breather",
+      "definition": "Depo veya trafo nefesliklerinde nem girişini önlemek için kullanılan kurutucu filtre elemanıdır.",
+      "category": "Yakıt Sistemi",
+      "image": ""
+    },
+    {
+      "term": "Single Point Lifting",
+      "definition": "Ekipmanın tek noktadan güvenli şekilde kaldırılmasını sağlayan kaldırma düzenidir.",
+      "category": "Montaj & Kurulum",
+      "image": ""
+    },
+    {
+      "term": "Spark Arrestor",
+      "definition": "Egzoz hattında kıvılcım çıkışını engelleyerek yangın riskini azaltan susturucu ekipmandır.",
+      "category": "Egzoz & Emisyon",
+      "image": ""
+    },
+    {
+      "term": "Spill Containment",
+      "definition": "Yakıt sızıntılarını çevreye yayılmadan toplamak için tank çevresinde oluşturulan havuz sistemidir.",
+      "category": "Yakıt Sistemi",
+      "image": ""
+    },
+    {
+      "term": "Static Transfer Switch (STS)",
+      "definition": "Yükü iki güç kaynağı arasında milisaniyeler içinde aktaran statik güç elektroniği anahtarlama sistemidir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Step-Up Transformer",
+      "definition": "Jeneratör çıkış gerilimini daha yüksek gerilim seviyesine yükselten trafodur.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "SCR (Seçici Katalitik İndirgeme)",
+      "definition": "Egzoz gazındaki NOx emisyonlarını azaltmak için üre çözeltisi kullanan emisyon kontrol sistemidir.",
+      "category": "Egzoz & Emisyon",
+      "image": ""
+    },
+    {
+      "term": "Self-Excited",
+      "definition": "Alternatörün uyartım enerjisini kendi çıkışından sağlayan uyarma yöntemidir.",
+      "category": "Alternatör",
+      "image": ""
+    },
+    {
+      "term": "Selektivite",
+      "definition": "Bir arıza durumunda yalnızca ilgili koruma cihazının devreyi açmasını sağlayan koruma koordinasyon prensibidir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Sensörler",
+      "definition": "Basınç, sıcaklık ve seviye gibi parametreleri izleyerek kontrol ve koruma sistemlerine veri sağlayan cihazlardır.",
+      "category": "Kontrol Sistemleri",
+      "image": ""
     },
     {
       "term": "Senkronizasyon",
-      "definition": "Jeneratörün şebeke veya başka bir jeneratörle voltaj, frekans ve faz açısı bakımından uyumlu hale getirilmesi.",
+      "definition": "Jeneratörün gerilim, frekans ve faz açısını eşitleyerek paralel bağlanmaya hazır hale getirilmesidir.",
+      "category": "Kontrol Sistemleri",
+      "image": ""
+    },
+    {
+      "term": "SF6 / VD4 Kesici",
+      "definition": "Orta gerilim hücrelerinde kullanılan gazlı veya vakumlu devre kesici tipleridir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "SFC (Özgül Yakıt Tüketimi)",
+      "definition": "Üretilen enerji başına tüketilen yakıt miktarını ifade eden verimlilik göstergesidir.",
+      "category": "Yakıt Sistemi",
+      "image": ""
+    },
+    {
+      "term": "Shielding (Ekranlama)",
+      "definition": "Gürültü yayılımını azaltmak veya elektromanyetik etkileri sınırlamak için kullanılan koruyucu bariyer uygulamasıdır.",
+      "category": "Akustik",
+      "image": ""
+    },
+    {
+      "term": "Shunt Trip",
+      "definition": "Devre kesicinin uzaktan açılmasını sağlayan elektromanyetik açtırma bobinidir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Soft Starter",
+      "definition": "Motor kalkış akımını sınırlayarak gerilim düşümünü azaltan yumuşak yol verme cihazıdır.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Sound Pressure",
+      "definition": "Belirli bir noktadaki ses seviyesini ifade eden ve ortam koşullarından etkilenen akustik ölçümdür.",
+      "category": "Akustik",
+      "image": ""
+    },
+    {
+      "term": "Stage V",
+      "definition": "Avrupa Birliği’nin off-road dizel motorlar için belirlediği en sıkı emisyon standardıdır.",
+      "category": "Standartlar",
+      "image": ""
+    },
+    {
+      "term": "Standby (ESP) Rating",
+      "definition": "Şebeke kesintilerinde acil kullanım için tasarlanan ve sınırlı çalışma süresine sahip güç sınıfıdır.",
       "category": "Operasyon",
-      "image": "https://images.unsplash.com/photo-1509390144018-eeaf65052242?w=400&h=300&fit=crop"
+      "image": ""
     },
     {
-      "term": "Ses Seviyesi (dB)",
-      "definition": "Jeneratörün çalışırken ürettiği gürültü miktarı. Genellikle 7 metre mesafeden ölçülür.",
-      "category": "Performans",
-      "image": "https://images.unsplash.com/photo-1504222490345-c075b6008014?w=400&h=300&fit=crop"
-    },
-    {
-      "term": "Standby Power",
-      "definition": "Jeneratörün acil durumlarda kısa süreli olarak verebileceği maksimum güç kapasitesi.",
-      "category": "Kapasite",
-      "image": "https://images.unsplash.com/photo-1620714223084-8fcacc6dfd8d?w=400&h=300&fit=crop"
-    },
-    {
-      "term": "Şarj Alternatörü",
-      "definition": "Motor çalışırken aküleri şarj eden ve kontrol sistemlerine güç sağlayan yardımcı alternatör.",
+      "term": "Star-Delta (Yıldız-Üçgen)",
+      "definition": "Motor kalkış akımını azaltmak için iki kademeli bağlantı yöntemiyle yapılan yol verme sistemidir.",
       "category": "Elektrik",
-      "image": "https://images.unsplash.com/photo-1620714223084-8fcacc6dfd8d?w=400&h=300&fit=crop"
+      "image": ""
     },
     {
-      "term": "Transfer Süresi",
-      "definition": "Şebeke kesintisinden jeneratörün devreye girip yük almasına kadar geçen süre. Genellikle 10-30 saniye arasıdır.",
-      "category": "Performans",
-      "image": "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop"
+      "term": "Subtransient Reactance (X\"d)",
+      "definition": "Alternatörün ilk arıza anındaki reaktans değerini ifade eder ve kısa devre akımını belirler.",
+      "category": "Alternatör",
+      "image": ""
     },
     {
-      "term": "Turboşarjer (Turbo)",
-      "definition": "Egzoz gazlarının enerjisiyle çalışan, motora daha fazla hava basarak gücü artıran kompresör.",
-      "category": "Motor",
-      "image": "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=400&h=300&fit=crop"
-    },
-    {
-      "term": "UPS (Kesintisiz Güç Kaynağı)",
-      "definition": "Şebeke kesintilerinde anında devreye giren akü destekli güç kaynağı. Jeneratör devreye girene kadar kritik yükleri besler.",
-      "category": "Yardımcı Sistemler",
-      "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop"
-    },
-    {
-      "term": "Voltaj",
-      "definition": "Elektriksel potansiyel farkı. Türkiye'de tek faz 220V, üç faz 380V standarttır.",
-      "category": "Elektrik",
-      "image": "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=400&h=300&fit=crop"
-    },
-    {
-      "term": "Yakıt Tüketimi",
-      "definition": "Jeneratörün birim zamanda tükettiği yakıt miktarı. Genellikle litre/saat olarak ifade edilir ve yüke göre değişir.",
-      "category": "Performans",
-      "image": "https://images.unsplash.com/photo-1504222490345-c075b6008014?w=400&h=300&fit=crop"
-    },
-    {
-      "term": "Yük Bankası (Load Bank)",
-      "definition": "Jeneratörün test edilmesi için kullanılan yapay yük cihazı. Kapasitenin doğrulanması ve bakım testlerinde kullanılır.",
+      "term": "Sulphation (Sülfatlaşma)",
+      "definition": "Akü plakalarında sülfat kristalleri oluşarak kapasite kaybına neden olan kimyasal bozulmadır.",
       "category": "Test & Bakım",
-      "image": "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop"
+      "image": ""
+    },
+    {
+      "term": "Surge Arrester",
+      "definition": "Yıldırım veya anahtarlama kaynaklı ani gerilim darbelerine karşı sistemi koruyan parafudr cihazıdır.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Tapped Reactor",
+      "definition": "Harmonik filtre ayarlarını değiştirmek için kademe bağlantı noktalarına sahip reaktördür.",
+      "category": "Güç Kalitesi",
+      "image": ""
+    },
+    {
+      "term": "Terminal Blok",
+      "definition": "Elektrik kablolarının düzenli ve güvenli bağlantısını sağlayan klemens bloğudur.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Test Bloğu",
+      "definition": "Ölçü devrelerinde güvenli test ve ayırma işlemleri için kullanılan modüler bağlantı elemanıdır.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Thermal Runaway (Akü)",
+      "definition": "Aküde aşırı ısınma ve gazlanma döngüsü sonucu oluşan kontrolsüz sıcaklık artışı durumudur.",
+      "category": "Güvenlik",
+      "image": ""
+    },
+    {
+      "term": "Thermowell",
+      "definition": "Sıcaklık sensörlerini proses akışkanından izole ederek güvenli ölçüm sağlayan koruyucu kovandır.",
+      "category": "Test & Bakım",
+      "image": ""
+    },
+    {
+      "term": "TIR (Total Indicator Runout)",
+      "definition": "Şaft veya kaplin hizalamasındaki toplam salınım toleransını ifade eder.",
+      "category": "Mekanik",
+      "image": ""
+    },
+    {
+      "term": "Transient Voltage Dip (TVD)",
+      "definition": "Yük adımı sonrası oluşan geçici gerilim düşüşünü ifade eden performans kriteridir.",
+      "category": "Güç Kalitesi",
+      "image": ""
+    },
+    {
+      "term": "Tri-rated Cable",
+      "definition": "UL, CSA ve BS standartlarına uygun çok telli endüstriyel kontrol kablosudur.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "TTA / PTTA",
+      "definition": "Elektrik panolarının tip test kapsamını belirleyen Type-Tested ve Part-Type-Tested sınıflandırmalarıdır.",
+      "category": "Standartlar",
+      "image": ""
+    },
+    {
+      "term": "Tach Pickup",
+      "definition": "Motor devrini ölçmek için manyetik veya optik prensiple çalışan hız sensörüdür.",
+      "category": "Motor",
+      "image": ""
+    },
+    {
+      "term": "Tank Gauge",
+      "definition": "Yakıt tankı seviyesini mekanik veya manyetik yöntemle gösteren ölçüm cihazıdır.",
+      "category": "Yakıt Sistemi",
+      "image": ""
+    },
+    {
+      "term": "Thermal Imaging",
+      "definition": "IR kamera ile sıcak noktaların ve gevşek bağlantıların tespit edilmesini sağlayan bakım yöntemidir.",
+      "category": "Test & Bakım",
+      "image": ""
+    },
+    {
+      "term": "Thermal Overload Relay",
+      "definition": "Motor devrelerinde aşırı akım ve aşırı ısınmaya karşı koruma sağlayan termik röledir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Tie Breaker",
+      "definition": "İki bara arasında bağlantı sağlayarak güç paylaşımına olanak tanıyan kesicidir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Torque Wrench",
+      "definition": "Cıvata ve bağlantı elemanlarının doğru sıkma torkuyla montajını sağlayan el aletidir.",
+      "category": "Test & Bakım",
+      "image": ""
+    },
+    {
+      "term": "Touch-Safe Koruma",
+      "definition": "Canlı parçalara parmak temasını önleyen IP2X seviyesinde güvenlik tasarımıdır.",
+      "category": "Güvenlik",
+      "image": ""
+    },
+    {
+      "term": "Transfer Pump Redundancy",
+      "definition": "Yakıt transfer sisteminde süreklilik sağlamak için yedekli pompa mimarisi kullanılmasıdır.",
+      "category": "Yakıt Sistemi",
+      "image": ""
+    },
+    {
+      "term": "Tap Changer",
+      "definition": "Trafo çıkış gerilimini ayarlamak için kullanılan kademe değiştirme mekanizmasıdır.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Temperature Rise",
+      "definition": "Elektrik makinelerinde izin verilen sıcaklık artışını ifade eder ve yalıtım ömrü ile ilişkilidir.",
+      "category": "Alternatör",
+      "image": ""
+    },
+    {
+      "term": "Thermostat",
+      "definition": "Soğutma sisteminde sıcaklığı düzenleyerek optimum çalışma sıcaklığını koruyan kontrol elemanıdır.",
+      "category": "Soğutma",
+      "image": ""
+    },
+    {
+      "term": "THD (Toplam Harmonik Bozulma)",
+      "definition": "Elektrik dalga formundaki harmonik bozulma oranını ifade eder.",
+      "category": "Güç Kalitesi",
+      "image": ""
+    },
+    {
+      "term": "Touch / Step Voltage",
+      "definition": "Topraklama sistemlerinde güvenlik açısından dikkate alınan dokunma ve adım gerilimi değerleridir.",
+      "category": "Güvenlik",
+      "image": ""
+    },
+    {
+      "term": "Torsional Vibration",
+      "definition": "Şaft ve kaplin sistemlerinde açısal titreşim oluşması durumudur ve rezonans riskine yol açabilir.",
+      "category": "Mekanik",
+      "image": ""
+    },
+    {
+      "term": "Turbocharger",
+      "definition": "Egzoz gazı enerjisiyle emiş havasını sıkıştırarak motor gücünü ve verimini artıran sistemdir.",
+      "category": "Motor",
+      "image": ""
+    },
+    {
+      "term": "UL 508A Pano",
+      "definition": "Endüstriyel kontrol panoları için Kuzey Amerika güvenlik standardıdır.",
+      "category": "Standartlar",
+      "image": ""
+    },
+    {
+      "term": "Under/Over Speed Switch",
+      "definition": "Motor devri güvenli sınırların dışına çıktığında koruma sinyali üreten hız anahtarıdır.",
+      "category": "Güvenlik",
+      "image": ""
+    },
+    {
+      "term": "Underfrequency Shedding Eğrisi",
+      "definition": "Frekans düşüş seviyelerine göre yük atma sıralamasını belirleyen kontrol eğrisidir.",
+      "category": "Kontrol Sistemleri",
+      "image": ""
+    },
+    {
+      "term": "Urea Kristalizasyonu",
+      "definition": "SCR sistemlerinde düşük sıcaklık nedeniyle üre çözeltisinin kristalleşerek hat tıkanmasına neden olmasıdır.",
+      "category": "Egzoz & Emisyon",
+      "image": ""
+    },
+    {
+      "term": "Utilization Category (AC-23A)",
+      "definition": "Yük altında anahtarlama görevlerini belirleyen anahtarlama kullanım kategorisidir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "UL 2200",
+      "definition": "Sabit motor-jeneratör setleri için Kuzey Amerika güvenlik standardıdır.",
+      "category": "Standartlar",
+      "image": ""
+    },
+    {
+      "term": "UFLS (Under-Frequency Load Shedding)",
+      "definition": "Frekans düşüşü durumunda sistemi korumak için yüklerin kademeli olarak devreden çıkarılması yöntemidir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Uptime Tier I-IV",
+      "definition": "Veri merkezlerinde altyapı yedekliliği ve erişilebilirlik seviyelerini tanımlayan sınıflandırmadır.",
+      "category": "Operasyon",
+      "image": ""
+    },
+    {
+      "term": "Remote Radiator Pump Curve",
+      "definition": "Uzak radyatör sistemlerinde uygun debi ve basma yüksekliğini belirlemek için kullanılan pompa performans eğrisidir.",
+      "category": "Soğutma",
+      "image": ""
+    },
+    {
+      "term": "Underfrequency / Undervoltage Koruması",
+      "definition": "Düşük frekans veya gerilim durumlarında sistemi koruma ve yük atma tetikleme fonksiyonudur.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "UPS Etkileşimi",
+      "definition": "Çift çevrim UPS sistemleri ile jeneratör arasındaki harmonik ve kısa devre davranış etkileşimidir.",
+      "category": "Güç Kalitesi",
+      "image": ""
+    },
+    {
+      "term": "Genleşme Kabı",
+      "definition": "Soğutma sistemindeki hacim değişimlerini dengeleyerek basınç stabilitesini sağlayan tanktır.",
+      "category": "Soğutma",
+      "image": ""
+    },
+    {
+      "term": "Vacuum Circuit Breaker (VCB)",
+      "definition": "Orta gerilim sistemlerinde elektrik arkını vakum ortamında söndürerek devreyi kesen kesici tipidir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Vane Axial Fan",
+      "definition": "Yüksek hava debisi ve düşük basınç gerektiren uygulamalar için kullanılan aksiyal fan tipidir.",
+      "category": "Soğutma",
+      "image": ""
+    },
+    {
+      "term": "Variable Pitch Fan",
+      "definition": "Hava debisini kanat açısını değiştirerek ayarlayabilen fan sistemidir.",
+      "category": "Soğutma",
+      "image": ""
+    },
+    {
+      "term": "V-Belt Drive",
+      "definition": "Fan veya pompa tahrikinde kullanılan kayış ve kasnaklı güç aktarım sistemidir.",
+      "category": "Mekanik",
+      "image": ""
+    },
+    {
+      "term": "Ventilation Rate (ACH)",
+      "definition": "Bir hacimdeki havanın saat içinde kaç kez değiştirildiğini gösteren havalandırma oranıdır.",
+      "category": "Soğutma",
+      "image": ""
+    },
+    {
+      "term": "Vibration Spectrum",
+      "definition": "Titreşim frekans analizi ile rulman, kaplin ve mekanik arızaların teşhis edilmesini sağlayan yöntemdir.",
+      "category": "Test & Bakım",
+      "image": ""
+    },
+    {
+      "term": "Volumetric Efficiency (ηv)",
+      "definition": "Motor silindirlerinin emiş havasıyla dolma verimini ifade eder.",
+      "category": "Motor",
+      "image": ""
+    },
+    {
+      "term": "Vortex Flowmeter",
+      "definition": "Akışkan debisini vorteks oluşum frekansına göre ölçen güvenilir debi ölçüm cihazıdır.",
+      "category": "Yakıt Sistemi",
+      "image": ""
+    },
+    {
+      "term": "Venturi Meter",
+      "definition": "Basınç farkı prensibiyle düşük kayıplı debi ölçümü sağlayan ölçüm cihazıdır.",
+      "category": "Soğutma",
+      "image": ""
+    },
+    {
+      "term": "Vibration Velocity (RMS)",
+      "definition": "Mekanik titreşim seviyesini mm/s cinsinden ifade eden ölçüm parametresidir.",
+      "category": "Test & Bakım",
+      "image": ""
+    },
+    {
+      "term": "Voltage Unbalance",
+      "definition": "Üç faz gerilimleri arasındaki RMS farklarının yüzdesel oranını ifade eder.",
+      "category": "Güç Kalitesi",
+      "image": ""
+    },
+    {
+      "term": "Volt-per-Hertz (V/Hz)",
+      "definition": "Gerilim ile frekans oranını ifade eder; aşımı alternatör aşırı uyartım korumasını tetikler.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "VRLA Battery",
+      "definition": "Valf regüle kurşun asit yapıya sahip, bakım gereksinimi düşük kapalı tip aküdür.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "VFD / VSD",
+      "definition": "Motor hızını kontrol eden sürücü sistemidir; harmonik akımlar oluşturabilir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Vibration Isolator (AVM)",
+      "definition": "Titreşimlerin yapıya iletilmesini azaltan kauçuk veya yaylı izolasyon elemanıdır.",
+      "category": "Mekanik",
+      "image": ""
+    },
+    {
+      "term": "Voltage Dip",
+      "definition": "Ani yük değişimlerinde oluşan kısa süreli gerilim düşüşüdür.",
+      "category": "Güç Kalitesi",
+      "image": ""
+    },
+    {
+      "term": "VPI (Vakum Basınç Emprenye)",
+      "definition": "Alternatör sargı yalıtımını güçlendirmek için reçinenin vakum ve basınç altında emdirilmesi işlemidir.",
+      "category": "Alternatör",
+      "image": ""
+    },
+    {
+      "term": "Walk-In Enclosure",
+      "definition": "Bakım personelinin içine girerek çalışabileceği geniş kabin tasarımıdır.",
+      "category": "Montaj & Kurulum",
+      "image": ""
+    },
+    {
+      "term": "Warm-Up Time",
+      "definition": "Jeneratörün yük almadan önce çalışma sıcaklığına ulaşması için gereken süredir.",
+      "category": "Operasyon",
+      "image": ""
+    },
+    {
+      "term": "Water Column (in-WC / Pa)",
+      "definition": "Düşük basınç ölçümlerinde kullanılan su sütunu bazlı ölçüm birimidir.",
+      "category": "Soğutma",
+      "image": ""
+    },
+    {
+      "term": "Water-in-Fuel Sensörü",
+      "definition": "Yakıt sisteminde su varlığını algılayarak motoru korumaya yardımcı olan sensördür.",
+      "category": "Yakıt Sistemi",
+      "image": ""
+    },
+    {
+      "term": "Waveform Capture",
+      "definition": "Elektriksel olaylar sırasında dalga formunun yüksek çözünürlükte kaydedilmesi işlemidir.",
+      "category": "Güç Kalitesi",
+      "image": ""
+    },
+    {
+      "term": "Weather Louver",
+      "definition": "Yağmur ve dış hava koşullarına karşı koruma sağlayan hava giriş panjurudur.",
+      "category": "Akustik",
+      "image": ""
+    },
+    {
+      "term": "Witness Test",
+      "definition": "Müşteri veya üçüncü taraf gözetiminde gerçekleştirilen kabul testidir.",
+      "category": "Test & Bakım",
+      "image": ""
+    },
+    {
+      "term": "Water Hammer",
+      "definition": "Ani vana kapanması sonucu oluşan basınç darbesinin boru sisteminde yarattığı mekanik etkidir.",
+      "category": "Soğutma",
+      "image": ""
+    },
+    {
+      "term": "Jacket Water Heater",
+      "definition": "Motor ceket suyunu sirkülasyonlu şekilde ısıtarak hızlı çalıştırma sağlayan ısıtma sistemidir.",
+      "category": "Soğutma",
+      "image": ""
+    },
+    {
+      "term": "Weatherproof Canopy",
+      "definition": "Dış ortam koşullarına karşı koruma sağlayan dayanıklı jeneratör kabinidir.",
+      "category": "Montaj & Kurulum",
+      "image": ""
+    },
+    {
+      "term": "Wind Load",
+      "definition": "Dış kurulumlarda rüzgar kuvvetlerinin yapı üzerindeki etkisini ifade eden tasarım yüküdür.",
+      "category": "Montaj & Kurulum",
+      "image": ""
+    },
+    {
+      "term": "Wiring Ferrule",
+      "definition": "İnce telli kabloların klemens bağlantısını sağlamlaştıran kablo ucu pabuç elemanıdır.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Wastegate / VGT",
+      "definition": "Turbo basıncını kontrol ederek motor performansını optimize eden turbo kontrol sistemleridir.",
+      "category": "Motor",
+      "image": ""
+    },
+    {
+      "term": "Water Separator",
+      "definition": "Yakıt hattındaki suyu ayrıştırarak enjektör ve yakıt sistemini koruyan filtredir.",
+      "category": "Yakıt Sistemi",
+      "image": ""
+    },
+    {
+      "term": "Wet-Stacking",
+      "definition": "Düşük yükte çalışmadan kaynaklanan egzoz kurum ve yoğuşma birikmesi durumudur.",
+      "category": "Egzoz & Emisyon",
+      "image": ""
+    },
+    {
+      "term": "Winding (Sargı)",
+      "definition": "Alternatör stator ve rotorunda elektrik üretimini sağlayan iletken sargı yapısıdır.",
+      "category": "Alternatör",
+      "image": ""
+    },
+    {
+      "term": "Wye / Delta (Y / Δ)",
+      "definition": "Elektrik sargı bağlantı tipleri olup gerilim ve akım ilişkilerini belirler.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Yard Aydınlatma Kontaktörü",
+      "definition": "Dış saha aydınlatmasının jeneratör çalışma durumuna göre otomatik kontrol edilmesini sağlayan kontaktördür.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Yield Strength (Ankraj)",
+      "definition": "Ankraj cıvatalarının kalıcı deformasyona uğramadan dayanabileceği maksimum gerilme değeridir.",
+      "category": "Montaj & Kurulum",
+      "image": ""
+    },
+    {
+      "term": "Yoke (Manyetik Boyunduruk)",
+      "definition": "Alternatör manyetik devresinde akıyı yönlendiren ve manyetik yolu tamamlayan yapı elemanıdır.",
+      "category": "Alternatör",
+      "image": ""
+    },
+    {
+      "term": "Yakıt Dolum Kabini",
+      "definition": "Yakıt dolum noktası, taşma alarmı ve anti-sifon donanımlarını güvenli şekilde barındıran korumalı dolum ünitesidir.",
+      "category": "Yakıt Sistemi",
+      "image": ""
+    },
+    {
+      "term": "Yakıt Numune Vanası",
+      "definition": "Yakıt kalitesi, su ve mikrobiyal kontaminasyon kontrolü için örnek alınmasını sağlayan vana noktasıdır.",
+      "category": "Yakıt Sistemi",
+      "image": ""
+    },
+    {
+      "term": "Yangın Dayanımı (EI60 / EI120)",
+      "definition": "Bir yapı elemanının yangın sırasında bütünlüğünü ve yalıtım özelliğini koruyabildiği süreyi ifade eder.",
+      "category": "Güvenlik",
+      "image": ""
+    },
+    {
+      "term": "Yedek Parça Listesi (SPL / BOM)",
+      "definition": "Bakım planlaması ve stok yönetimi için gerekli parça ve bileşenlerin detaylı listesidir.",
+      "category": "Bakım",
+      "image": ""
+    },
+    {
+      "term": "Yeraltı Tankı Katodik Koruma",
+      "definition": "Yeraltı yakıt tanklarının korozyona karşı galvanik veya anot sistemleriyle korunması yöntemidir.",
+      "category": "Yakıt Sistemi",
+      "image": ""
+    },
+    {
+      "term": "Yalıtım Direnci",
+      "definition": "Elektrik izolasyonunun sağlığını gösteren ve megger cihazı ile ölçülen direnç değeridir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Yük Atma (Load Shedding)",
+      "definition": "Düşük frekans veya gerilim durumlarında sistemi korumak için yüklerin kademeli olarak devreden çıkarılmasıdır.",
+      "category": "Kontrol",
+      "image": ""
+    },
+    {
+      "term": "Yük Paylaşımı (kW / kVAr)",
+      "definition": "Paralel çalışan jeneratörler arasında aktif ve reaktif gücün dengeli dağıtılmasıdır.",
+      "category": "Kontrol",
+      "image": ""
+    },
+    {
+      "term": "Yük Profili",
+      "definition": "Bir tesisin zaman içindeki güç tüketim değişimini gösteren yük davranış eğrisidir.",
+      "category": "Operasyon",
+      "image": ""
+    },
+    {
+      "term": "Yıldız-Üçgen (Star-Delta)",
+      "definition": "Motorların kalkış akımını azaltmak amacıyla kullanılan iki kademeli bağlantı yöntemidir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Zero PF Testi",
+      "definition": "Alternatörün reaktif yük koşullarındaki ısınma ve kararlılık performansını değerlendiren testtir.",
+      "category": "Alternatör",
+      "image": ""
+    },
+    {
+      "term": "Zig-Zag Trafo",
+      "definition": "Nötr oluşturma ve harmonik akımları dengeleme amacıyla kullanılan özel sargı bağlantılı trafodur.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "ZSI (Zone-Selective Interlocking)",
+      "definition": "Koruma cihazları arasında koordinasyon sağlayarak sadece arızaya en yakın kesicinin açmasını sağlayan sistemdir.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Zener Bariyer",
+      "definition": "Patlayıcı ortamlarda kullanılan Ex-i devrelerde enerji seviyesini sınırlayan güvenlik bariyeridir.",
+      "category": "Güvenlik",
+      "image": ""
+    },
+    {
+      "term": "Zero-Sequence CT",
+      "definition": "Toprak hata akımlarını algılamak için faz iletkenlerini birlikte saran halka tip akım trafosudur.",
+      "category": "Elektrik",
+      "image": ""
+    },
+    {
+      "term": "Zone 2 (ATEX)",
+      "definition": "Patlayıcı gaz atmosferinin normal çalışma sırasında nadiren oluştuğu tehlikeli alan sınıfıdır.",
+      "category": "Güvenlik",
+      "image": ""
+    },
+    {
+      "term": "Zincirli Gerdirme (Chain Tensioner)",
+      "definition": "Taşıma ve sabitleme sırasında yükün güvenli şekilde sabitlenmesini sağlayan gerdirme ekipmanıdır.",
+      "category": "Mekanik",
+      "image": ""
     }
   ],
   "categories": [
