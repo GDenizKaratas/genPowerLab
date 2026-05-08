@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumb from '../components/ui/Breadcrumb.astro';
-import { Mail, Phone, MapPin, Clock, MessageCircle, Headphones, FileText, ArrowRight } from 'lucide-astro';
+import { Mail, MapPin, Clock, MessageCircle, Headphones, FileText, ArrowRight } from 'lucide-astro';
 
 const breadcrumbItems = [
   { label: 'Danışmanlık & İletişim' }
@@ -44,9 +44,8 @@ const services = [
           Jeneratör ve enerji sistemleri konusunda sorularınızı yanıtlamak için buradayız.
         </p>
 
-               <!-- Main CTAs -->
+        <!-- Main CTA -->
         <div class="flex flex-col sm:flex-row gap-3 mb-4">
-          <!-- Email CTA -->
           <a
             href="mailto:info@genpowerlab.com?subject=GenPowerLab%20İletişim"
             class="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl font-semibold hover:shadow-xl hover:scale-[1.02] transition-all duration-300"
@@ -54,17 +53,6 @@ const services = [
             <Mail class="w-5 h-5 mr-3" />
             E-posta Gönder
             <ArrowRight class="w-5 h-5 ml-2" />
-          </a>
-
-          <!-- WhatsApp CTA -->
-          <a
-            href="https://wa.me/905522562081?text=Merhaba%2C%20GenPowerLab%20sitesinden%20yaz%C4%B1yorum.%20Jenerat%C3%B6r%20ve%20enerji%20sistemleri%20i%C3%A7in%20dan%C4%B1%C5%9Fmak%20istiyorum."
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center justify-center px-8 py-4 bg-emerald-500 text-white rounded-xl font-semibold shadow-md hover:bg-emerald-600 hover:shadow-lg transition-all duration-300"
-          >
-            <MessageCircle class="w-5 h-5 mr-2" />
-            WhatsApp ile Yazın
           </a>
         </div>
 
@@ -74,28 +62,24 @@ const services = [
       </div>
 
       <!-- Right: Contact Info Card -->
-      <div class="bg-gradient-to-br from-blue-600 to-cyan-600 rounded-2xl p-6 text-white">
-        <h3 class="font-semibold text-lg mb-4 flex items-center">
+      <div class="bg-gradient-to-br from-blue-600 to-cyan-600 rounded-2xl p-6 text-white shadow-lg shadow-blue-900/10">
+        <h2 class="font-semibold text-lg mb-4 text-white flex items-center">
           <Clock class="w-5 h-5 mr-2" />
           İletişim Bilgileri
-        </h3>
+        </h2>
         <div class="space-y-3 text-sm">
           <div class="flex justify-between">
             <span class="text-blue-100">Pazartesi - Cuma</span>
-            <span class="font-medium">09:00 - 18:00</span>
+            <span class="font-medium text-white">09:00 - 18:00</span>
           </div>
           <div class="flex justify-between">
             <span class="text-blue-100">Cumartesi</span>
-            <span class="font-medium">10:00 - 16:00</span>
+            <span class="font-medium text-white">10:00 - 16:00</span>
           </div>
           <hr class="border-blue-400/30 my-3" />
           <div class="flex items-center text-blue-100">
             <MapPin class="w-4 h-4 mr-2 flex-shrink-0" />
             <span>İstanbul, Türkiye</span>
-          </div>
-          <div class="flex items-center text-blue-100">
-            <Phone class="w-4 h-4 mr-2 flex-shrink-0" />
-            <span>+90 (552)256 20 81</span>
           </div>
         </div>
       </div>

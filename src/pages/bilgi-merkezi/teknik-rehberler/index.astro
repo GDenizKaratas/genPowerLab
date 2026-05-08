@@ -3,10 +3,15 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumb from '../../../components/ui/Breadcrumb.astro';
 import SupportCTA from '../../../components/ui/SupportCTA.astro';
 import { getCollection } from 'astro:content';
-import { BookOpen, Clock, ArrowRight, Search, X } from 'lucide-astro';
+import { BookOpen, Clock, ArrowRight, Search, X, SlidersHorizontal } from 'lucide-astro';
+import thumb1 from '../../../assets/blog-placeholder-1.jpg';
+import thumb2 from '../../../assets/blog-placeholder-2.jpg';
+import thumb3 from '../../../assets/blog-placeholder-3.jpg';
+import thumb4 from '../../../assets/blog-placeholder-4.jpg';
+import thumb5 from '../../../assets/blog-placeholder-5.jpg';
 
 const breadcrumbItems = [
-  { label: 'Bilgi Merkezi', href: '/bilgi-merkezi' },
+  { label: 'Bilgi Merkezi' },
   { label: 'Teknik Rehberler' }
 ];
 
@@ -31,6 +36,18 @@ const categories = Array.from(
       .filter((cat): cat is string => Boolean(cat)),
   ),
 ).sort();
+
+const guideThumbnails = [
+  '/images/old-generator.jpg',
+  thumb1.src,
+  thumb2.src,
+  thumb3.src,
+  thumb4.src,
+  thumb5.src,
+  '/images/guides/reaktif-guc-guc-ucgeni.png',
+];
+
+const getGuideThumbnail = (index: number) => guideThumbnails[index % guideThumbnails.length];
 ---
 
 <BaseLayout
@@ -42,9 +59,46 @@ const categories = Array.from(
 
     <!-- Page Hero -->
   <section class="bg-white rounded-2xl  mb-6 ">
-      <div class="flex flex-col lg:flex-row lg:items-center gap-4">
+      <div class="flex flex-col md:flex-row md:items-end gap-3">
+        <!-- Filters -->
+        <div class="filters-panel order-3 md:order-1" id="filters-panel" aria-label="Rehber filtreleri">
+          <div class="filters-sheet">
+            <div class="filters-sheet-header md:hidden">
+              <div>
+                <p class="text-[11px] font-semibold uppercase text-blue-600">Filtreler</p>
+                <h2 class="text-sm font-semibold text-gray-900">Seviye ve kategori</h2>
+              </div>
+              <button type="button" id="filters-close" class="filters-close" aria-label="Filtreleri kapat">
+                <X class="w-4 h-4" />
+              </button>
+            </div>
+            <div class="filter-select flex-1 md:flex-initial">
+              <label for="difficulty-select">Seviye</label>
+              <select id="difficulty-select">
+                <option value="all">Tümü</option>
+                {difficulties.map((diff) => (
+                  <option value={diff}>{diff}</option>
+                ))}
+              </select>
+            </div>
+            <div class="filter-select flex-1 md:flex-initial">
+              <label for="category-select">Kategori</label>
+              <select id="category-select">
+                <option value="all">Tümü</option>
+                {categories.map((cat) => (
+                  <option value={cat}>{cat}</option>
+                ))}
+              </select>
+            </div>
+            <div class="filters-actions md:hidden">
+              <button type="button" id="filters-reset" class="filters-reset">Temizle</button>
+              <button type="button" id="filters-apply" class="filters-apply">Uygula</button>
+            </div>
+          </div>
+        </div>
+
         <!-- Search Input -->
-        <div class="relative flex-1 mt-6">
+        <div class="relative flex-1 order-1 md:order-2">
           <div class="absolute inset-y-0 left-0 flex items-center pl-2 text-gray-400 peer-focus-within:text-blue-500 transition-colors">
             <Search class="w-4 h-4" />
           </div>
@@ -66,27 +120,17 @@ const categories = Array.from(
           <div class="absolute inset-0 border border-gray-200 rounded-xl peer-focus-within:border-blue-500 peer-focus-within:ring-2 peer-focus-within:ring-blue-100 pointer-events-none transition-all"></div>
         </div>
 
-        <!-- Filters -->
-        <div class="flex flex-col md:flex-row gap-3 lg:w-auto">
-          <div class="filter-select flex-1 md:flex-initial">
-            <label for="difficulty-select">Seviye</label>
-            <select id="difficulty-select">
-              <option value="all">Tümü</option>
-              {difficulties.map((diff) => (
-                <option value={diff}>{diff}</option>
-              ))}
-            </select>
-          </div>
-          <div class="filter-select flex-1 md:flex-initial">
-            <label for="category-select">Kategori</label>
-            <select id="category-select">
-              <option value="all">Tümü</option>
-              {categories.map((cat) => (
-                <option value={cat}>{cat}</option>
-              ))}
-            </select>
-          </div>
-        </div>
+        <button
+          type="button"
+          id="filters-toggle"
+          class="filter-toggle md:hidden order-2"
+          aria-haspopup="dialog"
+          aria-controls="filters-panel"
+        >
+          <SlidersHorizontal class="w-4 h-4" />
+          Filtrele
+          <span id="active-filter-count" class="filter-count hidden">0</span>
+        </button>
       </div>
     </section>
 
@@ -104,9 +148,9 @@ const categories = Array.from(
     </div>
 
     <!-- Guides List -->
-    <div class="grid grid-cols-1 xl:grid-cols-2 gap-4" id="guides-list">
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4" id="guides-list">
       {sortedGuides.length > 0 ? (
-        sortedGuides.map((guide) => {
+        sortedGuides.map((guide, index) => {
           const slug = guide.id.replace(/\.(md|mdx)$/, '');
           const diffStyle = guide.data.difficulty
             ? difficultyStyles[guide.data.difficulty as keyof typeof difficultyStyles]
@@ -114,52 +158,57 @@ const categories = Array.from(
 
           return (
             <article
-              class="guide-card bg-white border border-gray-200 rounded-2xl p-5 shadow-sm hover:shadow-md hover:border-blue-200 transition-all flex flex-col gap-3"
+              class="guide-card group overflow-hidden bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md hover:border-blue-200 transition-all flex flex-col"
               data-difficulty={guide.data.difficulty || ''}
               data-category={guide.data.category || ''}
               data-title={guide.data.title.toLowerCase()}
             >
-              <div class="flex items-center justify-between gap-3">
-                <div class="flex items-center gap-2 flex-wrap">
+              <a href={`/bilgi-merkezi/teknik-rehberler/${slug}`} class="relative block aspect-[16/9] overflow-hidden bg-slate-100">
+                <img
+                  src={getGuideThumbnail(index)}
+                  alt=""
+                  class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  loading="lazy"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/35 via-transparent to-transparent"></div>
+                <div class="absolute left-3 right-3 bottom-3 flex flex-wrap items-center gap-1.5">
                   {diffStyle && (
-                    <span class={`inline-flex items-center px-3 py-1 text-xs font-semibold rounded-full ${diffStyle.bg} ${diffStyle.text}`}>
+                    <span class={`inline-flex items-center px-2 py-0.5 text-[10px] font-semibold rounded-full shadow-sm ${diffStyle.bg} ${diffStyle.text}`}>
                       {guide.data.difficulty}
                     </span>
                   )}
                   {guide.data.category && (
-                    <span class="text-xs font-medium text-blue-700 bg-blue-50 px-2.5 py-1 rounded-full">
+                    <span class="max-w-full truncate text-[10px] font-semibold text-white bg-slate-900/70 px-2 py-0.5 rounded-full backdrop-blur-sm">
                       {guide.data.category}
                     </span>
                   )}
                 </div>
-                <span class="text-xs text-gray-400 flex items-center gap-1">
-                  <Clock class="w-3.5 h-3.5" />
-                  {guide.data.readTime || '5 dk'}
-                </span>
-              </div>
+              </a>
 
-              <div>
-                <h2 class="text-xl font-semibold text-gray-900 leading-snug mb-2">
+              <div class="flex flex-1 flex-col p-3">
+                <h3 class="text-[13px] font-semibold text-gray-900 leading-[1.35] line-clamp-3">
                   <a href={`/bilgi-merkezi/teknik-rehberler/${slug}`} class="hover:text-blue-600 transition-colors">
                     {guide.data.title}
                   </a>
-                </h2>
-                <p class="text-sm text-gray-600 leading-relaxed line-clamp-3">
+                </h3>
+
+                <p class="mt-2 text-xs text-gray-600 leading-normal line-clamp-2">
                   {guide.data.description}
                 </p>
-              </div>
 
-              <div class="flex items-center justify-between pt-2">
-                <div class="text-xs text-gray-400">
-                  Yayın: {new Date(guide.data.pubDate).toLocaleDateString('tr-TR')}
+                <div class="mt-3 flex items-center justify-between gap-2">
+                  <div class="text-[11px] text-gray-400 flex items-center gap-1">
+                    <Clock class="w-3 h-3" />
+                    {guide.data.readTime || '5 dk'}
+                  </div>
+                  <a
+                    href={`/bilgi-merkezi/teknik-rehberler/${slug}`}
+                    class="inline-flex items-center gap-1 rounded-lg bg-blue-50 px-3 py-1.5 text-xs font-bold text-blue-700 hover:bg-blue-100 transition-colors"
+                  >
+                    Oku
+                    <ArrowRight class="w-3.5 h-3.5" />
+                  </a>
                 </div>
-                <a
-                  href={`/bilgi-merkezi/teknik-rehberler/${slug}`}
-                  class="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors"
-                >
-                  Oku
-                  <ArrowRight class="w-4 h-4" />
-                </a>
               </div>
             </article>
           );
@@ -193,6 +242,12 @@ const categories = Array.from(
     const noResults = document.getElementById('no-results');
     const resultsCount = document.getElementById('results-count');
     const clearButton = document.getElementById('guide-clear');
+    const filtersPanel = document.getElementById('filters-panel');
+    const filtersToggle = document.getElementById('filters-toggle');
+    const filtersClose = document.getElementById('filters-close');
+    const filtersApply = document.getElementById('filters-apply');
+    const filtersReset = document.getElementById('filters-reset');
+    const activeFilterCount = document.getElementById('active-filter-count');
 
     let currentDifficulty = 'all';
     let currentCategory = 'all';
@@ -220,6 +275,25 @@ const categories = Array.from(
 
       if (resultsCount) resultsCount.textContent = visibleCount.toString();
       if (noResults) noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+      updateFilterCount();
+    }
+
+    function updateFilterCount() {
+      const count = [currentDifficulty !== 'all', currentCategory !== 'all'].filter(Boolean).length;
+      if (activeFilterCount) {
+        activeFilterCount.textContent = count.toString();
+        activeFilterCount.classList.toggle('hidden', count === 0);
+      }
+    }
+
+    function openFilters() {
+      filtersPanel?.classList.add('open');
+      document.body.classList.add('filters-open');
+    }
+
+    function closeFilters() {
+      filtersPanel?.classList.remove('open');
+      document.body.classList.remove('filters-open');
     }
 
     function updateClearButton() {
@@ -252,16 +326,125 @@ const categories = Array.from(
       searchInput.focus();
     });
 
+    filtersToggle?.addEventListener('click', openFilters);
+    filtersClose?.addEventListener('click', closeFilters);
+    filtersApply?.addEventListener('click', closeFilters);
+    filtersPanel?.addEventListener('click', (event) => {
+      if (event.target === filtersPanel) closeFilters();
+    });
+    filtersReset?.addEventListener('click', () => {
+      currentDifficulty = 'all';
+      currentCategory = 'all';
+      if (difficultySelect) difficultySelect.value = 'all';
+      if (categorySelect) categorySelect.value = 'all';
+      filterGuides();
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeFilters();
+    });
+
     updateClearButton();
+    updateFilterCount();
   });
 </script>
 
 <style>
-   .filter-select {
+  .filter-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid #dbeafe;
+    border-radius: 0.875rem;
+    background: #eff6ff;
+    color: #1d4ed8;
+    font-size: 0.875rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  @media (min-width: 768px) {
+    .filter-toggle {
+      display: none;
+    }
+  }
+
+  .filter-count {
+    min-width: 1.15rem;
+    height: 1.15rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    background: #dc2626;
+    color: white;
+    font-size: 0.68rem;
+    line-height: 1;
+  }
+
+  .filters-panel {
+    display: flex;
+  }
+
+  .filters-sheet {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  @media (min-width: 768px) {
+    .filters-panel {
+      width: auto;
+    }
+
+    .filters-sheet {
+      flex-direction: row;
+      align-items: end;
+      width: auto;
+    }
+  }
+
+  .filters-sheet-header,
+  .filters-actions {
+    display: none;
+  }
+
+  .filters-close {
+    width: 2.25rem;
+    height: 2.25rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.75rem;
+    background: #f1f5f9;
+    color: #475569;
+  }
+
+  .filters-reset,
+  .filters-apply {
+    flex: 1;
+    min-height: 2.75rem;
+    border-radius: 0.875rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+  }
+
+  .filters-reset {
+    background: #f1f5f9;
+    color: #334155;
+  }
+
+  .filters-apply {
+    background: #2563eb;
+    color: white;
+  }
+
+  .filter-select {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
-    min-width: 160px;
+    min-width: 132px;
   }
 
   .filter-select label {
@@ -273,8 +456,8 @@ const categories = Array.from(
   .filter-select select {
     border: 1px solid #e2e8f0;
     border-radius: 0.75rem;
-    padding: 0.65rem 0.8rem;
-    font-size: 0.9rem;
+    padding: 0.62rem 0.72rem;
+    font-size: 0.84rem;
     color: #0f172a;
     background-color: white;
     outline: none;
@@ -315,13 +498,85 @@ const categories = Array.from(
   /* Responsive adjustments */
   @media (max-width: 1024px) {
     .filter-select {
-      min-width: 140px;
+      min-width: 128px;
     }
   }
 
   @media (max-width: 768px) {
+    :global(body.filters-open) {
+      overflow: hidden;
+    }
+
+    .filters-panel {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      display: none;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 0.875rem;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(2px);
+      gap: 0;
+    }
+
+    .filters-panel.open {
+      display: flex;
+    }
+
+    .filters-sheet {
+      width: 100%;
+      max-width: 21rem;
+      max-height: min(72vh, 28rem);
+      overflow-y: auto;
+      background: white;
+      border-radius: 1rem;
+      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.28);
+      gap: 0;
+    }
+
+    .filters-sheet-header,
+    .filters-actions,
+    .filters-sheet > .filter-select {
+      width: 100%;
+      background: white;
+    }
+
+    .filters-sheet-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 0.875rem 0.375rem;
+    }
+
+    .filters-sheet > .filter-select {
+      padding: 0.25rem 0.875rem 0.35rem;
+    }
+
+    .filters-actions {
+      display: flex;
+      gap: 0.625rem;
+      padding: 0.75rem 0.875rem 0.875rem;
+    }
+
     .filter-select {
       min-width: 100%;
+    }
+
+    .filter-select label {
+      font-size: 0.72rem;
+    }
+
+    .filter-select select {
+      width: 100%;
+      padding: 0.55rem 0.65rem;
+      font-size: 0.82rem;
+    }
+
+    .filters-reset,
+    .filters-apply {
+      min-height: 2.45rem;
+      border-radius: 0.75rem;
     }
   }
 </style>

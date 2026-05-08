@@ -44,7 +44,7 @@ const previousItem = currentIndex > 0 ? playlistItems[currentIndex - 1] : null;
 const nextItem = currentIndex < playlistItems.length - 1 ? playlistItems[currentIndex + 1] : null;
 
 const breadcrumbItems = [
-  { label: 'Bilgi Merkezi', href: '/bilgi-merkezi' },
+  { label: 'Bilgi Merkezi' },
   { label: 'Teknik Rehberler', href: '/bilgi-merkezi/teknik-rehberler' },
   ...(frontmatter.playlistTitle ? [{ label: frontmatter.playlistTitle }] : [{ label: frontmatter.title }])
 ];

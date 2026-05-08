@@ -6,7 +6,7 @@ import { Search, X, BookOpen, Tag, Hash } from 'lucide-astro';
 import glossaryData from '../../../data/glossary.json';
 
 const breadcrumbItems = [
-  { label: 'Bilgi Merkezi', href: '/bilgi-merkezi' },
+  { label: 'Bilgi Merkezi' },
   { label: 'Terimler Sözlüğü' }
 ];
 
@@ -156,6 +156,35 @@ const firstTerm = sortedTerms[0];
     </div>
   </div>
 
+  <div class="term-modal hidden" id="term-modal" role="dialog" aria-modal="true" aria-labelledby="term-modal-title">
+    <div class="term-modal-card">
+      <div class="term-modal-header">
+        <div>
+          <p class="term-modal-eyebrow">Terim Detayı</p>
+          <h2 class="term-modal-title" id="term-modal-title">{firstTerm.term}</h2>
+        </div>
+        <button type="button" class="term-modal-close" id="term-modal-close" aria-label="Terim detayını kapat">
+          <X class="w-5 h-5" />
+        </button>
+      </div>
+      <div class="term-modal-category" id="term-modal-category">
+        <Tag class="w-3.5 h-3.5" />
+        <span>{firstTerm.category}</span>
+      </div>
+      <div class="term-modal-illustration" id="term-modal-illustration">
+        {firstTerm.image ? (
+          <img src={firstTerm.image} alt={firstTerm.term} class="term-image" />
+        ) : (
+          <BookOpen class="w-12 h-12 text-blue-400" />
+        )}
+      </div>
+      <div class="term-modal-definition">
+        <h3>Tanım</h3>
+        <p id="term-modal-definition">{firstTerm.definition}</p>
+      </div>
+    </div>
+  </div>
+
   <SupportCTA />
 </BaseLayout>
 
@@ -175,12 +204,42 @@ const firstTerm = sortedTerms[0];
     const detailContent = document.querySelector('.term-detail-content') as HTMLElement;
     const noResults = document.getElementById('no-results');
     const emptyList = document.getElementById('empty-list');
+    const termModal = document.getElementById('term-modal');
+    const termModalTitle = document.getElementById('term-modal-title');
+    const termModalCategory = document.getElementById('term-modal-category');
+    const termModalDefinition = document.getElementById('term-modal-definition');
+    const termModalIllustration = document.getElementById('term-modal-illustration');
+    const termModalClose = document.getElementById('term-modal-close');
 
     let searchTerm = '';
     let currentLetter = 'all';
 
     // Terim seçme
-    function selectTerm(item: Element) {
+    function updateTermModal(term: string, definition: string, category: string, image: string) {
+      if (termModalTitle) termModalTitle.textContent = term;
+      if (termModalDefinition) termModalDefinition.textContent = definition;
+      if (termModalCategory) {
+        const label = termModalCategory.querySelector('span');
+        if (label) label.textContent = category;
+      }
+      if (termModalIllustration) {
+        termModalIllustration.innerHTML = image
+          ? `<img src="${image}" alt="${term}" class="term-image" />`
+          : `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>`;
+      }
+    }
+
+    function openTermModal() {
+      termModal?.classList.remove('hidden');
+      document.body.classList.add('term-modal-open');
+    }
+
+    function closeTermModal() {
+      termModal?.classList.add('hidden');
+      document.body.classList.remove('term-modal-open');
+    }
+
+    function selectTerm(item: Element, shouldOpenModal = false) {
       termItems.forEach(t => t.classList.remove('active'));
       item.classList.add('active');
 
@@ -211,6 +270,8 @@ const firstTerm = sortedTerms[0];
 
       if (detailContent) detailContent.classList.remove('hidden');
       if (noResults) noResults.classList.add('hidden');
+      updateTermModal(term, definition, category, image);
+      if (shouldOpenModal) openTermModal();
     }
 
     // Harf seçme - sadece o harfin terimlerini göster
@@ -324,7 +385,7 @@ const firstTerm = sortedTerms[0];
 
     // Event listeners
     termItems.forEach(item => {
-      item.addEventListener('click', () => selectTerm(item));
+      item.addEventListener('click', () => selectTerm(item, true));
     });
 
     alphabetTabs.forEach(tab => {
@@ -362,6 +423,14 @@ const firstTerm = sortedTerms[0];
       searchInput.focus();
     });
 
+    termModalClose?.addEventListener('click', closeTermModal);
+    termModal?.addEventListener('click', (event) => {
+      if (event.target === termModal) closeTermModal();
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeTermModal();
+    });
+
     // İlk terimi seç
     const firstItem = document.querySelector('.term-item');
     if (firstItem) selectTerm(firstItem);
@@ -374,8 +443,8 @@ const firstTerm = sortedTerms[0];
     display: grid;
     grid-template-columns: auto 1fr 1fr;
     gap: 0;
-    height: calc(100vh - 200px);
-    min-height: 550px;
+    height: calc(100vh - 165px);
+    min-height: 620px;
     max-height: 850px;
   }
 
@@ -698,6 +767,121 @@ const firstTerm = sortedTerms[0];
     text-align: center;
   }
 
+  .term-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: rgba(15, 23, 42, 0.64);
+    backdrop-filter: blur(3px);
+  }
+
+  .term-modal.hidden {
+    display: none;
+  }
+
+  :global(body.term-modal-open) {
+    overflow: hidden;
+  }
+
+  .term-modal-card {
+    width: min(100%, 34rem);
+    max-height: min(86vh, 42rem);
+    overflow-y: auto;
+    background: white;
+    border-radius: 1.25rem;
+    box-shadow: 0 24px 80px rgba(15, 23, 42, 0.28);
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    padding: 1.25rem;
+  }
+
+  .term-modal-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
+  }
+
+  .term-modal-eyebrow {
+    margin: 0 0 0.2rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #2563eb;
+  }
+
+  .term-modal-title {
+    margin: 0;
+    font-size: 1.45rem;
+    line-height: 1.2;
+    font-weight: 800;
+    color: #0f172a;
+  }
+
+  .term-modal-close {
+    width: 2.5rem;
+    height: 2.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 0.875rem;
+    background: #f1f5f9;
+    color: #475569;
+  }
+
+  .term-modal-category {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.375rem 0.75rem;
+    margin-bottom: 1rem;
+    background: #eff6ff;
+    color: #1d4ed8;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .term-modal-illustration {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 150px;
+    margin-bottom: 1rem;
+    border-radius: 1rem;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  }
+
+  .term-modal-definition {
+    border-radius: 1rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 1rem;
+  }
+
+  .term-modal-definition h3 {
+    margin: 0 0 0.5rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #64748b;
+    font-weight: 800;
+  }
+
+  .term-modal-definition p {
+    margin: 0;
+    color: #334155;
+    line-height: 1.7;
+    font-size: 0.95rem;
+  }
+
   /* Scrollbar Styling */
   .terms-list-container::-webkit-scrollbar,
   .alphabet-sidebar::-webkit-scrollbar {
@@ -760,13 +944,12 @@ const firstTerm = sortedTerms[0];
     .terms-list-panel {
       border-left: 1px solid #e5e7eb;
       border-radius: 0;
-      max-height: 250px;
+      max-height: 430px;
+      min-height: 360px;
     }
 
     .term-detail-panel {
-      border-left: 1px solid #e5e7eb;
-      border-radius: 0 0 1rem 1rem;
-      min-height: 280px;
+      display: none;
     }
   }
 

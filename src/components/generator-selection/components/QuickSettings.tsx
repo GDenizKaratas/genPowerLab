@@ -186,7 +186,7 @@ export function QuickSettings({
   onStepLoadPercentChange,
 }: QuickSettingsProps) {
   return (
-    <div className="p-4 border-t border-gray-100 space-y-4">
+    <div className="p-3 sm:p-4 border-t border-gray-100 space-y-4">
       {/* Usage Type Selection */}
       <div>
         <div className="flex items-center gap-1.5 mb-2">
@@ -201,7 +201,7 @@ export function QuickSettings({
             fullscreenModal
           />
         </div>
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
           {usageTypeOptions.map((option) => {
             const isSelected = usageType === option.id;
             return (
@@ -259,7 +259,7 @@ export function QuickSettings({
             fullscreenModal
           />
         </div>
-        <div className="grid grid-cols-4 gap-2">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
           {generatorGroupOptions.map((option) => {
             const isSelected = generatorGroup === option.id;
             return (
@@ -296,7 +296,7 @@ export function QuickSettings({
                 fullscreenModal
               />
             </div>
-            <div className="grid grid-cols-5 gap-1.5">
+            <div className="grid grid-cols-3 sm:grid-cols-5 gap-1.5">
               {stepLoadOptions.map((option) => {
                 const isSelected = stepLoadPercent === option.id;
                 return (
@@ -397,7 +397,7 @@ export function QuickSettings({
                             onChange={() => onEnvironmentOptionToggle(optionId)}
                             className="w-3.5 h-3.5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                           />
-                          <span>{getOptionLabel(optionId)}</span>
+                          <span className="min-w-0">{getOptionLabel(optionId)}</span>
                         </label>
                       );
                     })}
@@ -425,7 +425,7 @@ export function QuickSettings({
         <div className="space-y-2">
           <div>
             <p className="text-[11px] text-gray-600 mb-1">Motor Menşei</p>
-            <div className="flex gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
               {[
                 {
                   id: "any" as const,
@@ -450,7 +450,7 @@ export function QuickSettings({
                     key={`motor-${option.id}`}
                     onClick={() => onMotorOriginChange(option.id)}
                     className={`
-                      flex-1 p-2 rounded-lg border text-center transition-all
+                      p-2 rounded-lg border text-center transition-all
                       ${
                         isSelected
                           ? "border-blue-500 bg-blue-50"
@@ -475,7 +475,7 @@ export function QuickSettings({
           </div>
           <div>
             <p className="text-[11px] text-gray-600 mb-1">Alternatör Menşei</p>
-            <div className="flex gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
               {[
                 {
                   id: "any" as const,
@@ -500,7 +500,7 @@ export function QuickSettings({
                     key={`alternator-${option.id}`}
                     onClick={() => onAlternatorOriginChange(option.id)}
                     className={`
-                      flex-1 p-2 rounded-lg border text-center transition-all
+                      p-2 rounded-lg border text-center transition-all
                       ${
                         isSelected
                           ? "border-blue-500 bg-blue-50"

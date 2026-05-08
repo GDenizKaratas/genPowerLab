@@ -2,7 +2,13 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumb from '../components/ui/Breadcrumb.astro';
 import SupportCTA from '../components/ui/SupportCTA.astro';
-import { Building2, Factory, Home, Zap, ArrowRight, CheckCircle, Leaf } from 'lucide-astro';
+import { Building2, CheckCircle } from 'lucide-astro';
+import projectThumb1 from '../assets/blog-placeholder-1.jpg';
+import projectThumb2 from '../assets/blog-placeholder-2.jpg';
+import projectThumb3 from '../assets/blog-placeholder-3.jpg';
+import projectThumb4 from '../assets/blog-placeholder-4.jpg';
+import projectThumb5 from '../assets/blog-placeholder-5.jpg';
+import projectThumb6 from '../assets/blog-placeholder-about.jpg';
 
 const breadcrumbItems = [
   { label: 'Projeler & Referanslar' }
@@ -16,6 +22,8 @@ const categories = [
   { id: 'ozel', label: 'Özel' },
 ];
 
+const categoryLabels = Object.fromEntries(categories.map((category) => [category.id, category.label]));
+
 const projects = [
   {
     id: 1,
@@ -25,7 +33,8 @@ const projects = [
     capacity: '500 kVA',
     description: 'Kesintisiz üretim için yedek güç sistemi tasarımı.',
     features: ['Otomatik transfer', 'Paralel çalışma', 'Uzaktan izleme'],
-    year: '2024'
+    year: '2024',
+    image: projectThumb1.src
   },
   {
     id: 2,
@@ -35,7 +44,8 @@ const projects = [
     capacity: '1000 kVA',
     description: 'Büyük ölçekli AVM için entegre yedek güç çözümü.',
     features: ['Çoklu jeneratör', 'Akıllı yük yönetimi', 'Sessiz çalışma'],
-    year: '2024'
+    year: '2024',
+    image: projectThumb2.src
   },
   {
     id: 3,
@@ -45,7 +55,8 @@ const projects = [
     capacity: '150 kVA',
     description: '12 villadan oluşan site için merkezi yedek güç.',
     features: ['Merkezi kontrol', 'Gürültü izolasyonu', 'Otomatik test'],
-    year: '2023'
+    year: '2023',
+    image: projectThumb3.src
   },
   {
     id: 4,
@@ -55,7 +66,8 @@ const projects = [
     capacity: '800 kVA',
     description: 'Kritik sağlık hizmetleri için kesintisiz güç.',
     features: ['Anında devreye girme', 'Çift yedekleme', '24/7 izleme'],
-    year: '2024'
+    year: '2024',
+    image: projectThumb4.src
   },
   {
     id: 5,
@@ -65,7 +77,8 @@ const projects = [
     capacity: '350 kVA',
     description: 'Soğuk zincir operasyonları için güvenilir enerji.',
     features: ['Soğutma entegrasyonu', 'Yakıt optimizasyonu', 'Uzaktan yönetim'],
-    year: '2023'
+    year: '2023',
+    image: projectThumb5.src
   },
   {
     id: 6,
@@ -75,7 +88,8 @@ const projects = [
     capacity: '100 kVA',
     description: 'Tarihi dokuya uygun, sessiz kompakt çözüm.',
     features: ['Ultra sessiz', 'Kompakt tasarım', 'Görsel uyum'],
-    year: '2024'
+    year: '2024',
+    image: projectThumb6.src
   },
 ];
 
@@ -138,11 +152,24 @@ const stats = [
           class="group bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg hover:border-blue-200 transition-all"
           data-category={project.category}
         >
+          <div class="relative h-28 sm:h-32 overflow-hidden bg-gray-100">
+            <img
+              src={project.image}
+              alt={`${project.title} proje görseli`}
+              class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/35 via-transparent to-transparent"></div>
+            <span class="absolute left-3 bottom-3 px-2.5 py-1 bg-white/90 text-gray-800 rounded-lg text-xs font-semibold shadow-sm backdrop-blur-sm">
+              {project.location}
+            </span>
+          </div>
+
           <!-- Header -->
           <div class="bg-gradient-to-br from-gray-100 to-gray-50 p-4 flex items-center justify-between">
             <div class="flex items-center gap-2 text-sm text-gray-600">
               <Building2 class="w-4 h-4" />
-              <span>{project.location}</span>
+              <span>{categoryLabels[project.category]}</span>
             </div>
             <div class="flex items-center gap-2">
               <span class="px-2 py-0.5 bg-blue-100 text-blue-700 rounded text-xs font-medium">

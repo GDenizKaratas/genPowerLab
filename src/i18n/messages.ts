@@ -17,7 +17,7 @@ export const messages = {
       generatorSelector: "Jeneratör Seçim Rehberi",
       maintenanceAssistant: "Bakım-Onarım Asistanı",
       projects: "Projeler",
-      contact: "Danışmanlık & iletişim",
+      contact: "İletişim & Danışmanlık",
     },
     footer: {
       description:

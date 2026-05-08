@@ -24,7 +24,7 @@ export function SelectedDevicesList({
             <Package className="w-7 h-7 text-gray-400" />
           </div>
           <h3 className="text-gray-900 font-medium mb-1 text-sm">Henüz cihaz eklenmedi</h3>
-          <p className="text-gray-500 text-xs">
+          <p className="text-gray-500 text-xs mb-0">
             Listeden cihaz seçin veya manuel ekleyin
           </p>
         </div>
@@ -52,12 +52,12 @@ export function SelectedDevicesList({
         {devices.map((device) => (
           <div
             key={device.id}
-            className="px-3 py-2.5 flex items-center gap-2 hover:bg-gray-50 transition-colors"
+            className="px-2.5 sm:px-3 py-2.5 flex items-center gap-2 hover:bg-gray-50 transition-colors"
           >
             {/* Device Info */}
             <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-1.5">
-                <p className="text-sm font-medium text-gray-900 truncate">
+              <div className="flex items-center gap-1.5 min-w-0">
+                <p className="text-sm font-medium text-gray-900 truncate mb-0">
                   {device.name}
                 </p>
                 {device.isCustom && (
@@ -71,16 +71,16 @@ export function SelectedDevicesList({
                   </span>
                 )}
               </div>
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-gray-500 mb-0">
                 {formatWatt(device.watt * device.quantity)}
               </p>
             </div>
 
             {/* Quantity Controls */}
-            <div className="flex items-center gap-0.5 border border-gray-200 rounded-lg bg-white shadow-sm">
+            <div className="flex flex-shrink-0 items-center gap-0.5 border border-gray-200 rounded-lg bg-white shadow-sm">
               <button
                 onClick={() => onUpdateQuantity(device.id, Math.max(1, device.quantity - 1))}
-                className="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700
+                className="w-7 h-8 sm:w-8 flex items-center justify-center text-gray-500 hover:text-gray-700
                            hover:bg-gray-100 rounded-l-lg text-base font-medium"
                 aria-label="Azalt"
               >
@@ -101,13 +101,13 @@ export function SelectedDevicesList({
                     onUpdateQuantity(device.id, 1);
                   }
                 }}
-                className="w-10 h-8 text-center text-sm font-semibold border-x border-gray-200
+                className="w-9 sm:w-10 h-8 text-center text-sm font-semibold border-x border-gray-200
                            focus:outline-none focus:ring-1 focus:ring-blue-400 bg-white
                            [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               />
               <button
                 onClick={() => onUpdateQuantity(device.id, device.quantity + 1)}
-                className="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700
+                className="w-7 h-8 sm:w-8 flex items-center justify-center text-gray-500 hover:text-gray-700
                            hover:bg-gray-100 rounded-r-lg text-base font-medium"
                 aria-label="Artır"
               >
@@ -118,7 +118,7 @@ export function SelectedDevicesList({
             {/* Remove Button */}
             <button
               onClick={() => onRemove(device.id)}
-              className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50
+              className="p-1.5 flex-shrink-0 text-gray-400 hover:text-red-600 hover:bg-red-50
                          rounded transition-colors"
               aria-label={`${device.name} kaldır`}
             >
@@ -132,7 +132,7 @@ export function SelectedDevicesList({
       <div className="px-4 py-3 bg-blue-50 border-t border-blue-100 rounded-b-xl">
         <div className="flex items-center justify-between">
           <span className="text-sm font-medium text-blue-900">Toplam Güç</span>
-          <span className="text-lg font-bold text-blue-900">
+          <span className="text-base sm:text-lg font-bold text-blue-900">
             {formatWatt(totalWatt)}
           </span>
         </div>

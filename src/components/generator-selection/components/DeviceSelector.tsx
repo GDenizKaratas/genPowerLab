@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import {
   Home,
   Store,
@@ -27,10 +27,12 @@ import {
   Coffee,
   Milk,
   PlusCircle,
+  Check,
 } from "../icons";
 import type { Device, DeviceCategory, SelectedDevice } from "../types";
 import { generateDeviceId, formatWatt } from "../utils/calculations";
 import { CustomDeviceModal } from "./CustomDeviceModal";
+import deviceImagesData from "../../../data/generator-selection/device-images.json";
 
 interface DeviceSelectorProps {
   categories: DeviceCategory[];
@@ -171,6 +173,8 @@ const deviceIconMap: Record<string, React.ComponentType<{ className?: string }>>
   "greenhouse-heating": Flame,
 };
 
+const deviceImageMap = deviceImagesData as Record<string, string>;
+
 export function DeviceSelector({
   categories,
   onAddDevice,
@@ -181,6 +185,8 @@ export function DeviceSelector({
   const [lastCategoryBeforeSearch, setLastCategoryBeforeSearch] =
     useState<string>(ALL_CATEGORY_ID);
   const [showCustomModal, setShowCustomModal] = useState(false);
+  const [recentlyAddedDeviceId, setRecentlyAddedDeviceId] = useState<string | null>(null);
+  const handledPointerDeviceIdRef = useRef<string | null>(null);
 
   const categoryTabs = useMemo(
     () => [{ id: ALL_CATEGORY_ID, name: "Tümü" }, ...categories],
@@ -228,6 +234,27 @@ export function DeviceSelector({
     };
 
     onAddDevice(selectedDevice);
+    setRecentlyAddedDeviceId(device.id);
+    window.setTimeout(() => {
+      setRecentlyAddedDeviceId((currentDeviceId) =>
+        currentDeviceId === device.id ? null : currentDeviceId,
+      );
+    }, 1200);
+  };
+
+  const handleAddButtonPointerUp = (device: Device) => {
+    handledPointerDeviceIdRef.current = device.id;
+    handleAddDeviceDirect(device);
+    window.setTimeout(() => {
+      if (handledPointerDeviceIdRef.current === device.id) {
+        handledPointerDeviceIdRef.current = null;
+      }
+    }, 0);
+  };
+
+  const handleAddButtonClick = (device: Device) => {
+    if (handledPointerDeviceIdRef.current === device.id) return;
+    handleAddDeviceDirect(device);
   };
 
   const handleAddCustomDevice = (device: SelectedDevice) => {
@@ -239,15 +266,11 @@ export function DeviceSelector({
     <div
       className={`
         bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col
-        ${
-          hasSelectedDevices
-            ? "min-h-[560px] lg:min-h-[760px]"
-            : "min-h-[520px] lg:min-h-0 lg:h-[680px] lg:max-h-[72vh]"
-        }
+        h-[calc(100dvh-185px)] min-h-[430px] lg:h-[680px] lg:max-h-[72vh]
       `}
     >
       <div className="border-b border-gray-200 bg-gray-50">
-        <div className="flex overflow-x-auto scrollbar-hide">
+        <div className="flex overflow-x-auto overscroll-x-contain scrollbar-hide">
           {categoryTabs.map((category) => {
             const config = categoryConfig[category.id] || categoryConfig.home;
             const CategoryIcon = config.icon;
@@ -258,7 +281,7 @@ export function DeviceSelector({
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
                 className={`
-                  flex items-center gap-2 px-4 py-3 text-sm font-medium whitespace-nowrap border-b-2 transition-all flex-shrink-0
+                  flex items-center gap-2 px-3 sm:px-4 py-3 text-sm font-medium whitespace-nowrap border-b-2 transition-all flex-shrink-0
                   ${
                     isActive
                       ? `${config.color} border-current bg-white`
@@ -274,7 +297,7 @@ export function DeviceSelector({
         </div>
       </div>
 
-      <div className="p-3 border-b border-gray-100 flex gap-2">
+      <div className="p-2.5 sm:p-3 border-b border-gray-100 flex gap-2">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
           <input
@@ -318,22 +341,39 @@ export function DeviceSelector({
           <div className="divide-y divide-gray-100">
             {devicesForList.map((item) => {
               const DeviceIcon = deviceIconMap[item.device.id] || Zap;
+              const imageUrl = deviceImageMap[item.device.id];
               const categoryStyle =
                 categoryConfig[item.categoryId] || categoryConfig.home;
 
               return (
                 <div
                   key={item.device.id}
-                  className="px-3 py-2.5 flex items-center gap-3 hover:bg-gray-50 transition-colors"
+                  className="px-2.5 sm:px-3 py-2.5 flex items-center gap-2.5 sm:gap-3 hover:bg-gray-50 transition-colors"
                 >
-                  <div
-                    className={`w-10 h-10 rounded-lg border border-white shadow-sm flex items-center justify-center ${categoryStyle.bg}`}
-                  >
-                    <DeviceIcon className={`w-5 h-5 ${categoryStyle.color}`} />
-                  </div>
+                  {imageUrl ? (
+                    <div className="relative w-10 h-10 sm:w-11 sm:h-11 flex-shrink-0 overflow-hidden rounded-lg border border-gray-200 bg-gray-100 shadow-sm">
+                      <img
+                        src={imageUrl}
+                        alt=""
+                        className="h-full w-full object-cover"
+                        loading="lazy"
+                        referrerPolicy="no-referrer"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/20 to-transparent" />
+                      <span className="absolute bottom-0.5 right-0.5 flex h-5 w-5 items-center justify-center rounded-md bg-white/95 shadow-sm">
+                        <DeviceIcon className={`w-3 h-3 ${categoryStyle.color}`} />
+                      </span>
+                    </div>
+                  ) : (
+                    <div
+                      className={`w-9 h-9 sm:w-10 sm:h-10 flex-shrink-0 rounded-lg border border-white shadow-sm flex items-center justify-center ${categoryStyle.bg}`}
+                    >
+                      <DeviceIcon className={`w-5 h-5 ${categoryStyle.color}`} />
+                    </div>
+                  )}
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-1.5">
-                      <p className="text-sm font-medium text-gray-900 truncate">
+                    <div className="flex items-center gap-1.5 min-w-0">
+                      <p className="text-sm font-medium text-gray-900 truncate mb-0">
                         {item.device.name}
                       </p>
                       {item.device.phase === "three" && (
@@ -343,21 +383,34 @@ export function DeviceSelector({
                       )}
                     </div>
                     <div className="flex items-center gap-1.5 mt-0.5">
-                      <p className="text-xs text-gray-500">
+                      <p className="text-xs text-gray-500 mb-0 flex-shrink-0">
                         {formatWatt(item.device.defaultWatt)}
                       </p>
                       <span
-                        className={`px-1.5 py-0.5 rounded text-[9px] font-medium ${categoryStyle.badgeBg} ${categoryStyle.badgeText}`}
+                        className={`px-1.5 py-0.5 rounded text-[9px] font-medium truncate ${categoryStyle.badgeBg} ${categoryStyle.badgeText}`}
                       >
                         {item.categoryName}
                       </span>
                     </div>
                   </div>
                   <button
-                    onClick={() => handleAddDeviceDirect(item.device)}
-                    className="h-8 px-3 bg-blue-600 text-white text-xs font-medium rounded-md hover:bg-blue-700 transition-colors"
+                    type="button"
+                    onPointerUp={() => handleAddButtonPointerUp(item.device)}
+                    onClick={() => handleAddButtonClick(item.device)}
+                    className={`h-8 min-w-[4.25rem] px-3 flex-shrink-0 rounded-md text-xs font-semibold transition-colors ${
+                      recentlyAddedDeviceId === item.device.id
+                        ? "bg-emerald-600 text-white"
+                        : "bg-blue-600 text-white hover:bg-blue-700"
+                    }`}
                   >
-                    Ekle
+                    {recentlyAddedDeviceId === item.device.id ? (
+                      <span className="flex items-center justify-center gap-1">
+                        <Check className="w-3.5 h-3.5" />
+                        Eklendi
+                      </span>
+                    ) : (
+                      "Ekle"
+                    )}
                   </button>
                 </div>
               );

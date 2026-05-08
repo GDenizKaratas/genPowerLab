@@ -28,10 +28,12 @@ export function CustomDeviceModal({ onClose, onAdd }: CustomDeviceModalProps) {
   const [inrushMultiplier, setInrushMultiplier] = useState(1);
   const [isMotor, setIsMotor] = useState(false);
 
+  const derivedAmperePhase = voltage === 220 ? "single" : "three";
+
   // Calculate watt from ampere inputs
   const calculatedWatt =
     inputMode === "ampere" && ampere
-      ? phase === "three"
+      ? derivedAmperePhase === "three"
         ? voltage * Number(ampere) * Math.sqrt(3) * powerFactor
         : voltage * Number(ampere) * powerFactor
       : Number(watt) || 0;
@@ -44,15 +46,17 @@ export function CustomDeviceModal({ onClose, onAdd }: CustomDeviceModalProps) {
 
     if (!name.trim() || calculatedWatt <= 0) return;
 
+    const normalizedQuantity = Math.max(1, Math.floor(quantity || 1));
+
     const device: SelectedDevice = {
       id: generateDeviceId(),
       deviceId: "custom",
       name: name.trim(),
-      quantity,
+      quantity: normalizedQuantity,
       watt: Math.round(calculatedWatt),
       powerFactor,
       inrushMultiplier: isMotor ? inrushMultiplier : 1,
-      phase: inputMode === "ampere" ? phase : "single",
+      phase: inputMode === "ampere" ? derivedAmperePhase : phase,
       isCustom: true,
       customVoltage: inputMode === "ampere" ? voltage : undefined,
       customAmpere: inputMode === "ampere" ? Number(ampere) : undefined,
@@ -62,8 +66,8 @@ export function CustomDeviceModal({ onClose, onAdd }: CustomDeviceModalProps) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
-      <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-2 sm:p-4 bg-black/50">
+      <div className="bg-white rounded-t-2xl sm:rounded-2xl shadow-xl w-full max-w-lg max-h-[92dvh] overflow-y-auto">
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-100">
           <h3 className="text-lg font-semibold text-gray-900">
@@ -77,21 +81,41 @@ export function CustomDeviceModal({ onClose, onAdd }: CustomDeviceModalProps) {
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-4 space-y-5">
-          {/* Device Name */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
-              Cihaz / Ekipman Adı
-            </label>
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Örn: Freze Makinesi"
-              className="w-full px-4 py-2.5 border border-gray-200 rounded-lg
-                         focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              required
-            />
+        <form onSubmit={handleSubmit} className="p-3 sm:p-4 space-y-5">
+          {/* Device Name + Quantity */}
+          <div className="grid grid-cols-1 sm:grid-cols-[1fr_7rem] gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                Cihaz / Ekipman Adı
+              </label>
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Örn: Freze Makinesi"
+                className="w-full px-4 py-2.5 border border-gray-200 rounded-lg
+                           focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                Adet
+              </label>
+              <input
+                type="number"
+                value={quantity}
+                onChange={(e) =>
+                  setQuantity(e.target.value ? Math.max(1, Number(e.target.value)) : 1)
+                }
+                onBlur={() => setQuantity((current) => Math.max(1, Math.floor(current || 1)))}
+                min={1}
+                step={1}
+                inputMode="numeric"
+                className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm
+                           focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              />
+            </div>
           </div>
 
           {/* Input Mode Toggle */}
@@ -99,7 +123,7 @@ export function CustomDeviceModal({ onClose, onAdd }: CustomDeviceModalProps) {
             <label className="block text-sm font-medium text-gray-700 mb-1.5">
               Güç Bilgisi Giriş Şekli
             </label>
-            <div className="flex gap-2">
+            <div className="grid grid-cols-2 gap-2">
               <button
                 type="button"
                 onClick={() => setInputMode("watt")}
@@ -129,7 +153,7 @@ export function CustomDeviceModal({ onClose, onAdd }: CustomDeviceModalProps) {
 
           {/* Watt Input Mode */}
           {inputMode === "watt" && (
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1.5">
                   Güç (Watt)
@@ -146,6 +170,22 @@ export function CustomDeviceModal({ onClose, onAdd }: CustomDeviceModalProps) {
                              focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   required
                 />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                  Faz
+                </label>
+                <select
+                  value={phase}
+                  onChange={(e) =>
+                    setPhase(e.target.value as "single" | "three")
+                  }
+                  className="w-full px-4 py-2.5 border border-gray-200 rounded-lg
+                             focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                >
+                  <option value="single">Tek Faz</option>
+                  <option value="three">Üç Faz</option>
+                </select>
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1.5">
@@ -172,7 +212,7 @@ export function CustomDeviceModal({ onClose, onAdd }: CustomDeviceModalProps) {
           {/* Ampere Input Mode */}
           {inputMode === "ampere" && (
             <div className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1.5">
                     Voltaj (V)
@@ -183,9 +223,9 @@ export function CustomDeviceModal({ onClose, onAdd }: CustomDeviceModalProps) {
                     className="w-full px-4 py-2.5 border border-gray-200 rounded-lg
                                focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   >
-                    <option value={220}>220V (Tek Faz)</option>
-                    <option value={380}>380V (Üç Faz)</option>
-                    <option value={400}>400V (Üç Faz)</option>
+                    <option value={220}>220V</option>
+                    <option value={380}>380V</option>
+                    <option value={400}>400V</option>
                   </select>
                 </div>
                 <div>
@@ -208,23 +248,7 @@ export function CustomDeviceModal({ onClose, onAdd }: CustomDeviceModalProps) {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                    Faz
-                  </label>
-                  <select
-                    value={phase}
-                    onChange={(e) =>
-                      setPhase(e.target.value as "single" | "three")
-                    }
-                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg
-                               focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  >
-                    <option value="single">Tek Faz</option>
-                    <option value="three">Üç Faz</option>
-                  </select>
-                </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1.5">
                     Güç Faktörü (cos φ)
@@ -266,7 +290,7 @@ export function CustomDeviceModal({ onClose, onAdd }: CustomDeviceModalProps) {
                 <span className="font-medium text-amber-900">
                   Bu bir asenkron motor mu?
                 </span>
-                <p className="text-sm text-amber-700 mt-0.5">
+                <p className="text-sm text-amber-700 mt-0.5 mb-0">
                   Motorlar çalışırken yüksek başlangıç akımı çeker
                 </p>
               </div>
@@ -294,27 +318,6 @@ export function CustomDeviceModal({ onClose, onAdd }: CustomDeviceModalProps) {
             )}
           </div>
 
-          {/* Quantity */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
-              Adet
-            </label>
-            <select
-              value={quantity}
-              onChange={(e) => setQuantity(Number(e.target.value))}
-              className="w-32 px-3 py-2.5 border border-gray-200 rounded-lg text-sm
-                         focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            >
-              {Array.from({ length: 10 }, (_, index) => index + 1).map(
-                (value) => (
-                  <option key={value} value={value}>
-                    {value}x
-                  </option>
-                ),
-              )}
-            </select>
-          </div>
-
           {/* Calculated Preview */}
           {calculatedWatt > 0 && (
             <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
@@ -322,7 +325,7 @@ export function CustomDeviceModal({ onClose, onAdd }: CustomDeviceModalProps) {
                 <Zap className="w-4 h-4" />
                 Hesaplanan Değerler
               </div>
-              <div className="grid grid-cols-2 gap-4 text-sm">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-sm">
                 <div>
                   <span className="text-blue-700">Toplam Güç:</span>
                   <span className="ml-2 font-semibold text-blue-900">
@@ -350,7 +353,7 @@ export function CustomDeviceModal({ onClose, onAdd }: CustomDeviceModalProps) {
           {/* Info Box */}
           <div className="flex items-start gap-2 p-3 bg-gray-50 rounded-lg text-sm text-gray-600">
             <Info className="w-4 h-4 mt-0.5 flex-shrink-0" />
-            <p>
+            <p className="mb-0">
               Cihazınızın etiketindeki değerleri girin. Güç faktörünü
               bilmiyorsanız genel endüstriyel değer olan 0.85 kullanılabilir.
             </p>

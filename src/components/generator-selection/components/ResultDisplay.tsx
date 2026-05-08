@@ -40,6 +40,56 @@ function tr(text: string): string {
   return text.replace(/[şŞçÇğĞıİöÖüÜ]/g, (c) => map[c] || c);
 }
 
+const PDF_LOGO_SRC = "/images/genPowerLab.png";
+
+async function loadImageAsDataUrl(src: string): Promise<string | null> {
+  try {
+    const response = await fetch(src);
+    if (!response.ok) return null;
+
+    const blob = await response.blob();
+    return await new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        resolve(typeof reader.result === "string" ? reader.result : null);
+      };
+      reader.onerror = () => resolve(null);
+      reader.readAsDataURL(blob);
+    });
+  } catch {
+    return null;
+  }
+}
+
+async function loadPdfLogoDataUrl(src: string): Promise<string | null> {
+  const dataUrl = await loadImageAsDataUrl(src);
+  if (!dataUrl) return null;
+
+  return await new Promise((resolve) => {
+    const image = new Image();
+    image.onload = () => {
+      const cropSize = Math.min(image.naturalWidth, image.naturalHeight) * 0.32;
+      const sx = (image.naturalWidth - cropSize) / 2;
+      const sy = (image.naturalHeight - cropSize) / 2;
+      const canvas = document.createElement("canvas");
+      canvas.width = 512;
+      canvas.height = 512;
+      const context = canvas.getContext("2d");
+
+      if (!context) {
+        resolve(dataUrl);
+        return;
+      }
+
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      context.drawImage(image, sx, sy, cropSize, cropSize, 0, 0, canvas.width, canvas.height);
+      resolve(canvas.toDataURL("image/png"));
+    };
+    image.onerror = () => resolve(dataUrl);
+    image.src = dataUrl;
+  });
+}
+
 interface ResultDisplayProps {
   result: CalculationResult;
   environments: UsageEnvironment[];
@@ -127,8 +177,9 @@ export function ResultDisplay({
   generatorGroup,
   stepLoadPercent,
 }: ResultDisplayProps) {
-  const handleDownloadPDF = useCallback(() => {
+  const handleDownloadPDF = useCallback(async () => {
     const doc = new jsPDF("p", "mm", "a4");
+    const logoDataUrl = await loadPdfLogoDataUrl(PDF_LOGO_SRC);
     const pageWidth = doc.internal.pageSize.getWidth();
     const pageHeight = doc.internal.pageSize.getHeight();
     const bottomMargin = 22;
@@ -148,15 +199,24 @@ export function ResultDisplay({
     // Header
     doc.setFillColor(37, 99, 235);
     doc.rect(0, 0, pageWidth, 35, "F");
+    if (logoDataUrl) {
+      doc.setFillColor(255, 255, 255);
+      doc.roundedRect(11, 3.5, 32, 28, 4, 4, "F");
+      try {
+        doc.addImage(logoDataUrl, "PNG", 13.5, 5.5, 27, 24);
+      } catch {
+        // PDF raporu logo eklenemese de üretilebilmeli.
+      }
+    }
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(18);
-    doc.text(tr("GenPower - Jeneratör Seçim Raporu"), pageWidth / 2, 15, {
+    doc.text(tr("GenPowerLab - Jeneratör Seçim Raporu"), pageWidth / 2 + 10, 15, {
       align: "center",
     });
     doc.setFontSize(10);
     doc.text(
       tr(`Tarih: ${new Date().toLocaleDateString("tr-TR")}`),
-      pageWidth / 2,
+      pageWidth / 2 + 10,
       25,
       { align: "center" },
     );

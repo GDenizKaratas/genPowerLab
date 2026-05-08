@@ -2,6 +2,10 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SupportCTA from '../components/ui/SupportCTA.astro';
 import { ArrowRight, BookOpen, Wrench, Users, MessageCircle, Lightbulb, Shield, Zap } from 'lucide-astro';
+import articleThumb1 from '../assets/blog-placeholder-1.jpg';
+import articleThumb2 from '../assets/blog-placeholder-2.jpg';
+import articleThumb3 from '../assets/blog-placeholder-3.jpg';
+import articleThumb4 from '../assets/blog-placeholder-4.jpg';
 
 // Daha samimi içerikler
 const featuredArticles = [
@@ -9,8 +13,8 @@ const featuredArticles = [
     title: 'Jeneratör Seçiminde En Çok Yapılan 5 Hata',
     excerpt: 'Birçok kişinin düştüğü bu tuzaklardan nasıl kaçınabilirsiniz?',
     category: 'Pratik Rehber',
-    image: '/images/article-1.jpg',
-    href: '/bilgi-merkezi/jenerator-secim-hatalari',
+    image: articleThumb1.src,
+    href: '/bilgi-merkezi/teknik-rehberler/tr/placeholder/02-kritik-yuk-boyutlandirma',
     readTime: '5 dk',
     author: 'Mehmet Yılmaz'
   },
@@ -18,8 +22,8 @@ const featuredArticles = [
     title: 'Ev Tipi Jeneratörler: İhtiyaçlarınıza Göre Karşılaştırma',
     excerpt: 'Hangi ev tipi jeneratör sizin için daha uygun? Gerçek kullanıcı deneyimleriyle.',
     category: 'Ev Çözümleri',
-    image: '/images/article-2.jpg',
-    href: '/bilgi-merkezi/ev-tipi-jeneratorler',
+    image: articleThumb2.src,
+    href: '/bilgi-merkezi/teknik-rehberler/tr/baslangic-rehberi/1-jenerator-nedir',
     readTime: '7 dk',
     author: 'Ayşe Demir'
   },
@@ -27,8 +31,8 @@ const featuredArticles = [
     title: 'Jeneratör Bakımı İçin Basit Kontrol Listesi',
     excerpt: 'Herkesin yapabileceği temel bakım adımları. Zor değil, güvende olun!',
     category: 'Bakım İpuçları',
-    image: '/images/article-3.jpg',
-    href: '/bilgi-merkezi/basit-bakim-kontrol',
+    image: articleThumb3.src,
+    href: '/bilgi-merkezi/teknik-rehberler/tr/placeholder/08-soguk-havada-calistirma',
     readTime: '4 dk',
     author: 'Ali Kaya'
   },
@@ -36,8 +40,8 @@ const featuredArticles = [
     title: 'Enerji Kesintilerinde İşinizi Nasıl Korursunuz?',
     excerpt: 'Küçük işletmeler için pratik ve ekonomik çözüm önerileri.',
     category: 'İşletme Rehberi',
-    image: '/images/article-4.jpg',
-    href: '/bilgi-merkezi/enerji-kesintisi-cozum',
+    image: articleThumb4.src,
+    href: '/bilgi-merkezi/teknik-rehberler/tr/placeholder/03-ats-secimi',
     readTime: '6 dk',
     author: 'Can Öztürk'
   },
@@ -70,12 +74,12 @@ const communityFeatures = [
 <BaseLayout title="Generator Power Lab - Jeneratör ve Enerji Çözümleri">
   
   <!-- Hero Section - Daha Sıcak ve Samimi -->
-  <section class="relative min-h-[500px] lg:min-h-[600px] bg-gradient-to-br from-blue-50 via-white to-cyan-50">
+  <section class="relative min-h-[400px] lg:min-h-[600px] bg-gradient-to-br from-blue-50 via-white to-cyan-50">
     <!-- <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1621905252507-b35492cc74b4?q=80&w=2069')] bg-cover bg-center opacity-10"></div> -->
     <div class="absolute inset-0 bg-[url('/images/old-generator.jpg')] bg-cover bg-center opacity-25"></div>
     
     <div class="relative container mx-auto px-4 lg:px-8 h-full flex items-center">
-      <div class="max-w-4xl mx-auto text-center space-y-8 py-24">
+      <div class="max-w-4xl mx-auto text-center space-y-6 lg:space-y-8 py-12 lg:py-24">
         
         <!-- Logo ve Başlık -->
         <!-- <div class="flex justify-center mb-6">
@@ -223,33 +227,37 @@ const communityFeatures = [
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
         {featuredArticles.map((article) => (
-          <article class="group border border-slate-200 rounded-2xl p-5 bg-white hover:border-blue-200 hover:shadow-md transition-all duration-200">
-            <div class="flex items-center justify-between text-xs text-gray-500 mb-4">
+          <article class="group flex flex-col border border-slate-200 rounded-2xl p-3 bg-white hover:border-blue-200 hover:shadow-md transition-all duration-200">
+            <a href={article.href} class="mb-3 block h-32 overflow-hidden rounded-xl bg-slate-100">
+              <img
+                src={article.image}
+                alt=""
+                class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                loading="lazy"
+              />
+            </a>
+            <div class="mb-2 flex items-center justify-between gap-2 text-xs text-gray-500">
               <span class="inline-flex items-center px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 font-semibold">
                 {article.category}
               </span>
-              <span class="flex items-center gap-2">
-                <span>{article.readTime}</span>
-                <span class="w-1 h-1 rounded-full bg-gray-300"></span>
-                <span>{article.author}</span>
-              </span>
+              <span>{article.readTime}</span>
             </div>
 
-            <h3 class="text-lg font-semibold text-gray-900 leading-snug mb-2 group-hover:text-blue-600 transition-colors">
-              {article.title}
+            <h3 class="text-base font-semibold text-gray-900 leading-snug mb-2 group-hover:text-blue-600 transition-colors">
+              <a href={article.href}>{article.title}</a>
             </h3>
-            <p class="text-sm text-gray-600 line-clamp-3">
+            <p class="text-sm text-gray-600 line-clamp-2">
               {article.excerpt}
             </p>
 
             <a
               href={article.href}
-              class="mt-4 inline-flex items-center text-sm font-semibold text-blue-600 hover:text-blue-700"
+              class="mt-4 inline-flex w-fit items-center gap-1.5 rounded-lg bg-blue-50 px-3 py-1.5 text-xs font-bold text-blue-700 hover:bg-blue-100"
             >
               Devamını oku
-              <ArrowRight class="w-4 h-4 ml-2" />
+              <ArrowRight class="w-3.5 h-3.5" />
             </a>
           </article>
         ))}
@@ -257,7 +265,7 @@ const communityFeatures = [
 
       <div class="mt-8 flex justify-center">
         <a
-          href="/bilgi-merkezi"
+          href="/bilgi-merkezi/teknik-rehberler"
           class="inline-flex items-center gap-2 px-5 py-3 text-sm font-semibold text-gray-800 border border-gray-200 rounded-xl hover:border-blue-300 hover:text-blue-600 transition-colors"
         >
           <BookOpen class="w-4 h-4" />
