@@ -1,5 +1,4 @@
 import { useCallback } from "react";
-import { jsPDF } from "jspdf";
 import {
   Zap,
   AlertTriangle,
@@ -41,7 +40,7 @@ function tr(text: string): string {
   return text.replace(/[şŞçÇğĞıİöÖüÜ]/g, (c) => map[c] || c);
 }
 
-const PDF_LOGO_SRC = "/images/genPowerLab.png";
+const PDF_LOGO_SRC = "/images/genPowerLab-mark.png";
 
 async function loadImageAsDataUrl(src: string): Promise<string | null> {
   try {
@@ -187,6 +186,7 @@ export function ResultDisplay({
   stepLoadPercent,
 }: ResultDisplayProps) {
   const handleDownloadPDF = useCallback(async () => {
+    const { jsPDF } = await import("jspdf");
     const doc = new jsPDF("p", "mm", "a4");
     const logoDataUrl = await loadPdfLogoDataUrl(PDF_LOGO_SRC);
     const pageWidth = doc.internal.pageSize.getWidth();

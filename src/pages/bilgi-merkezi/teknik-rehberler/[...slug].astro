@@ -5,8 +5,6 @@ import GuideLayout from '../../../layouts/GuideLayout.astro';
 export async function getStaticPaths() {
   const guides = await getCollection('guides');
 
-  console.log('[guides entries]', guides.map(g => g.slug));
-
   return guides.map((entry) => ({
     // 🔴 split YOK, direkt string veriyoruz
     params: { slug: entry.slug }, 
