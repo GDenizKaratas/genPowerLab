@@ -30,6 +30,25 @@ interface Props {
 
 const { frontmatter, playlistItems = [] } = Astro.props;
 const lang = frontmatter.lang || 'tr';
+const prefix = lang === 'en' ? '/en' : '';
+const labels = {
+  knowledgeCenter: lang === 'en' ? 'Knowledge Center' : 'Bilgi Merkezi',
+  technicalGuides: lang === 'en' ? 'Technical Guides' : 'Teknik Rehberler',
+  contents: lang === 'en' ? 'Contents' : 'İçindekiler',
+  guideSeries: lang === 'en' ? 'Guide Series' : 'Rehber Serisi',
+  section: lang === 'en' ? 'Section' : 'Bölüm',
+  support: lang === 'en' ? 'Support' : 'Destek',
+  supportText:
+    lang === 'en'
+      ? 'Contact us for your generator and energy projects.'
+      : 'Jeneratör ve enerji projeleriniz için bize ulaşabilirsiniz.',
+  contact: lang === 'en' ? 'Contact Us' : 'İletişime Geçin',
+  readTimeFallback: lang === 'en' ? '5 min read' : '5 dk okuma',
+  previous: lang === 'en' ? 'Previous' : 'Önceki',
+  next: lang === 'en' ? 'Next' : 'Sonraki',
+  completed: lang === 'en' ? 'Completed' : 'Tamamlandı',
+  allGuides: lang === 'en' ? 'All Guides' : 'Tüm Rehberler',
+};
 
 const difficultyColors = {
   'Başlangıç': 'bg-green-100 text-green-700',
@@ -44,8 +63,8 @@ const previousItem = currentIndex > 0 ? playlistItems[currentIndex - 1] : null;
 const nextItem = currentIndex < playlistItems.length - 1 ? playlistItems[currentIndex + 1] : null;
 
 const breadcrumbItems = [
-  { label: 'Bilgi Merkezi' },
-  { label: 'Teknik Rehberler', href: '/bilgi-merkezi/teknik-rehberler' },
+  { label: labels.knowledgeCenter },
+  { label: labels.technicalGuides, href: `${prefix}/bilgi-merkezi/teknik-rehberler` },
   ...(frontmatter.playlistTitle ? [{ label: frontmatter.playlistTitle }] : [{ label: frontmatter.title }])
 ];
 ---
@@ -73,7 +92,7 @@ const breadcrumbItems = [
     <div class="absolute inset-0 bg-black/50" id="playlist-overlay"></div>
     <div class="absolute right-0 top-0 bottom-0 w-80 max-w-[85vw] bg-white shadow-2xl overflow-y-auto">
       <div class="sticky top-0 bg-white border-b border-gray-200 p-4 flex items-center justify-between">
-        <h3 class="font-bold text-gray-900">{frontmatter.playlistTitle || 'İçindekiler'}</h3>
+        <h3 class="font-bold text-gray-900">{frontmatter.playlistTitle || labels.contents}</h3>
         <button id="playlist-close" class="p-2 hover:bg-gray-100 rounded-lg">
           <ChevronRight class="w-5 h-5 text-gray-500" />
         </button>
@@ -81,7 +100,7 @@ const breadcrumbItems = [
       <div class="p-2">
         {playlistItems.map((item, index) => (
           <a
-            href={`/bilgi-merkezi/teknik-rehberler/${item.slug}`}
+            href={`${prefix}/bilgi-merkezi/teknik-rehberler/${item.slug}`}
             class={`flex items-center gap-3 p-3 rounded-lg transition-colors ${
               item.isCurrent
                 ? 'bg-blue-50 border-l-4 border-blue-600'
@@ -129,10 +148,10 @@ const breadcrumbItems = [
               <!-- Playlist Header -->
               <div class="p-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white">
                 <h3 class="font-bold text-sm mb-2">
-                  {frontmatter.playlistTitle || 'Rehber Serisi'}
+                  {frontmatter.playlistTitle || labels.guideSeries}
                 </h3>
                 <p class="text-xs text-blue-100">
-                  Bölüm {currentIndex + 1} / {totalCount}
+                  {labels.section} {currentIndex + 1} / {totalCount}
                 </p>
               </div>
 
@@ -140,7 +159,7 @@ const breadcrumbItems = [
               <div class="playlist-scroll flex-1 min-h-0 overflow-y-auto pr-1 pb-3">
                 {playlistItems.map((item, index) => (
                   <a
-                    href={`/bilgi-merkezi/teknik-rehberler/${item.slug}`}
+                    href={`${prefix}/bilgi-merkezi/teknik-rehberler/${item.slug}`}
                     class={`flex items-center gap-3 px-4 py-3 border-b border-gray-100 last:border-0 transition-colors ${
                       item.isCurrent ? 'bg-blue-50' : 'hover:bg-gray-50'
                     }`}
@@ -199,13 +218,13 @@ const breadcrumbItems = [
           </div>
             <!-- Help Card -->
             <div class="mt-4 p-4 rounded-xl border border-transparent bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg">
-              <p class="text-xs text-white/80 mb-3 uppercase tracking-[0.2em]">Destek</p>
-              <p class="text-sm font-semibold mb-4">Jeneratör ve enerji projeleriniz için bize ulaşabilirsiniz.</p>
+              <p class="text-xs text-white/80 mb-3 uppercase tracking-[0.2em]">{labels.support}</p>
+              <p class="text-sm font-semibold mb-4">{labels.supportText}</p>
               <a
-                href="/iletisim"
+                href={`${prefix}/iletisim`}
                 class="block text-center px-4 py-2 bg-white text-blue-600 text-sm font-semibold rounded-lg hover:bg-blue-50 transition-colors"
               >
-                İletişime Geçin
+                {labels.contact}
               </a>
             </div>
         </aside>
@@ -235,7 +254,7 @@ const breadcrumbItems = [
             )}
             <span class="flex items-center text-xs text-gray-500">
               <Clock class="w-3.5 h-3.5 mr-1" />
-              {frontmatter.readTime || '5 dk okuma'}
+              {frontmatter.readTime || labels.readTimeFallback}
             </span>
           </div>
 
@@ -269,7 +288,7 @@ const breadcrumbItems = [
 
         <!-- Navigation Footer -->
         <div class="mt-8 text-sm text-gray-500">
-          Bölüm {currentIndex + 1} / {totalCount}
+          {labels.section} {currentIndex + 1} / {totalCount}
         </div>
 
         {(previousItem || nextItem) && (
@@ -277,12 +296,12 @@ const breadcrumbItems = [
             <div class="grid grid-cols-2 gap-4">
               {previousItem ? (
                 <a
-                  href={`/bilgi-merkezi/teknik-rehberler/${previousItem.slug}`}
+                  href={`${prefix}/bilgi-merkezi/teknik-rehberler/${previousItem.slug}`}
                   class="group flex items-center gap-3 p-4 bg-gray-100 rounded-xl hover:bg-gray-200 transition-colors"
                 >
                   <ChevronLeft class="w-5 h-5 text-gray-500 group-hover:text-gray-700 flex-shrink-0" />
                   <div class="min-w-0">
-                    <p class="text-xs text-gray-500 mb-1">Önceki</p>
+                    <p class="text-xs text-gray-500 mb-1">{labels.previous}</p>
                     <p class="text-sm font-medium text-gray-900 truncate">
                       {previousItem.title}
                     </p>
@@ -294,10 +313,10 @@ const breadcrumbItems = [
 
               {nextItem ? (
                 <a
-                  href={`/bilgi-merkezi/teknik-rehberler/${nextItem.slug}`}
+                  href={`${prefix}/bilgi-merkezi/teknik-rehberler/${nextItem.slug}`}
                   class="group flex items-center justify-end gap-3 p-4 bg-gray-300 text-gray-800 rounded-xl hover:bg-gray-300 transition-colors col-start-2">
                   <div class="min-w-0 text-right">
-                    <p class="text-xs text-gray-600 mb-1">Sonraki</p>
+                    <p class="text-xs text-gray-600 mb-1">{labels.next}</p>
                     <p class="text-sm font-medium truncate">
                       {nextItem.title}
                     </p>
@@ -306,12 +325,12 @@ const breadcrumbItems = [
                 </a>
               ) : (
                 <a
-                  href="/bilgi-merkezi/teknik-rehberler"
+                  href={`${prefix}/bilgi-merkezi/teknik-rehberler`}
                   class="group flex items-center justify-end gap-3 p-4 bg-gray-200 text-gray-800 rounded-xl hover:bg-gray-300 transition-colors col-start-2"
                 >
                   <div class="min-w-0 text-right">
-                    <p class="text-xs text-gray-500 mb-1">Tamamlandı</p>
-                    <p class="text-sm font-medium">Tüm Rehberler</p>
+                    <p class="text-xs text-gray-500 mb-1">{labels.completed}</p>
+                    <p class="text-sm font-medium">{labels.allGuides}</p>
                   </div>
                   <CheckCircle class="w-5 h-5 flex-shrink-0" />
                 </a>

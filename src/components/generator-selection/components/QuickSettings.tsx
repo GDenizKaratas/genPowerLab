@@ -24,6 +24,7 @@ import type {
   CabinPreference,
   SwitchPreference,
   AtsPreference,
+  FrequencyPreference,
 } from "../types";
 import { InfoTooltip } from "./InfoTooltip";
 
@@ -33,6 +34,7 @@ interface QuickSettingsProps {
   selectedEnvironmentOptions: string[];
   selectedMotorOrigin: "europe" | "china" | "any";
   selectedAlternatorOrigin: "europe" | "china" | "any";
+  frequencyPreference: FrequencyPreference;
   cabinPreference: CabinPreference;
   switchPreference: SwitchPreference;
   atsPreference: AtsPreference;
@@ -43,6 +45,7 @@ interface QuickSettingsProps {
   onEnvironmentOptionToggle: (optionId: string) => void;
   onMotorOriginChange: (origin: "europe" | "china" | "any") => void;
   onAlternatorOriginChange: (origin: "europe" | "china" | "any") => void;
+  onFrequencyPreferenceChange: (frequency: FrequencyPreference) => void;
   onCabinPreferenceChange: (preference: CabinPreference) => void;
   onSwitchPreferenceChange: (preference: SwitchPreference) => void;
   onAtsPreferenceChange: (preference: AtsPreference) => void;
@@ -134,6 +137,17 @@ const stepLoadOptions: { id: StepLoadPercent; label: string }[] = [
   { id: "0-100", label: "%0-100" },
 ];
 
+const poleOptions: { id: SwitchPreference; label: string }[] = [
+  { id: "yok", label: "Yok" },
+  { id: "3p", label: "3P" },
+  { id: "4p", label: "4P" },
+];
+
+const frequencyOptions: { id: FrequencyPreference; label: string }[] = [
+  { id: "50hz", label: "50 Hz" },
+  { id: "60hz", label: "60 Hz" },
+];
+
 const environmentOptionLabels: Record<string, string> = {
   "low-noise": "Ses yalıtımı",
   compact: "Kompakt yapı",
@@ -168,6 +182,7 @@ export function QuickSettings({
   selectedEnvironmentOptions,
   selectedMotorOrigin,
   selectedAlternatorOrigin,
+  frequencyPreference,
   cabinPreference,
   switchPreference,
   atsPreference,
@@ -178,6 +193,7 @@ export function QuickSettings({
   onEnvironmentOptionToggle,
   onMotorOriginChange,
   onAlternatorOriginChange,
+  onFrequencyPreferenceChange,
   onCabinPreferenceChange,
   onSwitchPreferenceChange,
   onAtsPreferenceChange,
@@ -523,6 +539,31 @@ export function QuickSettings({
               })}
             </div>
           </div>
+          <div>
+            <p className="text-[11px] text-gray-600 mb-1">Frekans</p>
+            <div className="grid grid-cols-2 gap-2">
+              {frequencyOptions.map((option) => {
+                const isSelected = frequencyPreference === option.id;
+
+                return (
+                  <button
+                    key={`frequency-${option.id}`}
+                    onClick={() => onFrequencyPreferenceChange(option.id)}
+                    className={`
+                      p-2 rounded-lg border text-center transition-all text-xs font-medium
+                      ${
+                        isSelected
+                          ? "border-blue-500 bg-blue-50 text-blue-700"
+                          : "border-gray-200 hover:border-gray-300 hover:bg-gray-50 text-gray-600"
+                      }
+                    `}
+                  >
+                    {option.label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
 
@@ -592,11 +633,8 @@ export function QuickSettings({
             Şalter Tercihi
           </label>
         </div>
-        <div className="grid grid-cols-2 gap-2">
-          {[
-            { id: "yok" as const, label: "Yok" },
-            { id: "var" as const, label: "Var" },
-          ].map((option) => {
+        <div className="grid grid-cols-3 gap-2">
+          {poleOptions.map((option) => {
             const isSelected = switchPreference === option.id;
             return (
               <button
@@ -632,11 +670,8 @@ export function QuickSettings({
             fullscreenModal
           />
         </div>
-        <div className="grid grid-cols-2 gap-2">
-          {[
-            { id: "yok" as const, label: "Yok" },
-            { id: "var" as const, label: "Var" },
-          ].map((option) => {
+        <div className="grid grid-cols-3 gap-2">
+          {poleOptions.map((option) => {
             const isSelected = atsPreference === option.id;
             return (
               <button

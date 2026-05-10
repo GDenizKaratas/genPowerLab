@@ -36,6 +36,10 @@ export function HowItWorksModal({ onClose }: HowItWorksModalProps) {
               <p className="text-xs font-semibold uppercase tracking-wide text-blue-600 mb-1">
                 Jeneratör seçim asistanı
               </p>
+
+              <p>
+                Cihazlarınızı ekleyin, uygun jeneratör kapasitesini hesaplayın.
+              </p>
               <h2 className="text-xl font-semibold text-slate-950">
                 Nasıl çalışır?
               </h2>

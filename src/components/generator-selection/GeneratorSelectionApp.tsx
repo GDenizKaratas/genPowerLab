@@ -19,6 +19,7 @@ import type {
   CabinPreference,
   SwitchPreference,
   AtsPreference,
+  FrequencyPreference,
 } from "./types";
 import { calculateKva } from "./utils/calculations";
 
@@ -62,6 +63,7 @@ export function GeneratorSelectionApp() {
   const [selectedEnvironmentOptions, setSelectedEnvironmentOptions] = useState<string[]>([]);
   const [selectedMotorOrigin, setSelectedMotorOrigin] = useState<"europe" | "china" | "any">("any");
   const [selectedAlternatorOrigin, setSelectedAlternatorOrigin] = useState<"europe" | "china" | "any">("any");
+  const [frequencyPreference, setFrequencyPreference] = useState<FrequencyPreference>("50hz");
   const [cabinPreference, setCabinPreference] = useState<CabinPreference>("without-cabin");
   const [switchPreference, setSwitchPreference] = useState<SwitchPreference>("yok");
   const [atsPreference, setAtsPreference] = useState<AtsPreference>("yok");
@@ -185,6 +187,7 @@ export function GeneratorSelectionApp() {
     selectedEnvironmentOptions.length > 0,
     selectedMotorOrigin !== "any",
     selectedAlternatorOrigin !== "any",
+    frequencyPreference !== "50hz",
     cabinPreference !== "without-cabin",
     switchPreference !== "yok",
     atsPreference !== "yok",
@@ -228,6 +231,7 @@ export function GeneratorSelectionApp() {
             selectedEnvironmentOptions={selectedEnvironmentOptions}
             selectedMotorOrigin={selectedMotorOrigin}
             selectedAlternatorOrigin={selectedAlternatorOrigin}
+            frequencyPreference={frequencyPreference}
             cabinPreference={cabinPreference}
             switchPreference={switchPreference}
             atsPreference={atsPreference}
@@ -238,6 +242,7 @@ export function GeneratorSelectionApp() {
             onEnvironmentOptionToggle={handleEnvironmentOptionToggle}
             onMotorOriginChange={setSelectedMotorOrigin}
             onAlternatorOriginChange={setSelectedAlternatorOrigin}
+            onFrequencyPreferenceChange={setFrequencyPreference}
             onCabinPreferenceChange={setCabinPreference}
             onSwitchPreferenceChange={setSwitchPreference}
             onAtsPreferenceChange={setAtsPreference}
@@ -255,6 +260,7 @@ export function GeneratorSelectionApp() {
           selectedEnvironmentOptions={selectedEnvironmentOptions}
           motorOrigin={selectedMotorOrigin}
           alternatorOrigin={selectedAlternatorOrigin}
+          frequencyPreference={frequencyPreference}
           cabinPreference={cabinPreference}
           switchPreference={switchPreference}
           atsPreference={atsPreference}
@@ -357,6 +363,7 @@ export function GeneratorSelectionApp() {
                     selectedEnvironmentOptions={selectedEnvironmentOptions}
                     selectedMotorOrigin={selectedMotorOrigin}
                     selectedAlternatorOrigin={selectedAlternatorOrigin}
+                    frequencyPreference={frequencyPreference}
                     cabinPreference={cabinPreference}
                     switchPreference={switchPreference}
                     atsPreference={atsPreference}
@@ -367,6 +374,7 @@ export function GeneratorSelectionApp() {
                     onEnvironmentOptionToggle={handleEnvironmentOptionToggle}
                     onMotorOriginChange={setSelectedMotorOrigin}
                     onAlternatorOriginChange={setSelectedAlternatorOrigin}
+                    onFrequencyPreferenceChange={setFrequencyPreference}
                     onCabinPreferenceChange={setCabinPreference}
                     onSwitchPreferenceChange={setSwitchPreference}
                     onAtsPreferenceChange={setAtsPreference}
@@ -388,6 +396,7 @@ export function GeneratorSelectionApp() {
                   selectedEnvironmentOptions={selectedEnvironmentOptions}
                   motorOrigin={selectedMotorOrigin}
                   alternatorOrigin={selectedAlternatorOrigin}
+                  frequencyPreference={frequencyPreference}
                   cabinPreference={cabinPreference}
                   switchPreference={switchPreference}
                   atsPreference={atsPreference}

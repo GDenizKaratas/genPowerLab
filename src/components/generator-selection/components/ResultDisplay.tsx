@@ -18,6 +18,7 @@ import type {
   CabinPreference,
   SwitchPreference,
   AtsPreference,
+  FrequencyPreference,
 } from "../types";
 import { getKvaRangeLabel, formatWatt } from "../utils/calculations";
 
@@ -96,6 +97,7 @@ interface ResultDisplayProps {
   selectedEnvironmentOptions: string[];
   motorOrigin: "europe" | "china" | "any";
   alternatorOrigin: "europe" | "china" | "any";
+  frequencyPreference: FrequencyPreference;
   cabinPreference: CabinPreference;
   switchPreference: SwitchPreference;
   atsPreference: AtsPreference;
@@ -122,9 +124,15 @@ const cabinLabels: Record<CabinPreference, string> = {
   "with-cabin": "Kabinli",
 };
 
-const boolPreferenceLabels: Record<SwitchPreference | AtsPreference, string> = {
+const polePreferenceLabels: Record<SwitchPreference | AtsPreference, string> = {
   yok: "Yok",
-  var: "Var",
+  "3p": "3P",
+  "4p": "4P",
+};
+
+const frequencyLabels: Record<FrequencyPreference, string> = {
+  "50hz": "50 Hz",
+  "60hz": "60 Hz",
 };
 
 const stepLoadLabels: Record<StepLoadPercent, string> = {
@@ -169,6 +177,7 @@ export function ResultDisplay({
   selectedEnvironmentOptions,
   motorOrigin,
   alternatorOrigin,
+  frequencyPreference,
   cabinPreference,
   switchPreference,
   atsPreference,
@@ -298,9 +307,10 @@ export function ResultDisplay({
       [tr("Kullanım Tipi"), tr(usageTypeLabels[usageType])],
       [tr("Motor Menşei"), tr(originLabels[motorOrigin])],
       [tr("Alternatör Menşei"), tr(originLabels[alternatorOrigin])],
+      [tr("Frekans"), frequencyLabels[frequencyPreference]],
       [tr("Kabin Tercihi"), tr(cabinLabels[cabinPreference])],
-      [tr("Şalter Tercihi"), tr(boolPreferenceLabels[switchPreference])],
-      [tr("ATS Tercihi"), tr(boolPreferenceLabels[atsPreference])],
+      [tr("Şalter Tercihi"), tr(polePreferenceLabels[switchPreference])],
+      [tr("ATS Tercihi"), tr(polePreferenceLabels[atsPreference])],
     ];
 
     if (generatorGroup !== "any") {
@@ -428,6 +438,7 @@ export function ResultDisplay({
     selectedEnvironmentOptions,
     motorOrigin,
     alternatorOrigin,
+    frequencyPreference,
     cabinPreference,
     switchPreference,
     atsPreference,

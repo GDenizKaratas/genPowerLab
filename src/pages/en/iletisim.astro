@@ -1,5 +1,133 @@
 ---
-import Page from '../iletisim.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/ui/Breadcrumb.astro';
+import { Mail, MapPin, Clock, MessageCircle, Headphones, FileText, ArrowRight } from 'lucide-astro';
+
+const breadcrumbItems = [{ label: 'Contact & Consulting' }];
+
+const services = [
+  {
+    icon: Headphones,
+    title: 'Technical consulting',
+    description: 'Generator sizing, capacity checks and system layout guidance.',
+  },
+  {
+    icon: FileText,
+    title: 'Project consulting',
+    description: 'Energy solution planning for industrial and commercial projects.',
+  },
+  {
+    icon: MessageCircle,
+    title: 'General questions',
+    description: 'Clear answers for generator selection, installation and operation topics.',
+  },
+];
 ---
 
-<Page />
+<BaseLayout
+  title="Contact & Consulting - GenPowerLab"
+  description="Contact GenPowerLab for generator and energy consulting questions."
+>
+  <div class="container mx-auto px-4 lg:px-1 py-6">
+    <Breadcrumb items={breadcrumbItems} />
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+      <div class="lg:col-span-2">
+        <h1 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+          How can we <span class="text-blue-600">help?</span>
+        </h1>
+        <p class="text-lg text-gray-600 mb-6">
+          Send us your generator and energy system questions. We will help you find the right next step.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-3 mb-4">
+          <a
+            href="mailto:info@genpowerlab.com?subject=GenPowerLab%20Contact"
+            class="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl font-semibold hover:shadow-xl hover:scale-[1.02] transition-all duration-300"
+          >
+            <Mail class="w-5 h-5 mr-3" />
+            Send Email
+            <ArrowRight class="w-5 h-5 ml-2" />
+          </a>
+        </div>
+
+        <p class="text-sm text-gray-500">info@genpowerlab.com</p>
+      </div>
+
+      <div class="bg-gradient-to-br from-blue-600 to-cyan-600 rounded-2xl p-6 text-white shadow-lg shadow-blue-900/10">
+        <h3 class="font-semibold text-lg mb-4 text-white flex items-center">
+          <Clock class="w-5 h-5 mr-2" />
+          Contact Details
+        </h3>
+        <div class="space-y-3 text-sm">
+          <div class="flex justify-between">
+            <span class="text-blue-100">Monday - Friday</span>
+            <span class="font-medium text-white">09:00 - 18:00</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-blue-100">Saturday</span>
+            <span class="font-medium text-white">10:00 - 16:00</span>
+          </div>
+          <hr class="border-blue-400/30 my-3" />
+          <div class="flex items-center text-blue-100">
+            <MapPin class="w-4 h-4 mr-2 flex-shrink-0" />
+            <span>Istanbul, Türkiye</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="mb-12">
+      <h2 class="text-xl font-bold text-gray-900 mb-6">Consulting Services</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {services.map((service) => {
+          const Icon = service.icon;
+          return (
+            <div class="bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md hover:border-blue-200 transition-all">
+              <div class="flex items-start space-x-4">
+                <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Icon class="w-5 h-5 text-blue-600" />
+                </div>
+                <div>
+                  <h3 class="font-semibold text-gray-900 mb-1">{service.title}</h3>
+                  <p class="text-sm text-gray-600">{service.description}</p>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+
+    <section class="bg-gray-50 rounded-2xl p-6 lg:p-8">
+      <h2 class="text-xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <details class="bg-white rounded-xl border border-gray-200 overflow-hidden group">
+          <summary class="px-5 py-4 cursor-pointer font-medium text-gray-900 hover:bg-gray-50 transition-colors flex justify-between items-center text-sm">
+            Is the initial consultation paid?
+            <span class="text-blue-600 group-open:rotate-180 transition-transform text-xs">▼</span>
+          </summary>
+          <div class="px-5 py-4 border-t border-gray-100 text-gray-600 text-sm">
+            Initial questions and general guidance are free. Detailed project consulting is scoped separately.
+          </div>
+        </details>
+
+        <details class="bg-white rounded-xl border border-gray-200 overflow-hidden group">
+          <summary class="px-5 py-4 cursor-pointer font-medium text-gray-900 hover:bg-gray-50 transition-colors flex justify-between items-center text-sm">
+            How quickly do you respond?
+            <span class="text-blue-600 group-open:rotate-180 transition-transform text-xs">▼</span>
+          </summary>
+          <div class="px-5 py-4 border-t border-gray-100 text-gray-600 text-sm">
+            We usually respond within 24 hours.
+          </div>
+        </details>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  details summary::-webkit-details-marker {
+    display: none;
+  }
+</style>

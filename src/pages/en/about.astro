@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/ui/Breadcrumb.astro';
+import SupportCTA from '../../components/ui/SupportCTA.astro';
+import { BookOpen, Calculator, ShieldCheck } from 'lucide-astro';
+
+const breadcrumbItems = [{ label: 'About' }];
+
+const highlights = [
+  {
+    icon: Calculator,
+    title: 'Practical sizing tools',
+    description: 'We turn load lists and operating scenarios into clearer generator selection decisions.',
+  },
+  {
+    icon: BookOpen,
+    title: 'Technical guides',
+    description: 'Concise explanations for generator capacity, ATS systems, alternators and installation basics.',
+  },
+  {
+    icon: ShieldCheck,
+    title: 'Decision support',
+    description: 'A neutral reference point for comparing project requirements before moving to procurement.',
+  },
+];
+---
+
+<BaseLayout
+  title="About - GenPowerLab"
+  description="GenPowerLab is a generator and energy knowledge platform focused on practical technical guidance."
+>
+  <div class="container mx-auto px-4 lg:px-8 py-8">
+    <Breadcrumb items={breadcrumbItems} />
+
+    <section class="max-w-3xl mb-10">
+      <h1 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+        Generator knowledge, made easier to use.
+      </h1>
+      <p class="text-lg text-gray-600 leading-relaxed">
+        GenPowerLab helps engineers, facility managers and project teams make better generator and energy decisions with practical calculators, reference guides and clear terminology.
+      </p>
+    </section>
+
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
+      {highlights.map((item) => {
+        const Icon = item.icon;
+        return (
+          <article class="bg-white rounded-xl border border-gray-200 p-5">
+            <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center mb-4">
+              <Icon class="w-5 h-5 text-blue-600" />
+            </div>
+            <h2 class="text-base font-semibold text-gray-900 mb-2">{item.title}</h2>
+            <p class="text-sm text-gray-600 leading-relaxed">{item.description}</p>
+          </article>
+        );
+      })}
+    </section>
+  </div>
+  <SupportCTA
+    title="Need guidance?"
+    description="Share your generator or energy requirement and we’ll point you to the right resource or expert."
+    buttonLabel="Contact us"
+    link="/en/iletisim"
+    secondaryLabel="info@genpowerlab.com"
+    badgeLabel="Support"
+    note="Generator & energy platform"
+  />
+</BaseLayout>

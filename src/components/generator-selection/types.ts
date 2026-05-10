@@ -80,8 +80,10 @@ export type UsageType = "standby" | "prime" | "continuous";
 export type GeneratorGroup = "any" | "G1" | "G2" | "G3";
 export type StepLoadPercent = "any" | "0-25" | "0-50" | "0-75" | "0-100";
 export type CabinPreference = "without-cabin" | "with-cabin";
-export type SwitchPreference = "yok" | "var";
-export type AtsPreference = "yok" | "var";
+export type PolePreference = "yok" | "3p" | "4p";
+export type SwitchPreference = PolePreference;
+export type AtsPreference = PolePreference;
+export type FrequencyPreference = "50hz" | "60hz";
 
 // Calculation Types
 export interface CalculationResult {
